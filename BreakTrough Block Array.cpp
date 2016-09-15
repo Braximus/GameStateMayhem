@@ -24,23 +24,22 @@ void BrkTr_Block_Array::update(sf::Time& time)
 	//
 }
 
-//	Funkcija za ucitavanje blokova.
 void BrkTr_Block_Array::load_Blocks(BreakTrough_Data& data, std::vector<sf::Vector2f> positions, std::vector<Break::Block_ID> IDs, UINT number_of_blocks)
 {
-	//	Uvek na pocetku moram da izbrisem sve blokove, a i potom da ih popunim sa odgovarajucim brojem temena.
-	//	Posto su pravougaonici, jedan "objekat" ce imati cetiri temena.
+	//	In the begining I need to delete all blocks and then to fill them with apropriate amount of vertices.
+	//	Since they are rectangles, one "object" will have four vertices.
 	m_Blocks.clear();
 	m_Blocks.setPrimitiveType(sf::Quads);
 	m_Blocks.resize(4 * number_of_blocks);
 
-	//	Uzimam velicinu bloka koji cu da koristim kao parametar za poziciju drugog, treceg i cetvrtog temena.
+	//	I take the size of a rectangle and use it as a parameter for second, third and fourth vertice.
 	sf::Vector2f siz = sf::Vector2f(data.get_Component_Sizes(Break::size_Block));
-	UINT indice = 0;	//	Brojilac za temena.
+	UINT indice = 0;
 	for (UINT i = 0; i < number_of_blocks; ++i)
 	{
-		//	Uzimam poziciju - ona oznacava mesto prvog temena, tj. gornji levi angle bloka.
+		//	I take the position - it defines the top left corner of object, i.e. the first vertice.
 		const sf::Vector2f& pos = positions.at(i);
-		//	Potom uzimam boju, tj. nadimak za teksture koje cu kasnije pozvati.
+		//	Then I take the enumeration for texture.
 		Break::Block_ID color = IDs.at(i);
 		m_Blocks[indice].position = sf::Vector2f(pos);
 		m_Blocks[indice].texCoords = sf::Vector2f(data.get_TextureRect(color).left, data.get_TextureRect(color).top);
@@ -57,10 +56,10 @@ void BrkTr_Block_Array::load_Blocks(BreakTrough_Data& data, std::vector<sf::Vect
 	}
 }
 
-//	Funckija koja brise blok...
+//	Function that deletes the bloc...
 void BrkTr_Block_Array::remove_block(UINT indice)
 {
-	//	...zapravo, samo menja boju da bude providno. :)
+	//	...actualy, it only changes it's color to be transparent. :)
 	UINT block = 4 * indice;
 	m_Blocks[block].color = sf::Color::Transparent;
 	m_Blocks[block + 1].color = sf::Color::Transparent;
@@ -69,8 +68,8 @@ void BrkTr_Block_Array::remove_block(UINT indice)
 	
 }
 
-//	Ovde se vrse animacije.
-//	Funkcija samo izvrsava naredbu, nju ne zanima da li je ispravno.
+//	Here the animations take place.
+//	Function doesn't care whether coordtinates are is correct or not.
 void BrkTr_Block_Array::change_texture_coordinates(UINT indice, sf::IntRect coordinates)
 {
 	UINT block = 4 * indice;
