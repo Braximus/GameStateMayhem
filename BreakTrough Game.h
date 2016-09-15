@@ -16,23 +16,6 @@
 #include "BreakTrough Pause SubState.h"
 #include "BreakTrough Start SubState.h"
 
-//	Sledece sto trebam da uradim jeste:
-//	1. Da laser kada se napravi, ne bude napravljen van nivoa.	GOTOVO!!!
-//	2. Da lopte se odbiju samo jednom.							GOTOVO!!!
-//	3. Napravim nove nivoe. (jos 2)								GOTOVO!!!
-//	4. Konacno preuredim logiku.								GOTOVO KONACNO!!!! JEBOTE
-//	5. Da dodam zvukove.										GOTOVO!!!
-//	6. Napravim razlicite tipove blokova i njihovo ponasanje.	GOTOVO!!!
-//	7. Popravim kraj igre										GOTOVO!!!
-//	8. Da namestim rezultate.									GOTOVO!!!
-//	9. Dodam jos par nivoa.										GOTOVO!!!
-//	10. Prepravim sudare										GOTOVO!!!
-//	11. Da napravim animacije za pedalu							GOTOVO!!!
-//	12. Da dodam neku muziku (opciono) i jos zvukova			GOTOVO!!!
-//	13.	Da Igrac dobije zivot na svakih 1000 poena.				GOTOVO!!!
-//	14. Da preuredim citavu igru.								GOTOVO!!!
-//	15. To bi bilo to... baciti se na sredjivanje menija posle
-
 class BreakTroughGame 
 {
 	typedef BrkTr_Game_Objects*			pGameObjects;
