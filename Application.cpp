@@ -12,7 +12,7 @@ App::App()
 	mCurrentTime = sf::seconds(0);
 	mTimeSinceLastUpdate = sf::seconds(0);
 
-	mData.Update_Window(0);		//	TODO: Da napravim 'initialize' funkciju koja ce biti pozvana samo na pocetku programa.
+	mData.Update_Window(0);		
 	mData.ChangeState(e_Menu);
 	mState.ChangeState(mData.getStateID());
 	mUser.passPtr(mState.getCurrentState());
@@ -81,49 +81,3 @@ void App::render()
 	}
 	mWindow.display();
 }
-
-//mTimeSinceLastUpdate = sf::seconds(0);
-//
-//while (mWindow.isOpen())
-//{
-//	sf::Time ElapsedTime = Clock.restart();
-//	mTimeSinceLastUpdate += ElapsedTime;
-//	if (mTimeSinceLastUpdate > mFixedTime)
-//	{
-//		mTimeSinceLastUpdate -= mFixedTime;
-//		eventProcess();
-//		update(mFixedTime);
-//	}
-//	if (mData.checkDebug())
-//	{
-//		mDebug.DebugText(ElapsedTime);
-//	}
-//
-//	render();
-//}
-//
-//while (mWindow.isOpen())
-//{
-//	sf::Time new_time = Clock.getElapsedTime();
-//
-//	sf::Time  ElapsedTime = new_time - mCurrentTime;
-//	mCurrentTime = new_time;
-//	if (ElapsedTime.asSeconds() > 0.25)
-//	{
-//		ElapsedTime = sf::seconds(0.25);
-//	}
-//	mTimeSinceLastUpdate += ElapsedTime;
-//
-//	if (mTimeSinceLastUpdate >= mFixedTime)
-//	{
-//		mTimeSinceLastUpdate -= mFixedTime;
-//		eventProcess();
-//		update(mFixedTime);
-//	}
-//	if (mData.checkDebug())
-//	{
-//		mDebug.DebugText(ElapsedTime);
-//	}
-//
-//	render();
-//}
