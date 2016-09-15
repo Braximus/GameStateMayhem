@@ -14,29 +14,21 @@ BreakTrough_Level_Manager::BreakTrough_Level_Manager(BreakTrough_Data& data)
 	sf::Vector2f level_pos = sf::Vector2f(mLevel.getBounds().left, mLevel.getBounds().top);
 	float third_of_level_Y = mLevel.getBounds().height/3;
 
-
-
 	sf::FloatRect boundry = sf::FloatRect(level_pos.x - distance, level_pos.y, distance, third_of_level_Y);
 	m_Left_Level_Boudries.insert(std::pair<BoundryPosition, sf::FloatRect>(Top, boundry));
-
-	
 
 	boundry = sf::FloatRect(level_pos.x - distance, level_pos.y + third_of_level_Y, distance, third_of_level_Y);
 	m_Left_Level_Boudries.insert(std::pair<BoundryPosition, sf::FloatRect>(Middle, boundry));
 
-
 	boundry = sf::FloatRect(level_pos.x - distance, level_pos.y + 2 * third_of_level_Y, distance, third_of_level_Y);
 	m_Left_Level_Boudries.insert(std::pair<BoundryPosition, sf::FloatRect>(Bottom, boundry));
-
 
 	level_pos = sf::Vector2f(mLevel.getBounds().left + mLevel.getBounds().width, mLevel.getBounds().top);
 	boundry = sf::FloatRect(level_pos.x, level_pos.y, distance, third_of_level_Y);
 	m_Right_Level_Boudries.insert(std::pair<BoundryPosition, sf::FloatRect>(Top, boundry));
 
-
 	boundry = sf::FloatRect(level_pos.x, level_pos.y + third_of_level_Y, distance, third_of_level_Y);
 	m_Right_Level_Boudries.insert(std::pair<BoundryPosition, sf::FloatRect>(Middle, boundry));
-
 
 	boundry = sf::FloatRect(level_pos.x, level_pos.y + 2 * third_of_level_Y, distance, third_of_level_Y);
 	m_Right_Level_Boudries.insert(std::pair<BoundryPosition, sf::FloatRect>(Bottom, boundry));
@@ -59,13 +51,11 @@ void BreakTrough_Level_Manager::Load_Level(UINT param)
 		mBlocks.load_Blocks(mData, m_Block_Positions.at(m_Current_Level), m_Block_Type.at(m_Current_Level), m_Number_of_Blocks);
 		for (const int& health: m_Block_Health.at(m_Current_Level))
 		{
-			//	Svi blokovi koji imaju zivot jednak ili manje od nule (tzv, mrtvi i neranjivi) se ne racunaju u blokove koje\
-			treba unistiti i oduzimaju se;
+			//	All blocks who have health number equal or less than zero (i.e. dead or invulnerable)
+			//	are not taken into calculation for passing a level and are subtracted;
 			if (health <= 0)
 				m_Number_of_Blocks -= 1;
 		}
-		
-
 	}
 }
 
@@ -78,9 +68,9 @@ void BreakTrough_Level_Manager::preload_Levels()
 	UINT coloumns;
 	UINT rows;
 	
-	//** PRVI NIVO **//
+	//** FIRST LEVEL **//
 	
-	//	Pozicije blokova po nivou
+	//	Block positions:
 	coloumns = 10;
 	rows = 7;
 
@@ -105,7 +95,7 @@ void BreakTrough_Level_Manager::preload_Levels()
 		}
 	}
 
-	//	granice blokova
+	//	Block bounds
 	block_bounds.reserve(rows*coloumns);
 	for (UINT i = 0; i < rows; ++i)
 	{
@@ -124,13 +114,13 @@ void BreakTrough_Level_Manager::preload_Levels()
 	m_Block_Health.insert(std::pair<UINT, std::vector<int>>(1, std::move(block_health)));
 	m_Block_Boundries.insert(std::pair<UINT, std::vector<sf::FloatRect>>(1, std::move(block_bounds)));
 	
-	//** KRAJ PRVOG NIVOA **//
+	//** END OF FIRST LEVEL **//
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////
 
-	//** DRUGI NIVO **//
-	//	Pozicije blokova po nivou
+	//** SECOND LEVEL **//
+	//	Block positions:
 	coloumns = 10;
 	rows = 12;
 	
@@ -174,8 +164,7 @@ void BreakTrough_Level_Manager::preload_Levels()
 		}
 	}
 
-	//	granice blokova
-
+	//	Block bounds
 	block_bounds.reserve(rows*coloumns);
 	for (UINT i = 0; i < rows; ++i)
 	{
@@ -195,13 +184,14 @@ void BreakTrough_Level_Manager::preload_Levels()
 	m_Block_Health.insert(std::pair<UINT, std::vector<int>>(2, std::move(block_health)));
 	m_Block_Boundries.insert(std::pair<UINT, std::vector<sf::FloatRect>>(2, std::move(block_bounds)));
 	
-	//** KRAJ DRUGOG NIVOA **//
+	//** END OF SECOND LEVEL **//
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////
 
-	//** TRECI NIVO **//
+	//** THIRD LEVEL **//
 
+	//	Block positions:
 	coloumns = 10;
 	rows = 11;
 
@@ -280,8 +270,7 @@ void BreakTrough_Level_Manager::preload_Levels()
 		}
 	}
 
-	//	granice blokova
-
+	//	Block bounds
 	block_bounds.reserve(rows*coloumns);
 	for (UINT i = 0; i < rows; ++i)
 	{
@@ -301,14 +290,14 @@ void BreakTrough_Level_Manager::preload_Levels()
 	m_Block_Boundries.insert(std::pair<UINT, std::vector<sf::FloatRect>>(3, std::move(block_bounds)));
 
 
-	//** KRAJ TRECEG NIVOA **//
+	//** END OF THIRD LEVEL **//
 	
 	/////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////
 
-	//** CETVRTI NIVO **//
+	//** FOURTH LEVEL **//
 
-	//	Pozicije blokova po nivou
+	//	Block positions:
 	coloumns = 10;
 	rows = 11;
 
@@ -367,8 +356,7 @@ void BreakTrough_Level_Manager::preload_Levels()
 		}
 	}
 
-	//	granice blokova
-
+	//	Block bounds
 	block_bounds.reserve(rows*coloumns);
 	for (UINT i = 0; i < rows; ++i)
 	{
@@ -387,13 +375,14 @@ void BreakTrough_Level_Manager::preload_Levels()
 	m_Block_Health.insert(std::pair<UINT, std::vector<int>>(4, std::move(block_health)));
 	m_Block_Boundries.insert(std::pair<UINT, std::vector<sf::FloatRect>>(4, std::move(block_bounds)));
 
-	//** KRAJ CETVRTOG NIVOA **//
+	//** END OF FOURTH LEVEL **//
 	
 	/////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////
 
-	//** PETI NIVO **//
+	//** FIFTH LEVEL **//
 
+	//	Block positions:
 	coloumns = 10;
 	rows = 13;
 
@@ -465,8 +454,7 @@ void BreakTrough_Level_Manager::preload_Levels()
 		}
 	}
 
-	//	granice blokova
-
+	//	Block bounds
 	block_bounds.reserve(rows*coloumns);
 	for (UINT i = 0; i < rows; ++i)
 	{
@@ -485,13 +473,14 @@ void BreakTrough_Level_Manager::preload_Levels()
 	m_Block_Health.insert(std::pair<UINT, std::vector<int>>(5, std::move(block_health)));
 	m_Block_Boundries.insert(std::pair<UINT, std::vector<sf::FloatRect>>(5, std::move(block_bounds)));
 
-	//** KRAJ PETOG NIVOA**//
+	//** END OF FIFTH LEVEL**//
 
 	/////////////////////////////////////////////////////////////////////////////////////
 	/////////////////////////////////////////////////////////////////////////////////////
 
-	//** SETSI NIVO **//
+	//** SIXTH LEVEL **//
 
+	//	Block positions:
 	coloumns = 10;
 	rows = 12;
 
@@ -570,8 +559,7 @@ void BreakTrough_Level_Manager::preload_Levels()
 		}
 	}
 
-	//	granice blokova
-
+	//	Block bounds
 	block_bounds.reserve(rows*coloumns);
 	for (UINT i = 0; i < rows; ++i)
 	{
@@ -591,18 +579,16 @@ void BreakTrough_Level_Manager::preload_Levels()
 	m_Block_Boundries.insert(std::pair<UINT, std::vector<sf::FloatRect>>(6, std::move(block_bounds)));
 
 
-	//** KRAJ SESTOG NIVOA**// 
-
-
+	//** END OF SIXTH LEVEL **// 
 }
 
 void BreakTrough_Level_Manager::create_PowerUp(sf::FloatRect block)
 {
-	//	Nasumicno bira jedan od osam tipova powerUp-ova;
+	//	Randomly chooses one of eight types of power ups;
 	std::uniform_int_distribution<int>	dis_2(0, 7);
 	UINT number_2 = dis_2(mData.get_Random_Engine());
 	Break::PowerUp_ID power_id = static_cast<Break::PowerUp_ID>(number_2);
-	//	Odredjuje poziciju powerUp-a u zavisnosti od pozicije bloka i potom stavlja u zaseban pointer. 
+	//	Determines the position of power up from the position of block and then puts the power up in unique_ptr. 
 	sf::Vector2f position = sf::Vector2f(block.left + block.width / 2, block.top + block.height / 2);
 	pPower = std::unique_ptr<BrkTr_PowerUp>(new BrkTr_PowerUp(mData, power_id, position));
 	powerUp_falls = true;
@@ -613,7 +599,6 @@ void BreakTrough_Level_Manager::delete_PowerUp()
 	pPower.release();
 	powerUp_falls = false;
 }
-
 
 const sf::FloatRect BreakTrough_Level_Manager::get_Level_Bounds() const
 {
