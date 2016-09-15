@@ -40,7 +40,7 @@ void BrkTr_Ball::update(sf::Time& time)
 	m_Bounds = mBall.getGlobalBounds();
 }
 
-//	Poziva se kada lopta padne u "provaliju" ili kada je pedala lepljiva.
+//	Called when the ball falls in "abyss" or when the paddle is sticky.
 void BrkTr_Ball::reset_or_stick_Ball(sf::Vector2f param)	
 {
 	m_Position = param;
@@ -49,14 +49,13 @@ void BrkTr_Ball::reset_or_stick_Ball(sf::Vector2f param)
 	m_Velocity = sf::Vector2f(0, 0);
 
 }
-//	Overload funkcije 'move' Moram da ukljucim i da promeni m_Poziciju;
+
 void BrkTr_Ball::move(float offsetX, float offsetY)
 {
 	mBall.move(offsetX, offsetY);
 	m_Position = mBall.getPosition();
 }
 
-//	Kada mi zatreba da namestim apsolutnu poziciju lopte.
 void BrkTr_Ball::setPosition(sf::Vector2f param)
 {
 	m_Position = param;
@@ -64,7 +63,6 @@ void BrkTr_Ball::setPosition(sf::Vector2f param)
 	m_Bounds = mBall.getGlobalBounds();
 }
 
-//	Koristicu kada treba da se promeni speed lopte - kada se pokupi "PowerUp" i kada se odbije o pedalu.
 void BrkTr_Ball::setVelocity(sf::Vector2f param)
 {	
 	m_Velocity = param;
@@ -80,7 +78,6 @@ const sf::Vector2f BrkTr_Ball::getPrevious_Position() const
 	return mPrevious_Position;
 }
 
-//	Poziva se kada se odbija od blokova i zidova
 void BrkTr_Ball::bounce(bool b)
 {
 	if (b)
@@ -89,7 +86,6 @@ void BrkTr_Ball::bounce(bool b)
 		m_Velocity.y *= -1;
 }
 
-//	Poziva se kliktajem misa i to kada je pocetak nivoa, kada je lopta prethodno pala u "provaliju" i kada je pedala "lepljiva".
 void BrkTr_Ball::ball_start(sf::Vector2f param)
 {
 	if (is_sticked_on_paddle)
@@ -122,7 +118,7 @@ const bool BrkTr_Ball::is_calculated() const
 	return calcualted;
 }
 
-//	angle je u RADIJANIMA!!!
+//	angle is in radians!
 void BrkTr_Ball::setAngle(float param)
 {
 	angle = param;
@@ -132,7 +128,7 @@ const float BrkTr_Ball::getAngle() const
 {
 	return angle;
 }
-//	Pozicija lopte na pedali kada je zalepljena:
+//	Ball position on paddle when the paddle is sticky.
 void BrkTr_Ball::setPosition_on_Paddle(float param)
 {
 	position_on_paddle = param;
@@ -142,7 +138,7 @@ const float BrkTr_Ball::getPosition_on_Paddle() const
 {
 	return position_on_paddle;
 }
-//	Skladistena speed koja se koristi kada se lopta "odlepi" od pedale
+
 void BrkTr_Ball::setStored_Velocity(sf::Vector2f param)
 {
 	stored_velocity = param;
@@ -152,4 +148,3 @@ const sf::Vector2f BrkTr_Ball::getStored_Velocity() const
 {
 	return stored_velocity;
 }
-
