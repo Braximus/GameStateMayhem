@@ -4,7 +4,7 @@
 BreakTrough_Data::BreakTrough_Data(Data& data)
 	:m_Data(data)
 {
-	m_Data.getResources().LoadTexture("Teksture/BreakTrough.png", ID_BreakTrough);
+	m_Data.getResources().LoadTexture("Texture/BreakTrough.png", ID_BreakTrough);
 
 	m_Data.getResources().LoadSound("Sounds/Menu/Hover.wav");
 	m_Data.getResources().LoadSound("Sounds/Menu/Select.wav");
@@ -27,18 +27,18 @@ BreakTrough_Data::BreakTrough_Data(Data& data)
 	float x = data.getVideo_Mode().width;
 	float y = data.getVideo_Mode().height;
 
-	//	Kljucne pozicije
+	//	Key positions
 	m_Key_Positions.insert(std::pair<Break::Key_Positions, sf::Vector2f>(Break::kp_TopLeft, sf::Vector2f(0, 0)));
 	m_Key_Positions.insert(std::pair<Break::Key_Positions, sf::Vector2f>(Break::kp_TopRight, sf::Vector2f(x, 0)));
 	m_Key_Positions.insert(std::pair<Break::Key_Positions, sf::Vector2f>(Break::kp_BottomLeft, sf::Vector2f(0, y)));
 	m_Key_Positions.insert(std::pair<Break::Key_Positions, sf::Vector2f>(Break::kp_BottomRight, sf::Vector2f(x, y)));
 	m_Key_Positions.insert(std::pair<Break::Key_Positions, sf::Vector2f>(Break::kp_Center, sf::Vector2f(x/2, y/2)));
-	//	Velicine slova
+	//	Character sizes
 	m_Character_Sizes.insert(std::pair<Break::Character_sizes, float>(Break::ch_Small, 18 * m_Scale_Coefficient));
 	m_Character_Sizes.insert(std::pair<Break::Character_sizes, float>(Break::ch_Medium_Small, 24 * m_Scale_Coefficient));
 	m_Character_Sizes.insert(std::pair<Break::Character_sizes, float>(Break::ch_Medium, 32 * m_Scale_Coefficient));
 	m_Character_Sizes.insert(std::pair<Break::Character_sizes, float>(Break::ch_Large, 40 * m_Scale_Coefficient));
-	//	Velicine objekata
+	//	Object sizes
 	m_Component_Sizes.insert(std::pair<Break::Sizes, sf::Vector2f>(Break::size_Ball, sf::Vector2f(7, 7) * m_Scale_Coefficient));
 	m_Component_Sizes.insert(std::pair<Break::Sizes, sf::Vector2f>(Break::size_Paddle_Default, sf::Vector2f(80, 16) * m_Scale_Coefficient));
 	m_Component_Sizes.insert(std::pair<Break::Sizes, sf::Vector2f>(Break::size_Paddle_Large, sf::Vector2f(160, 16) * m_Scale_Coefficient));
@@ -59,33 +59,32 @@ BreakTrough_Data::BreakTrough_Data(Data& data)
 	m_Component_Sizes.insert(std::pair<Break::Sizes, sf::Vector2f>(Break::size_Deco_Vertical_border, sf::Vector2f(15, 50) * m_Scale_Coefficient));
 	m_Component_Sizes.insert(std::pair<Break::Sizes, sf::Vector2f>(Break::size_Deco_Horizontal_border, sf::Vector2f(50, 15) * m_Scale_Coefficient));
 	m_Component_Sizes.insert(std::pair<Break::Sizes, sf::Vector2f>(Break::size_Deco_Background_slab, sf::Vector2f(70, 40) * m_Scale_Coefficient));
-
-	//	Udaljenosti
+	//	Distances
 	m_Distances.insert(std::pair<Break::Distances, float>(Break::dis_Close, 1 * m_Scale_Coefficient));
 	m_Distances.insert(std::pair<Break::Distances, float>(Break::dis_Near, 5 * m_Scale_Coefficient));
 	m_Distances.insert(std::pair<Break::Distances, float>(Break::dis_Medium, 15 * m_Scale_Coefficient));
 	m_Distances.insert(std::pair<Break::Distances, float>(Break::dis_Far, 50 * m_Scale_Coefficient));
 	m_Distances.insert(std::pair<Break::Distances, float>(Break::dis_Very_Far, 100 * m_Scale_Coefficient));
-	//	Fiksirane pozicije
+	//	Fixed positions
 	m_Component_Positions.insert(std::pair<Break::Components, sf::Vector2f>(Break::c_Level_Area, sf::Vector2f(m_Key_Positions.at(Break::kp_Center).x, m_Key_Positions.at(Break::kp_Center).y + 1.5*m_Distances.at(Break::dis_Medium))));
 	m_Component_Positions.insert(std::pair<Break::Components, sf::Vector2f>(Break::c_Blocks, sf::Vector2f(m_Component_Positions.at(Break::c_Level_Area).x - m_Component_Sizes.at(Break::size_Level).x / 2, m_Component_Positions.at(Break::c_Level_Area).y - m_Component_Sizes.at(Break::size_Level).y / 2 + 2*m_Distances.at(Break::dis_Far))));
 	m_Component_Positions.insert(std::pair<Break::Components, sf::Vector2f>(Break::c_Paddle, sf::Vector2f(m_Component_Positions.at(Break::c_Level_Area).x, m_Component_Positions.at(Break::c_Level_Area).y + m_Component_Sizes.at(Break::size_Level).y / 2 - m_Component_Sizes.at(Break::size_Paddle_Default).y)));
 	m_Component_Positions.insert(std::pair<Break::Components, sf::Vector2f>(Break::c_Ball, sf::Vector2f(m_Component_Positions.at(Break::c_Paddle).x, m_Component_Positions.at(Break::c_Paddle).y - 2*m_Component_Sizes.at(Break::size_Ball).x)));
-	//	Pozicije interfejsa 
-	m_UI_Component_Positions.insert(std::pair<Break::UI_Components, sf::Vector2f>(Break::cUI_Lives, sf::Vector2f(m_Component_Positions.at(Break::c_Level_Area).x + m_Component_Sizes.at(Break::size_Level).x / 2 + m_Distances.at(Break::dis_Very_Far), m_Component_Sizes.at(Break::size_Level).y / 2)));	//	Prikazuje zivote
-	m_UI_Component_Positions.insert(std::pair<Break::UI_Components, sf::Vector2f>(Break::cUI_Score, sf::Vector2f(m_Component_Positions.at(Break::c_Level_Area).x - m_Component_Sizes.at(Break::size_Level).x / 2 - 2*m_Distances.at(Break::dis_Very_Far), m_Component_Sizes.at(Break::size_Level).y / 3)));	//	Prikazuje skor
-	m_UI_Component_Positions.insert(std::pair<Break::UI_Components, sf::Vector2f>(Break::cUI_Level_Number, sf::Vector2f(0, 0)));	//	Prikazuje trenutni nivo
+	//	Interface positions
+	m_UI_Component_Positions.insert(std::pair<Break::UI_Components, sf::Vector2f>(Break::cUI_Lives, sf::Vector2f(m_Component_Positions.at(Break::c_Level_Area).x + m_Component_Sizes.at(Break::size_Level).x / 2 + m_Distances.at(Break::dis_Very_Far), m_Component_Sizes.at(Break::size_Level).y / 2)));	
+	m_UI_Component_Positions.insert(std::pair<Break::UI_Components, sf::Vector2f>(Break::cUI_Score, sf::Vector2f(m_Component_Positions.at(Break::c_Level_Area).x - m_Component_Sizes.at(Break::size_Level).x / 2 - 2*m_Distances.at(Break::dis_Very_Far), m_Component_Sizes.at(Break::size_Level).y / 3)));	
+	m_UI_Component_Positions.insert(std::pair<Break::UI_Components, sf::Vector2f>(Break::cUI_Level_Number, sf::Vector2f(0, 0)));
 	m_UI_Component_Positions.insert(std::pair<Break::UI_Components, sf::Vector2f>(Break::cUI_PowerUp_Timers, sf::Vector2f(m_Key_Positions.at(Break::kp_Center).x + m_Component_Sizes.at(Break::size_Level).x / 2 + m_Distances.at(Break::dis_Far), m_Distances.at(Break::dis_Very_Far))));
-	//	Poluge
+	//	Switches
 	m_Switches.insert(std::pair<Break::Bool_Switches, bool>(Break::sw_Victory, false));
 	m_Switches.insert(std::pair<Break::Bool_Switches, bool>(Break::sw_Defeat, false));
-	//	Brzine
+	//	Speeds
 	m_Speeds.insert(std::pair<Break::Speeds, float>(Break::speed_Ball_Default, 800 * m_Scale_Coefficient));
 	m_Speeds.insert(std::pair<Break::Speeds, float>(Break::speed_Ball_Fast, 900 * m_Scale_Coefficient));
 	m_Speeds.insert(std::pair<Break::Speeds, float>(Break::speed_Ball_Slow, 600 * m_Scale_Coefficient));
 	m_Speeds.insert(std::pair<Break::Speeds, float>(Break::speed_PowerUp, 500 * m_Scale_Coefficient));
 	m_Speeds.insert(std::pair<Break::Speeds, float>(Break::speed_Laser_Beam, 2000 * m_Scale_Coefficient));
-	//	Tekstovi
+	//	Texts
 	m_Texts.insert(std::pair<Break::Texts, std::string>(Break::txt_Level, "Level: "));
 	m_Texts.insert(std::pair<Break::Texts, std::string>(Break::txt_Score, "Score: \n"));
 	m_Texts.insert(std::pair<Break::Texts, std::string>(Break::txt_Defeat, "Game Over "));
@@ -100,18 +99,18 @@ BreakTrough_Data::BreakTrough_Data(Data& data)
 	m_Texts.insert(std::pair<Break::Texts, std::string>(Break::txt_pau_Continue, " Continue Game "));
 	m_Texts.insert(std::pair<Break::Texts, std::string>(Break::txt_pau_Exit, " Exit "));
 	m_Texts.insert(std::pair<Break::Texts, std::string>(Break::txt_ActivePows, "Active PowerUps:"));
-	//	Povecanje skora prilikom udara loptice
+	//	Score increase when ball hits
 	m_Score_Increase.insert(std::pair<Break::Score_increase, UINT>(Break::score_small, 5));
 	m_Score_Increase.insert(std::pair<Break::Score_increase, UINT>(Break::score_medium, 10));
 	m_Score_Increase.insert(std::pair<Break::Score_increase, UINT>(Break::score_large, 20));
 	m_Score_Increase.insert(std::pair<Break::Score_increase, UINT>(Break::score_badpowerup, 50));
-	//	Teksture	
+	//	Textures - general
 	m_Paddle_TextureRect.insert(std::pair<Break::Paddle_Type, sf::IntRect>(Break::Paddle_Default, sf::IntRect(80, 110, 80, 16)));
 	m_Paddle_TextureRect.insert(std::pair<Break::Paddle_Type, sf::IntRect>(Break::Paddle_Big, sf::IntRect(80, 130, 120, 16)));
 	m_Paddle_TextureRect.insert(std::pair<Break::Paddle_Type, sf::IntRect>(Break::Paddle_Small, sf::IntRect(80, 90, 40, 16)));
 	m_Paddle_TextureRect.insert(std::pair<Break::Paddle_Type, sf::IntRect>(Break::Paddle_Sticky, sf::IntRect(80, 170, 80, 16)));
 	m_Paddle_TextureRect.insert(std::pair<Break::Paddle_Type, sf::IntRect>(Break::Paddle_Laser, sf::IntRect(80, 150, 80, 16)));
-	//
+	//	Textures - blocks
 	m_Block_TextureRect.insert(std::pair<Break::Block_ID, sf::IntRect>(Break::bID_None, sf::IntRect(0, 0, 0, 0)));
 	m_Block_TextureRect.insert(std::pair<Break::Block_ID, sf::IntRect>(Break::bID_Red, sf::IntRect(0, 0, 70, 35)));
 	m_Block_TextureRect.insert(std::pair<Break::Block_ID, sf::IntRect>(Break::bID_Orange, sf::IntRect(0, 35, 70, 35)));
@@ -125,7 +124,7 @@ BreakTrough_Data::BreakTrough_Data(Data& data)
 	m_Block_TextureRect.insert(std::pair<Break::Block_ID, sf::IntRect>(Break::bID_Purple, sf::IntRect(0, 315, 70, 35)));
 	m_Block_TextureRect.insert(std::pair<Break::Block_ID, sf::IntRect>(Break::bID_Grey, sf::IntRect(80, 0, 70, 35)));
 	m_Block_TextureRect.insert(std::pair<Break::Block_ID, sf::IntRect>(Break::bID_Gold, sf::IntRect(80, 35, 70, 35)));
-	//
+	//	Textures - power ups
 	m_PowerUp_TextureRect.insert(std::pair<Break::PowerUp_ID, sf::IntRect>(Break::pID_Laser_Paddle, sf::IntRect(280, 10, 40, 20)));
 	m_PowerUp_TextureRect.insert(std::pair<Break::PowerUp_ID, sf::IntRect>(Break::pID_Fast_Ball, sf::IntRect(280, 30, 40, 20)));
 	m_PowerUp_TextureRect.insert(std::pair<Break::PowerUp_ID, sf::IntRect>(Break::pID_Shrink_Paddle, sf::IntRect(280, 50, 40, 20)));
@@ -134,7 +133,7 @@ BreakTrough_Data::BreakTrough_Data(Data& data)
 	m_PowerUp_TextureRect.insert(std::pair<Break::PowerUp_ID, sf::IntRect>(Break::pID_Stretch_Paddle, sf::IntRect(280, 110, 40, 20)));
 	m_PowerUp_TextureRect.insert(std::pair<Break::PowerUp_ID, sf::IntRect>(Break::pID_Slow_Ball, sf::IntRect(280, 130, 40, 20)));
 	m_PowerUp_TextureRect.insert(std::pair<Break::PowerUp_ID, sf::IntRect>(Break::pID_Extra_Life, sf::IntRect(280, 150, 40, 20)));
-	//
+	//	Textures - misc.
 	m_Miscellaneous_TextrureRect.insert(std::pair<Break::Misc_Textures, sf::IntRect>(Break::t_Ball, sf::IntRect(250, 0, 14, 14)));
 	m_Miscellaneous_TextrureRect.insert(std::pair<Break::Misc_Textures, sf::IntRect>(Break::t_Level_TopLeft, sf::IntRect(380, 10, 41, 41)));
 	m_Miscellaneous_TextrureRect.insert(std::pair<Break::Misc_Textures, sf::IntRect>(Break::t_Level_TopRight, sf::IntRect(424, 10, 41, 41)));
@@ -152,7 +151,7 @@ BreakTrough_Data::BreakTrough_Data(Data& data)
 	m_Miscellaneous_TextrureRect.insert(std::pair<Break::Misc_Textures, sf::IntRect>(Break::t_Decoration_Feature_Corner2, sf::IntRect(420, 60, 30, 30)));
 
 
-	//	Brojcana stanja elemenata	-	Mozda da podelim na konstantne i promenljive vrednosti.
+	//	Quantities of elements.
 
 	m_Quantities.insert(std::pair<Break::UINT_Numbers, UINT>(Break::Number_of_Lives, 3));
 	m_Quantities.insert(std::pair<Break::UINT_Numbers, UINT>(Break::Score_Number, 0));
@@ -235,9 +234,9 @@ bool BreakTrough_Data::Set_TheEnd()
 {
 	if (m_Quantities.at(Break::Number_of_Lives) == 0)
 	{
-		return m_Switches.at(Break::sw_Defeat) = true;	//	Da probam ovako!
+		return m_Switches.at(Break::sw_Defeat) = true;
 	}
-	else if ( !(m_Quantities.at(Break::Current_Level) < 7))	//	Ovaj broj mora da bude dinamican!
+	else if ( !(m_Quantities.at(Break::Current_Level) < 7))	
 	{
 		return m_Switches.at(Break::sw_Victory) = true;
 	}
