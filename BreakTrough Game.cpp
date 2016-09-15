@@ -99,8 +99,8 @@ void BreakTroughGame::handleRealTimeInput()
 
 void BreakTroughGame::refresh_draw_pointers()
 {
-	//	Ovde svakog frejma brisem i stavljam nove pointere baznih klasa za crtanje.
-	//	Moram tako posto pointeri gube validnost prilikom brisanja jednog od njih.
+	//	Here I have to erase all and insert new pointers every frame, since the pointers are no longer valid when
+	//	object they point to get deleted inside their respective container.
 
 	mObjects_for_draw.clear();
 	pGameObjects			ptr;
