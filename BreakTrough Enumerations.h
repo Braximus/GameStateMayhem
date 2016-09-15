@@ -123,14 +123,14 @@ namespace Break
 
 	enum PowerUp_ID
 	{
-		pID_Slow_Ball,		//	Braon
-		pID_Fast_Ball,		//	Narandzasta
-		pID_Triple_Ball,	//	Svetlo plava
-		pID_Stretch_Paddle,	//	Tamno Plava
-		pID_Shrink_Paddle,	//	Ljubicasta
-		pID_Laser_Paddle,	//	Crvena
-		pID_Extra_Life,		//	Crna/Siva
-		pID_Sticky_Paddle	//	Zelena
+		pID_Slow_Ball,		//	Brown
+		pID_Fast_Ball,		//	Orange
+		pID_Triple_Ball,	//	Cyan
+		pID_Stretch_Paddle,	//	Blue
+		pID_Shrink_Paddle,	//	Purple
+		pID_Laser_Paddle,	//	Red
+		pID_Extra_Life,		//	Gray
+		pID_Sticky_Paddle	//	Green
 	};
 
 	enum UINT_Numbers
