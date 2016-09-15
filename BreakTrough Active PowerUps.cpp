@@ -130,11 +130,6 @@ void BrkTr_Active_PowerUps::draw(sf::RenderTarget& target, sf::RenderStates stat
 	{
 		target.draw(it.second, state);
 	}
-
-	//for (auto& i : bla)
-	//{
-	//	target.draw(i, state);
-	//}
 }
 
 void BrkTr_Active_PowerUps::update(sf::Time& time)
@@ -143,13 +138,12 @@ void BrkTr_Active_PowerUps::update(sf::Time& time)
 	{	
 		bool erase = false;
 		mTimers.at(i) -= time;
-
-		//	Za svaki element moram da izracunam koliko ima u procentima preostalo vreme i posle toga da 
-		//	namestim sirinu kvadrata "preostalog vremena" koristeci te procente.
+		
+		//	For every element, I have to calculate how much time is left in percentage and afterwards i need to 
+		//	adjust the width of "time left" rectangle using those percentage.
 		float procenat = 100 * (mTimers.at(i).asSeconds() / mTotal_times.at(i));
 		if (procenat < 0)
 		{
-			//	Ako je manje od nule, pojacanje se brise.
 			procenat = 0;
 			erase = true;
 		}
@@ -158,7 +152,7 @@ void BrkTr_Active_PowerUps::update(sf::Time& time)
 		
 		if (erase)
 		{
-			//	Ovde se brise i zaustavlja petlja u protivnom ce doci do "iterator not incementable" greske.
+			//	Here the power up is erased and the loop is stopped in order to prevent "iterator not incementable" error
 			remove_PowerUp(i);
 			break;
 		}
@@ -168,19 +162,19 @@ void BrkTr_Active_PowerUps::update(sf::Time& time)
 
 void BrkTr_Active_PowerUps::add_PowerUp(Break::PowerUp_ID param)
 {
-	//	Dakle, svako pojacanje se sastoji od sledecih elemenata: 
+	//	So, every power up object is made from these components: 
 
-	sf::Time				time;								//	Preostalo vreme trajanja.
-	sf::RectangleShape		rect1, rect2;						//	Graficki prikaz vremena: rect1 - preostalo vreme, rect2 - ukupno vreme
-	sf::Text				name;								//	Ime
-	sf::FloatRect			bo;									//	Granica
-	std::map<Break::PowerUp_ID, sf::Time>::iterator				it1;	//	Brojlaci za svaki kontejner ponaosob.
-	
+	sf::Time							time;			//	Remainting time.
+	sf::RectangleShape						rect1, rect2;		//	Graphical reperesentation of time:  rect1 - remaining time; rect2 - full time
+	sf::Text							name;			//	Name
+	sf::FloatRect							bo;			//	Border
+	//	Iterators for every single container.
+	std::map<Break::PowerUp_ID, sf::Time>::iterator			it1;			
 	std::map<Break::PowerUp_ID, sf::RectangleShape>::iterator	it2;
-	std::map<Break::PowerUp_ID, sf::Text>::iterator				it3;
-	std::vector<Break::PowerUp_ID>::iterator					it4;
+	std::map<Break::PowerUp_ID, sf::Text>::iterator			it3;
+	std::vector<Break::PowerUp_ID>::iterator			it4;
 
-	//	Prvo proveravam da li je novo pojacanje kontradiktorno sa vec postojecim:
+	//	First, I need to check wheter the new power up is contradictory with already existing power ups:
 	for (Break::PowerUp_ID i : mIDs)
 	{
 		if (param == Break::pID_Fast_Ball || param == Break::pID_Slow_Ball)
@@ -201,7 +195,7 @@ void BrkTr_Active_PowerUps::add_PowerUp(Break::PowerUp_ID param)
 		}
 	}
 
-	//	Onda proveravam da li je doticno pojacanje vec postoji.
+	//	Then I check if the current power up already exists.
 	it4 = std::find_if(mIDs.begin(), mIDs.end(), [&](Break::PowerUp_ID obj)
 	{
 		if (obj == param)
@@ -210,28 +204,27 @@ void BrkTr_Active_PowerUps::add_PowerUp(Break::PowerUp_ID param)
 			return false;
 	});
 
-	//	Ako nije ubacujem ga u kontejner
+	//	If not, then it is pushed into container.
 	if (it4 == mIDs.end())
 	{
 		mIDs.push_back(param);
 		it4 = mIDs.end() - 1;
 	}
 	
-	//	Uzimam udaljenost od pocetka kontejnera
+	//	I take the distance from the start of the container.
 	UINT distance = std::distance(mIDs.begin(), it4);
 	distance++;
-	bo = mPW_Blocks.at(distance);	//	Ako budem imao problema prilikom rasporeda pojacanja, ovde da pogledam, mozda je nula...
-	//	Pretpostavljam da ce ih ubacivati jedan za drugim, a ne da ih istumba.
+	bo = mPW_Blocks.at(distance);
 
-	//	Potom mu namestam ime i ukupno vreme u zavisnosti od tipa pojacanja.
+	//	Then I am giving him a name and a full time depending on a power up type.
 	name.setFont(mFont);
 	name.setCharacterSize(mStored_char_size);
 	name.setString(mStored_names.at(param));
 	time = sf::seconds(mTotal_times.at(param));
 
-	//	Onda za svaki pojedinacni kontejner proveravam da li je vec aktivan, koristeci brojlace.
-	//	Ako jeste onda mora da ga osvezi.
-	//	Ako nije onda mora da ga ubaci.
+	//	Afterwards, i check every containter if it is already active, using iterators.
+	//	If it is active, then it needs to get refreshed.
+	//	If it isn't active, then it need to be put inside the container.
 
 	it1 = mTimers.find(param);
 	if (it1 == mTimers.end())
@@ -252,7 +245,6 @@ void BrkTr_Active_PowerUps::add_PowerUp(Break::PowerUp_ID param)
 	{
 		mPowerUp_name.insert(std::pair<Break::PowerUp_ID, sf::Text>(param, name));
 	}
-	//	nema else - nema potrebe da se menja
 
 	rect2.setSize(mStored_size);
 	rect2.setFillColor(sf::Color::Red);
@@ -285,9 +277,9 @@ void BrkTr_Active_PowerUps::add_PowerUp(Break::PowerUp_ID param)
 	}
 }
 
-//	Funkcija za brisanje pojacanja.
-//	Ako ima vise od jednog pojacanja i ako je preostalo pojacanje graficki drugo po redu,
-//	onda moram da napravim da se preostalo pojacanje preuzme mesto prvom pojacanju.
+//	Function for deletion of power ups.
+//	If there is more than one power up, and if remaining time of second power up is still ticking,
+//	then I need to adjust the position of the graphical representation of the power up, to take the place of the first - now deleted - power up
 void BrkTr_Active_PowerUps::remove_PowerUp(Break::PowerUp_ID param)
 {
 	mPowerUp_name.erase(param);
@@ -313,8 +305,8 @@ void BrkTr_Active_PowerUps::remove_PowerUp(Break::PowerUp_ID param)
 	}
 }
 
-//	Funkcija za brisanje svih pojacanja.
-//	Koristi se kada se zavrsi nivo ili kada igrac izgubi zivot.
+//	Function for deleteting all of power ups.
+//	Used when the level is completed or when player looses a life.
 void BrkTr_Active_PowerUps::remove_all_PowerUps()
 {
 	mTimers.clear();
