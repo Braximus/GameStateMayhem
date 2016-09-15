@@ -1,7 +1,7 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-//#include "stdafx.h"
+
 #include "Debug.h"
 #include "DataStorage.h"
 #include "MusicPlayer.h"
@@ -11,18 +11,18 @@
 
 class App
 {
-	sf::RenderWindow			mWindow;				
+	sf::RenderWindow				mWindow;				
 	sf::Event					mEvent;					
 	sf::Time					mTimeSinceLastUpdate;	
 	sf::Time					mCurrentTime;
 	sf::Clock					Clock;
-	static const sf::Time		mFixedTime;				
+	static const sf::Time				mFixedTime;				
 	//--------------------------//
 	DebugClass					mDebug;					
 	//--------------------------//
 	Data						mData;					
 	//--------------------------//
-	StateManager				mState;					
+	StateManager					mState;					
 	//--------------------------//
 	User						mUser;					
 public:
