@@ -24,7 +24,7 @@ BrkTr_Overlay::BrkTr_Overlay(BreakTrough_Data& data)
 
 	mOverlay_text2.setFont(data.get_Resources().getFont(ID_Global));
 	mOverlay_text2.setCharacterSize(data.get_Character_Sizes(Break::ch_Large));
-	mOverlay_text2.setString(std::to_string(data.get_Object_Quantities(Break::Current_Level)));	//	Ovde treba da stavom broj nivoa iz datoteke
+	mOverlay_text2.setString(std::to_string(data.get_Object_Quantities(Break::Current_Level)));
 	mOverlay_text2.setColor(sf::Color(204, 175, 0, 255));
 	Bounds2 = mOverlay_text2.getLocalBounds();
 	mOverlay_text2.setOrigin(Bounds2.width / 2, Bounds2.top + Bounds2.height / 2);
@@ -38,7 +38,7 @@ void BrkTr_Overlay::draw(sf::RenderTarget& target, sf::RenderStates state) const
 	target.draw(mOverlay_text2, state);
 }
 
-//	Funkcija za tekst koji se pojavljuje na pocetku svake misije i posto igrac izgubi zivot.
+//	This function is for the text that appears at the start of every level and when the player looses a life.
 void BrkTr_Overlay::update_text(std::string& txt)
 {
 	mOverlay_text2.setString(txt);
@@ -46,14 +46,14 @@ void BrkTr_Overlay::update_text(std::string& txt)
 	mOverlay_text2.setOrigin(Bounds.width / 2, Bounds.top + Bounds.height / 2);
 }
 
-//	Funkcija za tekst koji se prikazuje na kraju igre.
+//	Function for text that appears at the end of the game.
 void BrkTr_Overlay::game_over_text(std::string& txt)
 {
 	mOverlay_box.setSize(sf::Vector2f(3.0f*mOverlay_box.getSize().x / 2.0f, mOverlay_box.getSize().y));
 	sf::FloatRect Bounds = mOverlay_box.getLocalBounds();
 	mOverlay_box.setOrigin(Bounds.width / 2, Bounds.height / 2);
 
-	mOverlay_text2.setString("");	// nista
+	mOverlay_text2.setString("");	//	yes, nothing
 	Bounds = mOverlay_box.getGlobalBounds();
 
 	mOverlay_text1.setString(txt);
