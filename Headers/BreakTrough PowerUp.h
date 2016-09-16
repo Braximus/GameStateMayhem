@@ -16,10 +16,5 @@ public:
 	void			update(sf::Time& time);
 
 	const Break::PowerUp_ID			pass_ID() const;
-
 };
-
-
-
-
 #endif
