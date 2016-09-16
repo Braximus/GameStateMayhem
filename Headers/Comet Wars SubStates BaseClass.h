@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 
+//	This is the abstract class for substates.
 class CometWarsSubStates
 {
 public:	
@@ -10,9 +11,4 @@ public:
 	virtual void		handle_Events(sf::Event&)=0;
 	virtual void		handle_RealTimeInput()=0;
 };
-
-//	Ovo je apstraktna bazna klasa za podstanja.
-//	Sve klase podstanja bice nasledjene od nje.
-//	Podstanja imaju sopstvene funckije za crtanje, osvezenje i rukovanjem dogadjajima.
-
 #endif
