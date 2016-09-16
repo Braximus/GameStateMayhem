@@ -38,9 +38,9 @@ namespace CW
 	enum Key_Positions
 	{
 		kp_TopLeft,		//	0,0
-		kp_TopRight,	//	VM width, 0
-		kp_BottomLeft,	//	0, VM height
-		kp_BottomRight,	//	VM width, VM height
+		kp_TopRight,		//	VM width, 0
+		kp_BottomLeft,		//	0, VM height
+		kp_BottomRight,		//	VM width, VM height
 		kp_Center		//	VM width/2, VM height/2
 	};
 
@@ -53,7 +53,7 @@ namespace CW
 
 	enum Components_size
 	{
-		size_Ship,		//	isto je i za zivote!
+		size_Ship,	
 		size_Projectile,
 		size_Shield,
 		size_Comet,
