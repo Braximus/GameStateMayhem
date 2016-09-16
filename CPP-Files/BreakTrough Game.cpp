@@ -12,7 +12,7 @@ BreakTroughGame::BreakTroughGame(Data& data)
 	mData.update_Mouse();
 	pGameObjects					ptr;
 
-	BreakTrough_Player*			p1 = &mPlayer;
+	BreakTrough_Player*		p1 = &mPlayer;
 	BreakTrough_Level_Manager*	p2 = &mLevel_Manager;
 	BreakTrough_UI_Manager*		p3 = &mUI_Manager;
 
