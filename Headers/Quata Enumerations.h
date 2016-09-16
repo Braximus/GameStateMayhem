@@ -11,16 +11,13 @@ namespace Qua
 		End,
 	};
 
-	enum Quata_Object_Components			//	POZICIJA UNUTAR ENUMERACIJE TAKODJE UTICE NA RASPORED CRTANJA!!!!!!!!!!!!!
+	enum Quata_Object_Components
 	{
 		co_Playground,
 		co_Player_Paddle,
 		co_AI_Paddle,
 		co_Ball
 	};
-
-	//background bi mozda posluzio kasnije.
-
 	enum Quata_UI_Components
 	{
 		cu_Pause,
@@ -104,10 +101,10 @@ namespace Qua
 	enum Quata_Distances
 	{
 		dis_VeryNear,		//	10px
-		dis_Near,			//	30px
-		dis_Medium,			//	50px
-		dis_Far,			//	100px
-		dis_VeryFar			//	200px
+		dis_Near,		//	30px
+		dis_Medium,		//	50px
+		dis_Far,		//	100px
+		dis_VeryFar		//	200px
 	};
 
 	enum Sounds
@@ -117,7 +114,7 @@ namespace Qua
 		snd_Opponent_Ball_bounce,
 		snd_Opponent_Score,
 		snd_Player_Score,
-		snd_Player_Win,		//	Treba da nadjem/napravim za njega takodje.
+		snd_Player_Win,	
 		snd_Player_Loose,
 		snd_Hover,
 		snd_Select,
