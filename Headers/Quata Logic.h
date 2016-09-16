@@ -11,9 +11,6 @@ class Quata_Level;
 class QuataData;
 class Quata_UI_Manager;
 
-// Quata Logic klasa služi za detekciju sudara između objekata i daje odgovor na njih!.
-
-
 class QuataLogic
 {
 private:
@@ -38,13 +35,9 @@ private:
 	QuataData&							mData;
 	CollisionType						mType;
 	//--------------------------------//
-
-	//--------------------------------//
-	//	Da klasa moze da prikupi par stvarcica...
 	sf::FloatRect						Paddle_Bounds;
 	float								PaddleY_pos_offset;
 	//--------------------------------//
-
 	void				bounceBallFromPaddle_Response(bool);
 	void				bounceBallfromBorderResponse();
 	void				scoreResponse(CollisionType type);
@@ -53,17 +46,8 @@ public:
 	explicit			QuataLogic(QuataData&);
 	bool				collisionCheck( const sf::FloatRect& p1, sf::FloatRect& p2);
 	void				collisionResponse(CollisionType);
-
 	void				get_pointers(Quata_Player* player, QuataAI* AI, Quata_Level* ball, Quata_UI_Manager* ui);
-
 	void				startBallMovement();
-
 	void				LogicFunction();
-	
-
-
 };
-
-
-
 #endif
