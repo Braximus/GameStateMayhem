@@ -18,7 +18,7 @@ public:
 	};
 private:
 	BreakTrough_Data&				mData;
-	//	UINT predstavlja broj nivoa;
+	//	UINT represents the number of level;
 	std::map<UINT, std::vector<sf::Vector2f>>			m_Block_Positions;
 	std::map<UINT, std::vector<sf::FloatRect>>			m_Block_Boundries;
 	std::map<UINT, std::vector<Break::Block_ID>>		m_Block_Type;
