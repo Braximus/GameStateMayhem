@@ -15,23 +15,18 @@ class Data;
 
 class StateManager
 {
-	Data&							mData;
+	Data&					mData;
 	//
 	std::unique_ptr<State>			pAppState;
 	//
-	eState							mOldState;
+	eState					mOldState;
 	//
-	const eState					getStateID() const;
+	const eState				getStateID() const;
 public:
 	StateManager(Data&);
-	void							ChangeState(eState);
+	void					ChangeState(eState);
 	State*							getCurrentState(); 
 	void							draw(sf::RenderWindow&);
 	void							update(sf::Time&);
-
-
 };
-
-
-
 #endif
