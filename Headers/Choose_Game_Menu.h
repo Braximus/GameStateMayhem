@@ -4,7 +4,6 @@
 
 #include "Buttons.h"
 #include "Label.h"
-//	U suštini, isto je kao i 'MainMenu' 
 #include "Menu_Substates_Base_Class.h"
 
 class Data;
@@ -23,9 +22,9 @@ class ChooseMenu: public Menu_SubStates
 	MenuData&						mMenu_Data;
 	sf::Text						mDescription, debag;
 	GameChoice						mCurrentSelection, mPreviousSelection;
-
 	Label							mLabel;
-	std::map<GameChoice, Button>	mButtons;
+	
+	std::map<GameChoice, Button>		mButtons;
 	std::map<GameChoice, std::string>	mDescriptionName;
 
 	void					KeyboardEvents(sf::Event& Event);
@@ -39,7 +38,5 @@ public:
 	void					handleEvents(sf::Event&);
 	void					handleRealTimeInput();
 	void					refresh();
-
 };
-
 #endif
