@@ -8,9 +8,6 @@
 #include "Check.h"
 class Data;
 
-//	Ova klasa je odgovorna za promenu ključnih podataka unutar aplikacije, kao što je promena rezolucije, podešavanje zvuka, 
-//	nameštanje boja, nameštanje kontrola i sl.
-
 class Options : public Menu_SubStates
 {
 	enum OptionsLabels
@@ -58,7 +55,7 @@ class Options : public Menu_SubStates
 	UINT					mVM_Index, mOld_VM_Index;
 	UINT					mAA_Index, mOld_AA_Index;
 	bool					mFullScreen, mOldFullScreen, mVsync;
-	// Promene koje zahtevaju novi prozor;
+	// 	changes that require new window;
 	bool					mApplyButton;
 	void					ApplyChanges();
 	void					CheckChanges();
@@ -66,7 +63,7 @@ class Options : public Menu_SubStates
 	void					SetResolutionChanges();
 	void					SetFullScreenChanges();
 	void					SetAntiAliasing();
-	// Promene koje ne zahtevaju novi prozor;
+	//	Changes that don't require new window;
 	void					SetVsync();
 	void					SetMusic();
 	void					SetSound();
