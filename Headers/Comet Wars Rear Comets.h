@@ -9,20 +9,14 @@ class CometWars_Rear_Comets : public CometWars_Deco_Base_Class
 {
 	const sf::Texture&				mStored_tex;
 	sf::VertexArray					mVertices;
-	std::vector<sf::FloatRect>		mCometBounds;
+	std::vector<sf::FloatRect>			mCometBounds;
 	sf::FloatRect					mBoundry;
-	float							mRestartPosition, mSpeed;
+	float						mRestartPosition, mSpeed;
 	sf::Vector2f					mStored_size_big, mStored_size_small;
 public:
 	CometWars_Rear_Comets(CometWarsData&);
 
 	void		draw(sf::RenderTarget& target, sf::RenderStates state) const;
 	void		update(sf::Time&);
-
-
-
 };
-
-
-
 #endif
