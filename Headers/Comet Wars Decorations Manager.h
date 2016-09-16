@@ -16,16 +16,5 @@ public:
 	std::deque<CometWars_Deco_Base_Class*>			pass_pointers();
 
 	void			update(sf::Time&);
-
-
-
-
-
-
-
 };
-
-
-
-
 #endif
