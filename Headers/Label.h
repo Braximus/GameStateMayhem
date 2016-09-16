@@ -4,8 +4,8 @@
 class Label : public sf::Drawable, public sf::Transformable
 {
 	sf::Text			mLabel;
-	sf::RectangleShape	mOutline;
-	sf::Vector2f		mOffset;
+	sf::RectangleShape		mOutline;
+	sf::Vector2f			mOffset;
 	sf::Color			mDefault_Text_Color, mDefault_Outline_Color, mDimmed_color;
 public:
 	Label(){};
