@@ -6,10 +6,10 @@ class CometWarsData;
 
 class CometWars_UI_Lives : public CometWars_UI_Objects
 {
-	std::deque<sf::RectangleShape>		mLives;			//	Daje mi opciju za pop_front
-	sf::RectangleShape					mStored_rect;
-	float								lives_offset;
-	bool								is_life_removed;
+	std::deque<sf::RectangleShape>		mLives;			//	Deque gives me an option to "pop_front"
+	sf::RectangleShape			mStored_rect;
+	float					lives_offset;
+	bool					is_life_removed;
 public:
 	explicit		CometWars_UI_Lives(CometWarsData&);
 
@@ -17,7 +17,5 @@ public:
 	void			update(sf::Time&);
 	void			delete_life();
 	void			reset(UINT);
-
-
 };
 #endif
