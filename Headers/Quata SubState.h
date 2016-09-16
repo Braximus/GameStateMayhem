@@ -11,8 +11,4 @@ public:
 	virtual void				handle_Realtime_Input() =0;
 };
 
-
-
-
-
 #endif
