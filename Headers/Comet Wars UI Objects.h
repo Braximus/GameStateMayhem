@@ -3,6 +3,7 @@
 
 #include "Comet Wars Enumerations.h"
 
+
 class CometWars_UI_Objects : public sf::Drawable, public sf::Transformable
 {
 protected:
@@ -12,9 +13,5 @@ public:
 	virtual void				update(sf::Time&) =0;
 
 	const sf::Vector2f			getPosition() const { return mPosition; };
-
 };
-
-
-
 #endif
