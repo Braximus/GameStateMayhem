@@ -16,11 +16,5 @@ public:
 
 	void				draw(sf::RenderTarget&, sf::RenderStates) const;
 	void				update(sf::Time& time);
-
-
-
 };
-
-
-
 #endif
