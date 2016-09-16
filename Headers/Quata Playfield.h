@@ -1,7 +1,6 @@
 #ifndef QUATA_PLAYFIELD_H
 #define QUATA_PLAYFIELD_H
 
-
 #include "Quata Objects.h"
 class QuataData;
 
@@ -18,7 +17,4 @@ public:
 	void					setPosition(sf::Vector2f);
 	const sf::Vector2f		getPosition() const;
 };
-
-
-
 #endif
