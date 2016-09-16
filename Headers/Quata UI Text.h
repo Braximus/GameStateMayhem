@@ -5,7 +5,7 @@
 #include "Quata UI Objects.h"
 class QuataData;
 
-//	Ova klasa ce povuci dvostruku duznost i kao oznaka i kao rezultat
+//	This class will pull a double duty as a label and as a score.
 
 class Quata_UI_Text : public Quata_UI_Objects
 {
