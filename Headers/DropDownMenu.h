@@ -10,10 +10,10 @@ class DropDownMenu : public sf::Drawable, public sf::Transformable
 	bool						mCurrentState;
 	Label						mCurrentSelection;
 	Button						mActivation_Button, mScrollDown_Button, mScrollUp_Button;
-	std::vector<Button>			mChoices;
-	std::vector<std::string>	mChoicesNames;
-	sf::RectangleShape			mChoicesOutline;
-	sf::FloatRect				mBound_Of_DropDownMenu;
+	std::vector<Button>				mChoices;
+	std::vector<std::string>			mChoicesNames;
+	sf::RectangleShape				mChoicesOutline;
+	sf::FloatRect					mBound_Of_DropDownMenu;
 	UINT						mNumber_Of_ShownChoices, mBegining_Number;
 	float						mOutline_size;
 	UINT						mValue;
