@@ -13,9 +13,9 @@ class QuataPlaySubState : public QuataSubState
 	QuataData&		mData;
 	QuataLogic		mLogic;
 	QuataAI*		pAI;
-	Quata_Player*	pPlayer;
-	Quata_Level*	pLevel;
-	Quata_UI_Manager* pUI;
+	Quata_Player*		pPlayer;
+	Quata_Level*		pLevel;
+	Quata_UI_Manager* 	pUI;
 	void			AI_turn(sf::Time&);
 public:
 	QuataPlaySubState(QuataData& data, Quata_Player* player, QuataAI* ai, Quata_Level* level, Quata_UI_Manager* pUI);
@@ -23,7 +23,4 @@ public:
 	void						handle_Events(sf::Event&);
 	void						handle_Realtime_Input();
 };
-
-
-
 #endif
