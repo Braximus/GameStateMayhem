@@ -21,11 +21,6 @@ public:
 	void					update(sf::Time&);
 	void					handleEvents(sf::Event&);
 	void					handleRealTimeInput();
-
-
 };
-
-
-
 
 #endif
