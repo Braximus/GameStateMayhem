@@ -15,9 +15,6 @@ public:
 
 	virtual void					setPosition(sf::Vector2f) = 0;
 	virtual const sf::Vector2f		getPosition() const { return mPosition; };
-
-
-
 };
 
 #endif
