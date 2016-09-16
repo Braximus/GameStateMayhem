@@ -63,12 +63,5 @@ public:
 	void								animate_Block_hit(UINT indice, Break::Block_ID param);
 	void								reset_Block_Texture_coordinates(UINT indice, Break::Block_ID param);
 	std::deque<BrkTr_Game_Objects*>		pass_Pointers();
-
-
-
 };
-
-
-
-
 #endif
