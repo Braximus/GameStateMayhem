@@ -16,18 +16,14 @@
 #include "Quata Player.h"
 #include "Quata Level.h"
 
-//		Moram da napravim da Quata bude vise nalik BreakTrough:		GOTOVO
-
-//		Da napravim da svi njeni fajlovi imaju Quata predznak:
-
 class Quata
 {
 private:
-	typedef QuataObjects*		PtrObj;
-	typedef Quata_UI_Objects*	PtrUIObj;
+	typedef QuataObjects*				PtrObj;
+	typedef Quata_UI_Objects*			PtrUIObj;
 
-	QuataData									mData;
-	std::unique_ptr<QuataSubState>	pSubState;
+	QuataData					mData;
+	std::unique_ptr<QuataSubState>			pSubState;
 
 	Qua::SubState				mSubStateCheck;
 	QuataAI						mAI;
@@ -52,9 +48,5 @@ public:
 	void				sendDebugInfo();
 
 };
-
-
-
-
 
 #endif
