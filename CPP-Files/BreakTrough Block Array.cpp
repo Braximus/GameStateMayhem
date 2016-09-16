@@ -56,7 +56,7 @@ void BrkTr_Block_Array::load_Blocks(BreakTrough_Data& data, std::vector<sf::Vect
 	}
 }
 
-//	Function that deletes the bloc...
+//	Function that deletes the block...
 void BrkTr_Block_Array::remove_block(UINT indice)
 {
 	//	...actualy, it only changes it's color to be transparent. :)
