@@ -9,11 +9,4 @@ public:
 	virtual void	draw(sf::RenderTarget& target, sf::RenderStates state) const =0;
 	virtual void	update(sf::Time&) = 0;
 };
-
-
-
-
-
-
-
 #endif
