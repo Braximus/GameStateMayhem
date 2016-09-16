@@ -27,6 +27,4 @@ public:
 	void	handle_Events(sf::Event& );
 	void	handle_RealTimeInput();
 };
-
-
 #endif 
