@@ -8,8 +8,8 @@ class BreakTrough_Data;
 class BrkTr_SubSt_Pause : public BreakTrough_SubStates
 {
 	BreakTrough_UI_Manager*		pUI_Manager;
-	BreakTrough_Data&			mData;
-	bool						block;
+	BreakTrough_Data&		mData;
+	bool				block;
 public:
 	explicit	BrkTr_SubSt_Pause(BreakTrough_Data& data, BreakTrough_UI_Manager* pUI);
 	void		update_Substate(sf::Time&);
