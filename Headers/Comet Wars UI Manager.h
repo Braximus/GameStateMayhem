@@ -50,8 +50,4 @@ public:
 	const CW::Button_Selection	response_Pause() const;
 	void						delete_Pause();
 };
-
-
-
-
 #endif
