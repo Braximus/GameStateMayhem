@@ -4,8 +4,6 @@
 #include "Comet Wars Deco Base Class.h"
 class CometWarsData;
 
-//	Za sada ce sadrzati samo zvezde;
-
 class CometWars_Background: public CometWars_Deco_Base_Class
 {
 	enum FadeStatus
@@ -17,7 +15,7 @@ class CometWars_Background: public CometWars_Deco_Base_Class
 	
 	sf::RectangleShape			mBackground;
 	sf::VertexArray				mVertices;
-	std::vector<FadeStatus>		mStatus;
+	std::vector<FadeStatus>			mStatus;
 public:
 	CometWars_Background(CometWarsData&);
 
@@ -25,8 +23,4 @@ public:
 	void		update(sf::Time& time);
 
 };
-
-
-
-
 #endif
