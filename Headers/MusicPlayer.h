@@ -5,11 +5,6 @@
 #include "Resources.h"
 class Data;
 
-//		Ova klasa sluzi samo za pustanje muzike u zavisnosti od trenutnog stanja aplikacije, ali je autonomna u odnosu na njih, tj.
-//		klasa pazi koje je trenutno stanje i na osnovu toga menja svoje stanje kada je potrebno. Klasa menja muziku samo kada njeno
-//		stanje to omoguci.
-
-
 class MusicPlayer
 {
 	Data*					mData;
