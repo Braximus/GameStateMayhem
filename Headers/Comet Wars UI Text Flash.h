@@ -16,8 +16,4 @@ public:
 	void				draw(sf::RenderTarget& target, sf::RenderStates state) const;
 	void				update(sf::Time&);
 };
-
-
-
-
 #endif
