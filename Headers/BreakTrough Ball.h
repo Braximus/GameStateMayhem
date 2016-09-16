@@ -42,13 +42,5 @@ public:
 
 	void					setStored_Velocity(sf::Vector2f);
 	const sf::Vector2f		getStored_Velocity() const;
-
-	
-
 };
-
-
-
-
-
 #endif
