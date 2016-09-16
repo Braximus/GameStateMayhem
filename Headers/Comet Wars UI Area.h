@@ -14,7 +14,4 @@ public:
 	void				draw(sf::RenderTarget&, sf::RenderStates) const;
 	void				update(sf::Time&);
 };
-
-
-
 #endif
