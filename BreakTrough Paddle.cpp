@@ -25,7 +25,7 @@ void BrkTr_Paddle::draw(sf::RenderTarget& target, sf::RenderStates state) const
 
 void BrkTr_Paddle::update(sf::Time& time)
 {
-	mPaddle.move(m_Velocity);	//	Da. Bez mnozenja sa vremenom!!!
+	mPaddle.move(m_Velocity);	//	Yes. Without multiplying with time.
 	m_Position = mPaddle.getPosition();
 	m_Bounds = mPaddle.getGlobalBounds();
 }
@@ -42,7 +42,6 @@ void BrkTr_Paddle::setVelocity(sf::Vector2f param)
 	m_Velocity = param;
 }
 
-//	Funkcija za promenu velicine i/ili teksture pedale.
 void BrkTr_Paddle::Change_Paddle(sf::Vector2f size, sf::IntRect tex_rect)
 {
 	mPaddle.setSize(size);
@@ -51,13 +50,11 @@ void BrkTr_Paddle::Change_Paddle(sf::Vector2f size, sf::IntRect tex_rect)
 	mPaddle.setOrigin(b.width / 2, b.height / 2);
 }
 
-//	Ova funkcija samo zapocinje proces prozirnosti.
 void BrkTr_Paddle::start_Paddle_fading()
 {
 	is_being_faded = true;
 }
 
-//	Funkcija za bledenje pedale tokom vremena.
 void BrkTr_Paddle::fade_Paddle()
 {
 	float transparency = mPaddle.getFillColor().a;
@@ -72,7 +69,6 @@ void BrkTr_Paddle::fade_Paddle()
 	mPaddle.setFillColor(new_color);
 }
 
-//	Funkcija koja vraca neprovidnost pedali.
 void BrkTr_Paddle::reset_Paddle_opacity()
 {
 	sf::Uint8 transparency = 255;
