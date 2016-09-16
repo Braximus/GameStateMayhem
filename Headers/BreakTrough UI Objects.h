@@ -6,12 +6,10 @@
 
 class BrkTr_UI_Objects : public sf::Drawable, public sf::Transformable
 {
-	sf::FloatRect		m_Bounds;	//	Trenutno ga ne koriste.
+	sf::FloatRect		m_Bounds;	//	Currently is not being used
 public:
 	virtual void		draw(sf::RenderTarget& target, sf::RenderStates state) const = 0;
 	const sf::FloatRect	getBounds() const { return m_Bounds; };
 };
-
-
 #endif
 
