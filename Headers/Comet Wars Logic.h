@@ -11,17 +11,15 @@ class Comet_Manager;
 
 class CometWarsLogic
 {
-
 	CometWarsData&			mData;
 	CometWars_UI_Manager*	pUI_Manager;
 	CometWars_Player*		pPlayer;
 	Comet_Manager*			pComet_Manager;
-	//	Sudari:
+	//	Collisions:
 	void				Collision_Object_Border_Check();
 	void				Collision_Player_Check();
-
-	//	Operacije:
-	void				Calculate_position(CW::Zones zone, sf::Vector2f& position);	//	Glupo ime, da promenim u logicnije, ali da bude sazeto.
+	//	Operations:
+	void				Calculate_position(CW::Zones zone, sf::Vector2f& position);
 	void				Asteroid_Ship_Response();
 	void				Asteroid_Damage_Response(UINT param);
 	void				Big_Comet_Destroyed_Response(UINT param);
@@ -30,9 +28,5 @@ class CometWarsLogic
 public:
 	explicit			CometWarsLogic(CometWarsData& data, CometWars_UI_Manager* pUI, CometWars_Player* pPlay, Comet_Manager* pComets);
 	void				LogicFunction();
-
 };
-
-
-
 #endif
