@@ -17,7 +17,4 @@ public:
 	void		setVelocity(sf::Vector2f);
 
 };
-
-
-
 #endif
