@@ -30,7 +30,6 @@ void BreakTrough_Logic::Logic_function()
 
 void BreakTrough_Logic::check_boundry_hits()
 {
-	//	Kada su granice razlicitog tipa, da se izbrise!
 	if (boundry_hits.size() > 1)
 	{
 		for (auto& i : boundry_hits)
@@ -46,30 +45,27 @@ void BreakTrough_Logic::check_boundry_hits()
 
 void BreakTrough_Logic::check_Collisions()
 {
-	//	Pedala i Nivo
+
 	Paddle_Movement_restriction();
-	//	Lopte
+
 	for (auto& it : pPlayer->get_Balls())
 	{
-		//	Lopta i pedala
 		Ball_Paddle_Collision_response(it);
-		// Lopta i blokovi
+
 		Ball_Block_Collision_response(it);
-		//	Odbijanje lopte o ivicu igralista.
+
 		Ball_Level_Collision_response(it);
 	}
-	// PowerUp
+
 	PowerUp_Behavior();	
-	//	Laser
+
 	Laser_Behavior_and_Block_Collision();
-	//	Kada se izgubi lopta:
+
 	Ball_Lost();
 }
 
 void BreakTrough_Logic::Paddle_Movement_restriction()
 {
-
-	//	Kada je pedala van nivoa, onda ce se vratiti na mesto odakle je izasao.
 	if (((pPlayer->get_Paddle().getBounds().left + pPlayer->get_Paddle().getBounds().width) > (pLevel_Manager->get_Level_Bounds().left + pLevel_Manager->get_Level_Bounds().width)))
 	{
 		float b = pLevel_Manager->get_Level_Bounds().left + pLevel_Manager->get_Level_Bounds().width - pPlayer->get_Paddle().getBounds().width / 2;
@@ -84,14 +80,14 @@ void BreakTrough_Logic::Paddle_Movement_restriction()
 
 sf::Vector2f BreakTrough_Logic::Ball_velocity_calculation(BrkTr_Ball& param)
 {
-	//	Racunam angle u zavisnosti od mesta udara na pedalu:
+	//	Angle calculation - it is dependant on a place the ball hits the paddle:
 
 	sf::Vector2f vel;
 	float angle, x, y;
 	float relative_intersect = (pPlayer->get_Paddle().getBounds().left + (pPlayer->get_Paddle().getBounds().width / 2)) - param.getPosition().x;
 	float normalised_relative_intersection = relative_intersect / (pPlayer->get_Paddle().getBounds().width / 2);
 	angle = normalised_relative_intersection * 60;
-	// Uvek moram da povecam za 270 stepeni, da bi lopta isla uspravno!
+	// 	Angle needs to be increased by 270 degrees, for the ball to go upwards!
 	angle += 270;
 	angle = static_cast<float>(angle*(3.14 / 180));
 	param.setAngle(angle);
@@ -103,7 +99,8 @@ sf::Vector2f BreakTrough_Logic::Ball_velocity_calculation(BrkTr_Ball& param)
 
 void BreakTrough_Logic::Ball_Random_direction_launch(bool is_left_boundry, BrkTr_Ball& ball)
 {
-	//	Ova funkcija se poziva kada lopta treci put dodirne granicu nivoa koji je istog vertikalnog odstojanja;
+	//	This function is called when the ball hits the level's bounds third time which the same vertical distance; 
+	//	It prevents the ball to constantly bounce horizontaly between walls.
 	int sign;
 	std::default_random_engine& random = mData.get_Random_Engine();
 
@@ -121,7 +118,6 @@ void BreakTrough_Logic::Ball_Random_direction_launch(bool is_left_boundry, BrkTr
 	std::uniform_int_distribution<int> j(15, 45);
 	float angle = static_cast<float>(sign * j(random));
 
-	//angle = -30;
 	angle = angle*(3.14 / 180);
 
 	float x;
@@ -141,48 +137,44 @@ void BreakTrough_Logic::Ball_Random_direction_launch(bool is_left_boundry, BrkTr
 
 void BreakTrough_Logic::Ball_Block_Collision_response(BrkTr_Ball& ball)
 {
-	
 	sf::FloatRect ball_bounds = ball.getBounds();
 	std::map<UINT, sf::FloatRect>	collided_bl_bounds;
 
 	for (UINT i = 0; i < pLevel_Manager->get_Number_of_Total_Blocks(); ++i)
 	{
-		//	Prvo proveravam da li je blok uopste ziv, ako jeste onda proveravamo granice.
+		//	First I check whether the block is alive.
 		if (pLevel_Manager->get_Block_Health(i) != 0)	
 		{
 			sf::FloatRect bl = pLevel_Manager->get_Block_Bounds(i);
 
 			if (bl.intersects(ball_bounds))
 			{
-				//	Ako ga udarila, ubacujem granicu bloka u zaseban kontejner za detaljan odgovor - bitno je ako je udarila
-				//	vise blokova.
+				//	If the ball hit the block, I put the block bounds in a seperate container -  this is 
+				//	crucial if the ball hitted more than one block;
 				collided_bl_bounds.insert(std::pair<UINT, sf::FloatRect>(i,bl));
 			}
 		}
 	}
-	//	Odgovor
+	//	Response
 	if (!collided_bl_bounds.empty())
 	{
-		//	Prvo gledam da li ima vise od jednog sudara sa blokom:
+		//	First I check if there is more than one block collision:
 		if (collided_bl_bounds.size() > 1)
 		{
-			//	Potom gledam koji sudar je skalarno veci.
-			//	Kada ga pronadjem lopta ce njega "udariti".
-			//	Ali odgovor na loptu ce biti drugaciji.
+			//	Then I check which collision has greater scalar value.
+			//	When I find it, the progam will register that the "ball hitted him".
+			//	But the response on the ball will be different.
 			
-			//	Pre toga, moram da proverim povrsinu preseka.
-			//	Ovde ih skupljam:
+			//	First, I need to calculate the area of intersection.
 			std::map<UINT, sf::FloatRect> intersections;
 			for (std::map<UINT, sf::FloatRect>::iterator it = collided_bl_bounds.begin(); it != collided_bl_bounds.end(); ++it)
 			{
 				sf::FloatRect intrs;
 				it->second.intersects(ball_bounds, intrs);
 				intersections.insert(std::pair<UINT, sf::FloatRect>(it->first, intrs));
-
 			}
 
-			//	Onda gledam koji je presek veci.
-			//	Kada pronadjem, on je "alfa" - njega ce lopta unistiti.
+			//	Then I determine which one is greater - "the alpha block" - the ball will hit him.
 			sf::FloatRect alpha_intrs;
 			UINT alpha_indice;
 			std::max_element(intersections.begin(), intersections.end(), [&](std::pair<UINT, sf::FloatRect> a, std::pair<UINT, sf::FloatRect> b)
@@ -201,10 +193,8 @@ void BreakTrough_Logic::Ball_Block_Collision_response(BrkTr_Ball& ball)
 				}
 			});
 
-			//	Ovde eventualno da stavim da se izbrise najmanji element, ako ih ima vise od dva.
-
-			//	Ubacujem drugi presek kao beta - "beta blok". Njega lopta nece unistiti, ali cu koristiti njegove granice da 
-			//	napravim odgovor za loptu.
+			//	I put the second intersection as - "beta block". The ball will not destroy him, but I will
+			//	use it's bounds to make a response to the ball.
 			UINT beta_indice;
 			for (std::map<UINT, sf::FloatRect>::iterator it = collided_bl_bounds.begin(); it != collided_bl_bounds.end(); ++it)
 			{
@@ -214,11 +204,11 @@ void BreakTrough_Logic::Ball_Block_Collision_response(BrkTr_Ball& ball)
 				}
 			}
 
-			//	Glavna granica - ona je spoj dve granice bloka koju je lopta udarila.
-			//	Oblik (da li ce biti uspravan ili lezeci pravougaonik) zavisi od mesta gde se nalazi "beta" blok.
+			//	The final bound - ut is the combination of the two blocks that the ball has hitted.
+			//	Shape (is it the horizontal or vertical rectangle) depends on the position of the "beta" block.
 			sf::FloatRect final_rect;
 
-			//	Ako su jedan do drugog sa leve ili sa desne strane:
+			//	if they are next to each other from left or right:
 			if (beta_indice == alpha_indice + 1)
 			{
 				final_rect.left = collided_bl_bounds.at(alpha_indice).left;
@@ -233,7 +223,7 @@ void BreakTrough_Logic::Ball_Block_Collision_response(BrkTr_Ball& ball)
 				final_rect.width = collided_bl_bounds.at(alpha_indice).width + collided_bl_bounds.at(beta_indice).width;
 				final_rect.height = collided_bl_bounds.at(alpha_indice).height;
 			}
-			//	Ako su jedno do drugog s gornje ili s donje strane:
+			//	if they are next to each other from up or down:
 			else if (beta_indice == alpha_indice - 10) 
 			{
 				final_rect.left = collided_bl_bounds.at(beta_indice).left;
@@ -248,20 +238,19 @@ void BreakTrough_Logic::Ball_Block_Collision_response(BrkTr_Ball& ball)
 				final_rect.width = collided_bl_bounds.at(alpha_indice).width;
 				final_rect.height = collided_bl_bounds.at(alpha_indice).height + collided_bl_bounds.at(beta_indice).height;
 			}
-			//	Za sada, treba i dijagonalno da se misli... to cu kasnije i ovo je dovoljno.
 
-			//	I konacno odgovor:
+			//	Finally, the response:
 			Ball_Block_Response(ball, final_rect);
 			Block_hit(alpha_indice, final_rect);
-			boundry_hits.clear();	 //	Brisem prethodne udarce o zid;
+			boundry_hits.clear();
 		}
 		else
 		{
-			//	Ako postoji samo jedan onda samo dajem odgovor:
+			//	If there is only a collision with one block, then it is simple:
 			std::map<UINT, sf::FloatRect>::iterator it = collided_bl_bounds.begin();
 			Ball_Block_Response(ball, it->second);
 			Block_hit(it->first, it->second);
-			boundry_hits.clear();	 //	Brisem prethodne udarce o zid;
+			boundry_hits.clear();
 		}
 	}
 
@@ -272,27 +261,25 @@ void BreakTrough_Logic::Ball_Level_Collision_response(BrkTr_Ball& ball)
 	sf::FloatRect ball_bounds = ball.getBounds();
 	sf::FloatRect level_bounds = pLevel_Manager->get_Level_Bounds();
 
-
-
-	// Ovde se brise lopta kada dodirne dno.
-	if (ball_bounds.top + ball_bounds.height > level_bounds.top + level_bounds.height)	//	Kada dodirne dno
+	// 	Ball is deleted here when it reaches the bottom.
+	if (ball_bounds.top + ball_bounds.height > level_bounds.top + level_bounds.height)
 	{
 		ball.set_delete(true);
-		boundry_hits.clear();	 //	Brisem prethodne udarce o zid;
+		boundry_hits.clear();	 
 		erase_ball = true;
 	}
-	//	Lopta ce se odbiti samo kada je njena vektorsa speed u suprotnosti od mesta gde je izasla iz nivoa.
+	//	Ball will bounce from top border only when her vector speed is lower that the top of the level bounds.
 	else if (ball_bounds.top < level_bounds.top)
 	{
 		if (ball.getVelocity().y < 0)
 		{
 			mData.Play_Sound(Break::snd_Wall_hit);
 			ball.bounce(false);
-			boundry_hits.clear();	 //	Brisem prethodne udarce o zid;
+			boundry_hits.clear();	
 		}
 	}
 	
-	//	Proveravam da li je lopta udarila levu stranu nivoa.
+	//	Checking whether the ball has hit the left side of the level.
 	for (const auto& it : pLevel_Manager->get_Left_Boundries())
 	{
 		if (it.second.intersects(ball_bounds))
@@ -300,23 +287,23 @@ void BreakTrough_Logic::Ball_Level_Collision_response(BrkTr_Ball& ball)
 			if (boundry_hits.size() >= 3)
 			{
 				Ball_Random_direction_launch(true, ball);
-				boundry_hits.clear();	 //	Brisem prethodne udarce o zid;
+				boundry_hits.clear();
 			}
 			else
 			{
 				if (ball.getVelocity().x < 0)
 				{
 					mData.Play_Sound(Break::snd_Wall_hit);
-					boundry_hits.push_back(it.first);	//	Dodaje tip pozicije granice koji je udaren; 
-														//	Kada lopta tri puta udari granicu istog tipa pozicije, 
-														//	lopta biva usmerena na nasumicnu direkciju;
+					boundry_hits.push_back(it.first);	//	Adds the type of boundry that is hit;
+										//	When the ball hits three times the boundry of the same type, 
+										//	the ball is given a radnom dierction;
 					ball.bounce(true);
 				}
 			}
 		}
 	}
 
-	//	Proveravam da li je lopta udarila levu stranu nivoa.
+	//	Checking whether the ball has hit the right side of the level.
 	for (const auto& it : pLevel_Manager->get_Right_Boundries())
 	{
 		if (it.second.intersects(ball_bounds))
@@ -324,16 +311,16 @@ void BreakTrough_Logic::Ball_Level_Collision_response(BrkTr_Ball& ball)
 			if (boundry_hits.size() >= 3)
 			{
 				Ball_Random_direction_launch(false, ball);
-				boundry_hits.clear();	 //	Brisem prethodne udarce o zid;
+				boundry_hits.clear();
 			}
 			else
 			{
 				if (ball.getVelocity().x > 0)
 				{
 					mData.Play_Sound(Break::snd_Wall_hit);
-					boundry_hits.push_back(it.first);	//	Dodaje tip pozicije granice koji je udaren; 
-														//	Kada lopta tri puta udari granicu istog tipa pozicije, 
-														//	lopta biva usmerena na nasumicnu direkciju;
+					boundry_hits.push_back(it.first);	//	Adds the type of boundry that is hit;
+										//	When the ball hits three times the boundry of the same type, 
+										//	the ball is given a radnom dierction;
 					ball.bounce(true);
 				}
 			}
@@ -345,10 +332,10 @@ void BreakTrough_Logic::Ball_Level_Collision_response(BrkTr_Ball& ball)
 
 void BreakTrough_Logic::Ball_Paddle_Collision_response(BrkTr_Ball& ball)
 {
-	//	Kada je lopta zalepljen, onda se racuna njena pozicija na pedali i onda se osvezava dokle god je zalepljena.
+	//	When ball is glued, the it is calculated it's position on the paddle and refreshed as long is on a paddle.
 	if (ball.sticked())
 	{
-		//	Treba da se izracuna samo jednom.
+		//	Needs to be calculated only once.
 		if (ball.is_calculated())
 		{
 			ball.setPosition_on_Paddle(ball.getPosition().x - pPlayer->get_Paddle().getPosition().x);
@@ -359,15 +346,12 @@ void BreakTrough_Logic::Ball_Paddle_Collision_response(BrkTr_Ball& ball)
 
 	if (ball.getBounds().intersects(pPlayer->get_Paddle().getBounds()))
 	{
-		//	Brisem prethodne udarce o zid;
 		boundry_hits.clear();
-
-		//	Uzimam vektorsku brzinu.
 		sf::Vector2f vel = Ball_velocity_calculation(ball);
-		//	Ako je pedala lepljiva, onda moram da izracunam poziciju na pedali i da je osvezavam (gore)
+
 		if (pPlayer->get_Current_Paddle_Type() == Break::Paddle_Sticky)
 		{
-			//	Ako lopta nije lepljiva, onda treba samo jednom da se izracuna.
+			//	When ball launches from a sticky paddle.
 			if (!ball.sticked())
 			{
 				mData.Play_Sound(Break::snd_Paddle_hit);
@@ -376,7 +360,7 @@ void BreakTrough_Logic::Ball_Paddle_Collision_response(BrkTr_Ball& ball)
 				ball.setStored_Velocity(sf::Vector2f(mData.get_Speed(pPlayer->get_Current_Ball_Speed())*vel.x, mData.get_Speed(pPlayer->get_Current_Ball_Speed())*vel.y));
 			}
 		}
-		//	Onda samo odbijam loptu koristeci proizvod vektorsku brzine i skalarne brzine.
+		//	Normal bounce
 		if (!ball.sticked())
 		{
 			mData.Play_Sound(Break::snd_Paddle_hit);
@@ -387,16 +371,15 @@ void BreakTrough_Logic::Ball_Paddle_Collision_response(BrkTr_Ball& ball)
 
 void BreakTrough_Logic::PowerUp_Behavior()
 {
-	//	Proveravam da li pada - u protivnom ce se srusiti program.
+
 	if (pLevel_Manager->does_PowerUp_falls())
 	{
-		//	Uzimam tip pojacanja.
+		//	Taking the type of powerup.
 		Break::PowerUp_ID	ID = pLevel_Manager->get_PowerUp()->pass_ID();
 		if (pLevel_Manager->get_PowerUp()->getBounds().intersects(pPlayer->get_Paddle().getBounds()))
 		{
-			//	Igrac uzima pojacanje
 			pPlayer->take_PowerUp(ID);
-			//	Kada ga uzme, bice drugacije ponasanje za UI.
+			//	When player takes the power up, theese will have different behavior for the UI than "standard" power ups.
 			if (ID != Break::pID_Extra_Life && ID != Break::pID_Triple_Ball)
 			{
 				pUI_Manager->add_PowerUp(ID);
@@ -405,19 +388,19 @@ void BreakTrough_Logic::PowerUp_Behavior()
 			{
 				pUI_Manager->add_life();
 			}
-			//	Ako je lose pojacanje.
+			//	When the power up is bad, apply negative efefcts, but give player bigger score
 			if (ID == Break::pID_Shrink_Paddle || ID == Break::pID_Fast_Ball)
 			{
 				Increase_Score(mData.get_Score_increase(Break::score_badpowerup));
 			}
 			else
-			{	//	Povecanje rezultata
+			{	//	otherwise, give player normal score
 				Increase_Score(mData.get_Score_increase(Break::score_large));
 			}
 			pLevel_Manager->delete_PowerUp();
 			mData.Play_Sound(Break::snd_PowerUp_taken);
 		}
-		//	Ako dodirne dno, brise se.
+		//	if it reaches the bottom the power up is deleted;
 		else if (!pLevel_Manager->get_PowerUp()->getBounds().intersects(pLevel_Manager->get_Level_Bounds()))
 		{
 			pLevel_Manager->delete_PowerUp();
@@ -427,12 +410,11 @@ void BreakTrough_Logic::PowerUp_Behavior()
 
 void BreakTrough_Logic::PowerUp_Creation(sf::FloatRect param)
 {
-	//	Daje se nasumicnu sansu da se napravi pojacanje.
+	//	It gives the random chance to create power up - about 20% chance
 	if (!pLevel_Manager->does_PowerUp_falls())
 	{
 		std::uniform_int_distribution<int>	dis(0, 99);
 		UINT number = dis(mData.get_Random_Engine());
-		//	Ima 20% sanse da se pojavi pojacanje.
 		if (number < 20)
 		{
 			pLevel_Manager->create_PowerUp(param);
@@ -442,33 +424,32 @@ void BreakTrough_Logic::PowerUp_Creation(sf::FloatRect param)
 
 void BreakTrough_Logic::Laser_Behavior_and_Block_Collision()
 {
-	//	Mora da postoji prekidac za brisanje - u protivnom moze da se srusi program.
+	//	There has to be a bool for laser erasion, otherwise the program will crash.
 	bool erase_laser = false;
 	if (pPlayer->has_fired_check())
 	{
 		sf::FloatRect laser_bounds = pPlayer->get_Laser()->getBounds();
 		sf::FloatRect level_bounds = pLevel_Manager->get_Level_Bounds();
-		//	Moram da namestim da laser ne napusta nivo sa strane.
+		//	Laser must not cross the left or right border of the level
 		if ((laser_bounds.left < level_bounds.left) || (laser_bounds.left + laser_bounds.width > level_bounds.left + level_bounds.width))
 		{
 			pPlayer->get_Laser()->setPosition(pPlayer->get_Paddle().getPosition());
 		}
-		//	Kada laser napusti nivo, onda se brise.
+		//	Laser is delelted when it leaves the level bounds.
 		if (!laser_bounds.intersects(level_bounds))
 		{
 			mData.Play_Sound(Break::snd_Wall_hit);
 			erase_laser = true;
 			pPlayer->delete_Laser();
 		}
-		//	Laser takodje mora da prodje kroz sve blokove.
+		//	Laser is also deleted when it hits the block
 		for (UINT i = 0; i < pLevel_Manager->get_Number_of_Total_Blocks(); ++i)
 		{
-			if (pLevel_Manager->get_Block_Health(i) != 0)	//	Prvo proveravam da li je blok uopste ziv, ako jeste onda proveravamo granice.
+			if (pLevel_Manager->get_Block_Health(i) != 0)	//	Checking is the block alive.
 			{
 				sf::FloatRect bl = pLevel_Manager->get_Block_Bounds(i);
 				if (pPlayer->has_fired_check())
 				{
-					//	Dok listam kod blokova, nije na odmet da pogledam da li ga i laser pogadja
 					if (bl.intersects(pPlayer->get_Laser()->getBounds()))
 					{
 						erase_laser = true;
@@ -489,7 +470,6 @@ void BreakTrough_Logic::Laser_Behavior_and_Block_Collision()
 
 void BreakTrough_Logic::Ball_Lost()
 {
-	//	Kada lopta dodirne dno:
 	if (erase_ball)
 	{
 		pPlayer->delete_Ball();
@@ -506,15 +486,14 @@ void BreakTrough_Logic::Ball_Lost()
 
 void BreakTrough_Logic::Ball_Block_Response(BrkTr_Ball& ball, sf::FloatRect bl)
 {
-
-	//	Posebna funkcija za odbijanje lopte od bloka ili blokova.
-	//	Drugi parametar je granica jednog ili dva bloka.
+	//	Special function for ball response to one or two blocks.
+	//	Second parameter is the bounds of one or both blocks.
 
 	sf::FloatRect ball_bounds = ball.getBounds();
 
 	sf::Vector2f bounced_distance = sf::Vector2f(mData.get_Component_Sizes(Break::size_Ball).x / 2, mData.get_Component_Sizes(Break::size_Ball).y / 2);
 
-	//	Pravim okvir za odgovor od bloka.
+	//	Making the bounds for response from the block(s).
 	sf::FloatRect top_border = sf::FloatRect(bl.left, bl.top, bl.width, 1);
 	sf::FloatRect top_intersection;
 	sf::FloatRect bottom_border = sf::FloatRect(bl.left, bl.top + bl.height, bl.width, 1);
@@ -531,48 +510,42 @@ void BreakTrough_Logic::Ball_Block_Response(BrkTr_Ball& ball, sf::FloatRect bl)
 
 	if (left_intersection.height > top_intersection.width && left_intersection.height > bottom_intersection.width && left_intersection.height != 0)
 	{
-		//	Lopta dolazi sleva:
+		//	Ball comes from left:
 		ball.bounce(true);
 		ball.move(-bounced_distance.x, 0);
 	}
 	else if (right_intersection.height > top_intersection.width && right_intersection.height > bottom_intersection.width && right_intersection.height != 0)
 	{
-		//	Lopta dolazi sdesna:
+		//	Ball comes from right:
 		ball.bounce(true);
 		ball.move(bounced_distance.x, 0);
 	}
 	else if (top_intersection.width > right_intersection.height && top_intersection.width > left_intersection.height && top_intersection.width != 0)// Poslednji parametar da uzmem sa rezervom.
 	{
-		//	Lopta dolazi odozgo:
+		//	Ball comes from up:
 		ball.bounce(false);
 		ball.move(0, -bounced_distance.y);
 	}
 	else if (bottom_intersection.width > right_intersection.height && bottom_intersection.width > left_intersection.height && bottom_intersection.width != 0)
 	{
-		//	Lopta dolazi odozdo:
+		//	Ball comes from bellow:
 		ball.bounce(false);
 		ball.move(0, bounced_distance.y);
 	}
-	else
-	{
-		//	Da ne zaboravim - sta da se uradi ako lopta ide toliko brzo da udje u blok!
-		//	Dodati ovde:
 
-
-	}
 }
 
 void BreakTrough_Logic::Increase_Score(UINT param)
 {
-	//	Funkcija za povecavanje rezultata.
-	//	Uzima trenutan rezultat i povecava ga.
+	//	Function for score increase.
+	//	Takes the current score and increases it.
 	
 	UINT old_score = mData.get_Object_Quantities(Break::Score_Number);
 	mData.set_Object_Quantities(Break::Score_Number, old_score + param);
 	pUI_Manager->change_score(mData.get_Object_Quantities(Break::Score_Number));
 
-	//	Takodje povecava i drugi rezultat, koji sluzi da se doda zivot kad god predje 1000 poena.
-	//	Potom se oduzima sa 1000 i onda jovo nanovo.
+	//	Also it increases the score buffer, which is used to give a life to the player when it reaches 1000 points.
+	//	Then it is substracted with 1000 and rinse and repeat.
 	score_buffer += param;
 	if (score_buffer >= 1000)
 	{
@@ -586,15 +559,12 @@ void BreakTrough_Logic::Increase_Score(UINT param)
 
 void BreakTrough_Logic::Reset_Block_animations()
 {
-	//	Resetujem animacije
 	for (UINT i = 0; i < pLevel_Manager->get_Number_of_Total_Blocks(); ++i)
 	{
-		//	Prvo proveravam da li je blok uopste ziv, ako nije, onda ga preskacemo.
 		if (pLevel_Manager->get_Block_Health(i) != 0)	
 		{
 			if (pLevel_Manager->get_Block_ID(i) == Break::bID_Grey || pLevel_Manager->get_Block_ID(i) == Break::bID_Gold)
 			{
-				//	Resetujemo animacije
 				pLevel_Manager->reset_Block_Texture_coordinates(i, pLevel_Manager->get_Block_ID(i));
 			}
 		}
@@ -604,22 +574,22 @@ void BreakTrough_Logic::Reset_Block_animations()
 void BreakTrough_Logic::Block_hit(UINT indice, sf::FloatRect bl_bound)
 {
 	mData.Play_Sound(Break::snd_Block_hit);
-	//	Proveravam da li su blokovi "specijalni"
+	//	Checking whether the blocks are special
 	if (pLevel_Manager->get_Block_ID(indice) == Break::bID_Grey || pLevel_Manager->get_Block_ID(indice) == Break::bID_Gold)
 	{
-		//	Ako jesu, da se izvede animacija udarca.
+		//	If so, then it needs to call a hit animation.
 		pLevel_Manager->animate_Block_hit(indice, pLevel_Manager->get_Block_ID(indice));
 	}
 	if (pLevel_Manager->get_Block_Health(indice) > 0)
 	{
-		//	Smanjujem zdravlje bloka, potom proveravam da li je na nuli - ako jeste, onda ga brisem.
+		//	Decreasing the health of a block - if it hits zero, then I delete the block.
 		pLevel_Manager->decrease_Block_Health(indice);
 		if (pLevel_Manager->get_Block_Health(indice) == 0)
 		{
 			pLevel_Manager->delete_Block(indice);
-			//	Pozivam funkciju za pojacanje.
+			//	Calling the power up creation function;
 			PowerUp_Creation(bl_bound);
-			//	Povecavam rezultat;
+			//	Score increase function;
 			if (pLevel_Manager->get_Block_ID(indice) == Break::bID_Grey)
 			{
 				Increase_Score(mData.get_Score_increase(Break::score_medium));
