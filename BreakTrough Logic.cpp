@@ -520,7 +520,7 @@ void BreakTrough_Logic::Ball_Block_Response(BrkTr_Ball& ball, sf::FloatRect bl)
 		ball.bounce(true);
 		ball.move(bounced_distance.x, 0);
 	}
-	else if (top_intersection.width > right_intersection.height && top_intersection.width > left_intersection.height && top_intersection.width != 0)// Poslednji parametar da uzmem sa rezervom.
+	else if (top_intersection.width > right_intersection.height && top_intersection.width > left_intersection.height && top_intersection.width != 0)
 	{
 		//	Ball comes from up:
 		ball.bounce(false);
