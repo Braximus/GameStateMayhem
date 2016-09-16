@@ -8,8 +8,4 @@ class Quata_UI_Objects : public sf::Drawable, public sf::Transformable
 public:
 	virtual void		draw(sf::RenderTarget&, sf::RenderStates) const = 0;
 };
-
-
-
-
 #endif
