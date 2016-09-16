@@ -17,13 +17,5 @@ public:
 
 	void				resetTimer();
 	const float			getTimer() const;
-
-
-
 };
-
-
-
-
-
 #endif 
