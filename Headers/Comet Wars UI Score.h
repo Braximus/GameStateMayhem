@@ -15,10 +15,4 @@ public:
 	void					update(sf::Time&);
 	void					refresh_score(UINT);
 };
-
-
-
 #endif
-
-
-
