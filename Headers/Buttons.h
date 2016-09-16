@@ -24,12 +24,12 @@ private:
 	Text_pos				mDefault_Text_position;
 public:
 	Button() {};
-	//		Konstruktori ce stavljati podrazumevane vrednosti...
+
 	explicit				Button(std::string button_name, const sf::Font& font, float char_size);
 	explicit				Button(const sf::Texture& texture, sf::IntRect tex_rect);
 	~Button() {};
 	void					draw(sf::RenderTarget& target, sf::RenderStates states) const;
-	//		Funkcije za pravljenje dugmeta.
+
 	void					insert_Scale(float);
 	void					set_Bounds();
 	void					set_Colors(sf::Color selection, sf::Color text, sf::Color dimmed = sf::Color(32,32,32,255));
@@ -48,7 +48,4 @@ public:
 	const std::string		getButton_name() const;
 
 };
-
-
-
 #endif
