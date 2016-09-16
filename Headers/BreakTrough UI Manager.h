@@ -12,10 +12,9 @@ class BreakTrough_Data;
 class BreakTrough_UI_Manager
 {
 	BreakTrough_Data&		mData;
-	
 	BrkTr_UI_Lives			mLives;
 	BrkTr_UI_Score			mScore;
-	BrkTr_Active_PowerUps	mActivePower_Ups;
+	BrkTr_Active_PowerUps		mActivePower_Ups;
 
 	std::unique_ptr<BrkTr_Overlay>			pOverlay;
 	std::unique_ptr<BreakTrough_Pause>		pPause;
@@ -42,12 +41,5 @@ public:
 	const float		get_remaining_PowerUp_time(Break::PowerUp_ID) const;
 
 	void			change_score(UINT param);	
-
-	
-
-
 };
-
-
-
 #endif
