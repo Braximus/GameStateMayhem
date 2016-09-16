@@ -32,12 +32,12 @@ namespace Menus
 	enum Distances
 	{
 		dis_VeryNear,		//	5	px
-		dis_Near,			//	15	px
-		dis_Medium,			//	50	px
-		dis_Long,			//	75	px
-		dis_Far,			//	100	px
+		dis_Near,		//	15	px
+		dis_Medium,		//	50	px
+		dis_Long,		//	75	px
+		dis_Far,		//	100	px
 		dis_VeryFar,		//	200	px
-		dis_ExtremlyFar		//	300 px
+		dis_ExtremlyFar		//	300	px
 	};
 
 	enum Key_positions
