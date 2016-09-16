@@ -23,10 +23,4 @@ public:
 
 	const bool		is_fading() const;
 };
-
-
-
-
-
-
 #endif
