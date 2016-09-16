@@ -10,8 +10,8 @@ class Data
 	//--------------------------//
 	//-------Global_Data--------//
 	//--------------------------//
-	eState						mStateID;					//	Labels current state of the application;
-	float						mScaleCoefficient;			//	It is applied to the sizes of objects;
+	eState						mStateID;		//	Labels current state of the application;
+	float						mScaleCoefficient;	//	It is applied to the sizes of objects;
 	bool						DebugOnOff;					
 	bool						setHardwareCursorOnOff;		
 	sf::Sprite					mMouse_Cursor;
@@ -19,7 +19,7 @@ class Data
 	//-------Window_Data--------//
 	//--------------------------//	
 	sf::RenderWindow&			mWindow;					
-	sf::ContextSettings			mSettings;					//	OpenGL context settings, used solely for changing AntiAliasing;
+	sf::ContextSettings			mSettings;			//	OpenGL context settings, used solely for changing AntiAliasing;
 	std::vector<UINT>			mAntiAliasing;
 	UINT						mAA_Index;
 	bool						mVsync;						
@@ -27,7 +27,7 @@ class Data
 	//--------------------------//
 	//--------Video Mode--------//
 	//--------------------------//
-	UINT						mVideoModeIndex;			//	This number determens which resolution is used;
+	UINT						mVideoModeIndex;	//	This number determens which resolution is used;
 	std::vector<sf::VideoMode>	mVideo_Modes;					
 	void						updateVideoModes();			
 	//--------------------------//
