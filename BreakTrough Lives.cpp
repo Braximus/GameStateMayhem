@@ -23,7 +23,7 @@ BrkTr_UI_Lives::BrkTr_UI_Lives(BreakTrough_Data& data)
 	m_Background.setOutlineColor(sf::Color::Yellow);
 	m_Background.setOutlineThickness(-1);
 	m_Background.setFillColor(sf::Color(32, 32, 32, 255));
-	m_Background.setSize(sf::Vector2f(m_Life.getSize().x /*+ data.get_Distances(Break::dis_Near)*/, 5*(m_Life.getSize().y + m_Lives_distance) ));
+	m_Background.setSize(sf::Vector2f(m_Life.getSize().x, 5*(m_Life.getSize().y + m_Lives_distance) ));
 	m_Background.setPosition(m_Life.getPosition().x - data.get_Distances(Break::dis_Medium), m_Life.getPosition().y - data.get_Distances(Break::dis_Medium));
 
 	m_Vertices.setPrimitiveType(sf::Quads);
@@ -102,7 +102,7 @@ void BrkTr_UI_Lives::draw(sf::RenderTarget& target, sf::RenderStates state) cons
 
 void BrkTr_UI_Lives::add_life()
 {
-	//	Zivoti se dodaju jedno ispod drugog, na poslednjem elemetnu.
+	//	New life object is added bellow the last one.
 	size_t i = std::distance(m_Lives.begin(), m_Lives.end());
 	sf::RectangleShape	spr = m_Life;
 	spr.setPosition(m_Life.getPosition().x, m_Life.getPosition().y + i * m_Lives_distance);
@@ -111,7 +111,6 @@ void BrkTr_UI_Lives::add_life()
 
 void BrkTr_UI_Lives::delete_life()
 {
-	//	Zivoti se brisu od poslednjeg elementa.
 	if (m_Lives.size() != 0)
 	{
 		m_Lives.pop_back();
