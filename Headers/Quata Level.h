@@ -16,8 +16,8 @@ class Quata_Level
 	sf::Time	mBall_cooldown_time;
 	bool		is_ball_on_cooldown;
 public:
-	explicit						Quata_Level(QuataData&);
-	std::deque<QuataObjects*>		pass_pointers();
+	explicit					Quata_Level(QuataData&);
+	std::deque<QuataObjects*>			pass_pointers();
 	void							update(sf::Time&);
 
 	void							start_ball();
@@ -30,9 +30,4 @@ public:
 	const sf::Vector2f				get_Ball_Position() const;
 
 };
-
-
-
-
-
 #endif
