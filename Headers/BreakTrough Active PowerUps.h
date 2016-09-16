@@ -34,7 +34,7 @@ public:
 	void		add_PowerUp(Break::PowerUp_ID);
 	void		remove_PowerUp(Break::PowerUp_ID);
 	void		remove_all_PowerUps();
-	const float get_remaining_time(Break::PowerUp_ID) const;
+	const floa	get_remaining_time(Break::PowerUp_ID) const;
 };
 
 
