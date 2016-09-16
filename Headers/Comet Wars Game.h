@@ -26,23 +26,19 @@ class CometWarsGame
 	CometWars_Player				mPlayer;
 	Comet_Manager					mCometManager;
 	CometWars_UI_Manager			mUImanager;
-	CometWarsLogic					mLogic;
+	CometWarsLogic				mLogic;
 	CometWars_Deco_Manager			mDecorationManager;
 
 	void							LoadGame();
 	void							LoadSubStates(CW::SubStates);
 	void							EndGame(bool);
-
-	//std::map<CW::SubStates, pGame_SubStates>				mSubStates;
-	
 	std::unique_ptr<CometWarsSubStates>		pSubState;
 
 	std::deque<CometWars_Game_Objects*>		mGame_object_pointers_for_draw;
 	std::deque<CometWars_UI_Objects*>		mUI_object_pointers_for_draw;
-	std::deque<CometWars_Deco_Base_Class*>	mDecoration_object_pointers_for_draw;
+	std::deque<CometWars_Deco_Base_Class*>		mDecoration_object_pointers_for_draw;
 
 	void			get_pointers();
-	
 public:
 	explicit		CometWarsGame(Data&);
 
@@ -51,7 +47,5 @@ public:
 	void			handleEvents(sf::Event&);
 	void			handleRealTimeInput();
 	void			RestartGame();
-
 };
-
 #endif
