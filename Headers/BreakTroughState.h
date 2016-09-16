@@ -18,6 +18,4 @@ public:
 	void				handleEvents(sf::Event&);
 	void				handleRealTimeInput();
 };
-
-
 #endif
