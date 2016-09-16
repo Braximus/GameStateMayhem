@@ -3,7 +3,7 @@
 
 #include "Quata Paddle.h"
 
-//	Trenutno, "vestacka inteligencija" ce samo da prati loptu.
+//	Currently, the AI will only follow the ball;
 class QuataData;
 
 class QuataAI
