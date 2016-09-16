@@ -20,15 +20,5 @@ public:
 
 	void			setPosition(sf::Vector2f param);
 	void			setVelocity(sf::Vector2f param);
-
-
 };
-
-
-
-
-
-
-
-
 #endif
