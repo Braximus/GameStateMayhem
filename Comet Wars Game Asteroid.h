@@ -24,9 +24,4 @@ public:
 	void						changeDamageStatus();
 	const	CW::AsteroidDamage	getDamage() const;
 };
-
-
-
-
-
 #endif
