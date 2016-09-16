@@ -10,17 +10,15 @@
 #include "Credits.h"
 
 class Data;
-//	Ova klasa inicijalizuje i manipulise svim menijima, koji postoje kao podstanja.
 
+//	This class creates and manipulates with menus, who behave like substates
 class Menu_Manager 
 {
-
-	Data&										mData;
-	MenuData									mMenu_Data;
+	Data&						mData;
+	MenuData					mMenu_Data;
 	typedef	std::unique_ptr<Menu_SubStates>		pSubStates;
-	Menus::SubStates							mCurrentSubState;
+	Menus::SubStates				mCurrentSubState;
 	std::map<Menus::SubStates, pSubStates>		cont_SubState_container;
-	
 public:
 	Menu_Manager(Data&);
 
@@ -28,9 +26,5 @@ public:
 	void			update(sf::Time&);
 	void			handleEvents(sf::Event& mEvent);
 	void			handleRealTimeInput();
-
 };
-
-
-
 #endif
