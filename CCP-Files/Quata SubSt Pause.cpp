@@ -33,7 +33,7 @@ void QuataPauseSubState::handle_Events(sf::Event& param)
 		if (param.key.code == sf::Keyboard::Escape)
 		{
 			pUI->delete_Pause();
-			mData.changeSubState(Qua::Play);	//	Treba da stavim previous state!
+			mData.changeSubState(Qua::Play);
 			mData.Play_Sound(Qua::snd_Escape);
 		}
 	}
@@ -69,7 +69,6 @@ void QuataPauseSubState::handle_Events(sf::Event& param)
 				mData.changeSubState(Qua::Start);
 			}
 		}
-		
 	}
 }
 
