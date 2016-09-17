@@ -15,7 +15,6 @@ Check::Check(const sf::Texture& texture, const std::vector<sf::IntRect>& tex_rec
 	mCheck.setTextureRect(mTexRects.at(Not_selected));
 
 	mActivated = false;
-
 }
 
 void Check::draw(sf::RenderTarget& target, sf::RenderStates state) const
