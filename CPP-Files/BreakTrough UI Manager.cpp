@@ -87,7 +87,6 @@ void BreakTrough_UI_Manager::show_or_hide_Pause(bool param)
 
 void BreakTrough_UI_Manager::interact_pause(sf::Vector2f param)
 {
-	//	Za slucaj da ne postoji...
 	if (show_pause)
 		pPause->interact(param);
 }
