@@ -11,7 +11,6 @@ Quata_Playfield::Quata_Playfield(QuataData& data)
 
 	sf::Vector2f center = data.get_Key_Position(Qua::kp_Center_Screen);
 
-	//Level.setFillColor(sf::Color(16, 16, 16, 255));
 	Level.setTexture(&data.get_Resources().getTexture(ID_Quata_table));
 	Level.setSize(data.get_Object_Size(Qua::size_Playground));
 	sf::FloatRect bound = Level.getLocalBounds();
@@ -21,22 +20,21 @@ Quata_Playfield::Quata_Playfield(QuataData& data)
 	sf::Vector2f screensize = data.get_Object_Size(Qua::size_Playground);
 	sf::Vector2f lineWidth = data.get_Object_Size(Qua::size_LineThickness);
 
-	m_LineVertices[0].position = sf::Vector2f(center.x - lineWidth.x, center.y - screensize.y / 2);	//	width/2 - debljina linije, 0
-	m_LineVertices[1].position = sf::Vector2f(center.x + lineWidth.x, center.y - screensize.y / 2);	//	width/2 + debljina linije, 0
-	m_LineVertices[2].position = sf::Vector2f(center.x + lineWidth.x, center.y + screensize.y / 2);	//	width/2 + debljina linije, height
-	m_LineVertices[3].position = sf::Vector2f(center.x - lineWidth.x, center.y + screensize.y / 2);	//	width/2 - debljina linije, height
+	m_LineVertices[0].position = sf::Vector2f(center.x - lineWidth.x, center.y - screensize.y / 2);	
+	m_LineVertices[1].position = sf::Vector2f(center.x + lineWidth.x, center.y - screensize.y / 2);	
+	m_LineVertices[2].position = sf::Vector2f(center.x + lineWidth.x, center.y + screensize.y / 2);	
+	m_LineVertices[3].position = sf::Vector2f(center.x - lineWidth.x, center.y + screensize.y / 2);
 
-	m_LineVertices[4].position = sf::Vector2f(center.x - screensize.x / 2, center.y - screensize.y / 2);					//	0,0
-	m_LineVertices[5].position = sf::Vector2f(center.x + screensize.x / 2, center.y - screensize.y / 2);					//	width, 0
-	m_LineVertices[6].position = sf::Vector2f(center.x + screensize.x / 2, (center.y - screensize.y / 2) + lineWidth.y);	//	width, 0 + debljina linije
-	m_LineVertices[7].position = sf::Vector2f(center.x - screensize.x / 2, (center.y - screensize.y / 2) + lineWidth.y);	//	0, 0 + debljina linije
+	m_LineVertices[4].position = sf::Vector2f(center.x - screensize.x / 2, center.y - screensize.y / 2);
+	m_LineVertices[5].position = sf::Vector2f(center.x + screensize.x / 2, center.y - screensize.y / 2);
+	m_LineVertices[6].position = sf::Vector2f(center.x + screensize.x / 2, (center.y - screensize.y / 2) + lineWidth.y);
+	m_LineVertices[7].position = sf::Vector2f(center.x - screensize.x / 2, (center.y - screensize.y / 2) + lineWidth.y);
 
-	m_LineVertices[8].position = sf::Vector2f(center.x - screensize.x / 2, (center.y + screensize.y / 2 - lineWidth.y));	//	0, height - debljina linije
-	m_LineVertices[9].position = sf::Vector2f(center.x + screensize.x / 2, (center.y + screensize.y / 2 - lineWidth.y));	//	width, height - debljina linije
-	m_LineVertices[10].position = sf::Vector2f(center.x + screensize.x / 2, center.y + screensize.y / 2);					//	width, height
-	m_LineVertices[11].position = sf::Vector2f(center.x - screensize.x / 2, center.y + screensize.y / 2);					//	0, height
+	m_LineVertices[8].position = sf::Vector2f(center.x - screensize.x / 2, (center.y + screensize.y / 2 - lineWidth.y));
+	m_LineVertices[9].position = sf::Vector2f(center.x + screensize.x / 2, (center.y + screensize.y / 2 - lineWidth.y));
+	m_LineVertices[10].position = sf::Vector2f(center.x + screensize.x / 2, center.y + screensize.y / 2);
+	m_LineVertices[11].position = sf::Vector2f(center.x - screensize.x / 2, center.y + screensize.y / 2);
 
-	//	Boje
 
 	m_LineVertices[0].color = sf::Color::White;
 	m_LineVertices[1].color = sf::Color::White;
@@ -52,8 +50,6 @@ Quata_Playfield::Quata_Playfield(QuataData& data)
 	m_LineVertices[9].color = sf::Color::Red;
 	m_LineVertices[10].color = sf::Color::Red;
 	m_LineVertices[11].color = sf::Color::Green;
-
-	//	Pozadina:
 
 	m_BackgroundVertices.setPrimitiveType(sf::Quads);
 	sf::IntRect tx = data.get_Texture_rects(Qua::intrect_Background1);
@@ -109,7 +105,7 @@ void Quata_Playfield::draw(sf::RenderTarget& target, sf::RenderStates state) con
 
 void Quata_Playfield::setPosition(sf::Vector2f)
 {
-	// podrazumevano nista
+	//
 }
 
 const sf::Vector2f Quata_Playfield::getPosition() const
