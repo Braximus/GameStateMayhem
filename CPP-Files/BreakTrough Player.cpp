@@ -18,7 +18,7 @@ BreakTrough_Player::BreakTrough_Player(BreakTrough_Data& data)
 	previous_mouse_pos = static_cast<sf::Vector2f>(mData.get_Mouse_Coordinates());
 	mCurrent_type = Break::Paddle_Default;
 	mPrevious_type = mCurrent_type;
-	//	Ovo bi trebalo da postavi pedalu i loptu na startnu poziciju!
+
 	mBalls.at(0).reset_or_stick_Ball(sf::Vector2f(mPaddle.getPosition().x, mPaddle.getPosition().y - 2 * mData.get_Component_Sizes(Break::size_Ball).x));
 
 }
@@ -51,8 +51,6 @@ void BreakTrough_Player::update(sf::Time& time)
 		remove_PowerUp(temp_id);
 	}
 	mPaddle.update(time);
-
-	
 }
 
 std::deque<BrkTr_Game_Objects*> BreakTrough_Player::pass_Pointers()
@@ -103,7 +101,7 @@ const bool BreakTrough_Player::has_fired_check() const
 void BreakTrough_Player::create_Balls()
 {
 	float x, y, ugaono_odstojanje;
-	//	Prva lopta
+	//	First ball
 	BrkTr_Ball ball1(mData);
 	mBalls.push_back(ball1);
 	ugaono_odstojanje = static_cast<float>(30 * (3.14 / 180));
@@ -112,7 +110,7 @@ void BreakTrough_Player::create_Balls()
 	mBalls.at(1).setPosition(mBalls.at(0).getPosition());
 	sf::Vector2f speed = sf::Vector2f(mData.get_Speed(mCurrent_ball_speed)*x, mData.get_Speed(mCurrent_ball_speed)*y);
 	mBalls.at(1).setVelocity(speed);
-	//	Druga lopta
+	//	Second ball
 	BrkTr_Ball ball2(mData);
 	mBalls.push_back(ball2);
 	ugaono_odstojanje = static_cast<float>(30 * (3.14 / 180));
@@ -215,7 +213,7 @@ void BreakTrough_Player::move_Paddle()
 
 void BreakTrough_Player::start_Paddle_fade()
 {
-	mActive_PowerUp_time.clear();	//	Dok smo ovde, da izbrisemo i svo preostalo vreme za pojacanja
+	mActive_PowerUp_time.clear();
 	mPaddle.start_Paddle_fading();
 }
 
@@ -253,7 +251,6 @@ void BreakTrough_Player::reset_Paddle()
 	sf::Vector2f pad_pos = mData.get_Components_Positions(Break::c_Paddle);
 	mPaddle.reset_Paddle_opacity();
 	mPaddle.setPosition(pad_pos);
-	//	Eventualno da stavim da se pozicija vrati na sredinu nivoa.
 }
 
 void BreakTrough_Player::take_PowerUp(Break::PowerUp_ID param)
@@ -262,28 +259,28 @@ void BreakTrough_Player::take_PowerUp(Break::PowerUp_ID param)
 	if (!mActive_PowerUp_time.empty())
 	{
 		std::map<Break::PowerUp_ID, sf::Time>::iterator it;
-		//	Ako pojacanje postoji i isto je, samo mu osvezi vreme.
+		//	If power up exists and it is the same as the old one, only restart his time
 		it = mActive_PowerUp_time.find(param);
 		if (it != mActive_PowerUp_time.end())
 		{
 			if (it->first == Break::pID_Laser_Paddle)
-				it->second = sf::seconds(15);//mData.get_Timer(Break::time_Short);
+				it->second = sf::seconds(15);
 			else if (it->first == Break::pID_Sticky_Paddle)
-				it->second = sf::seconds(45);//mData.get_Timer(Break::time_Long);
+				it->second = sf::seconds(45);
 			else if (it->first == Break::pID_Stretch_Paddle)
-				it->second = sf::seconds(45);//mData.get_Timer(Break::time_Long);
+				it->second = sf::seconds(45);
 			else if (it->first == Break::pID_Shrink_Paddle)
-				it->second = sf::seconds(45);//mData.get_Timer(Break::time_Long);
+				it->second = sf::seconds(45);
 			else if (it->first == Break::pID_Slow_Ball)
-				it->second = sf::seconds(30);//mData.get_Timer(Break::time_Medium);
+				it->second = sf::seconds(30);
 			else if (it->first == Break::pID_Fast_Ball)
-				it->second = sf::seconds(30);//mData.get_Timer(Break::time_Medium);
+				it->second = sf::seconds(30);
 
 			create = false;			
 		}
 		else
 		{
-			//	Ako postojanje je kontradiktorno sa drugim pojacanjem, neka novo pojacanje zameni staro. 
+			//	If a new power up is contradictory with current one, then it needs to replace it. 
 			for (std::map<Break::PowerUp_ID, sf::Time>::iterator for_it = mActive_PowerUp_time.begin(); for_it != mActive_PowerUp_time.end(); ++for_it)
 			{
 				if (param == Break::pID_Laser_Paddle || param == Break::pID_Sticky_Paddle || param == Break::pID_Stretch_Paddle || param == Break::pID_Shrink_Paddle )
