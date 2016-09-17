@@ -50,7 +50,7 @@ QuataData::QuataData(Data& data)
 
 	float x = mData.getVideo_Mode().width;
 	float y = mData.getVideo_Mode().height;
-	//	Kljucne pozicije:
+	//	Key positions:
 	Key_Positions.insert(std::pair<Qua::Quata_Key_Positions, sf::Vector2f>(Qua::kp_TopLeft_Corner, sf::Vector2f(0, 0)));
 	Key_Positions.insert(std::pair<Qua::Quata_Key_Positions, sf::Vector2f>(Qua::kp_TopRight_Corner, sf::Vector2f(x, 0)));
 	Key_Positions.insert(std::pair<Qua::Quata_Key_Positions, sf::Vector2f>(Qua::kp_BottomLeft_Corner, sf::Vector2f(0, y)));
@@ -60,11 +60,11 @@ QuataData::QuataData(Data& data)
 	Key_Positions.insert(std::pair<Qua::Quata_Key_Positions, sf::Vector2f>(Qua::kp_RightCenter_Screen, sf::Vector2f(x, y / 2)));
 	Key_Positions.insert(std::pair<Qua::Quata_Key_Positions, sf::Vector2f>(Qua::kp_UpperCenter_Screen, sf::Vector2f(x / 2, 0)));
 	Key_Positions.insert(std::pair<Qua::Quata_Key_Positions, sf::Vector2f>(Qua::kp_BottomCenter_Screen, sf::Vector2f(x / 2, y)));
-	//	Velicine slova:
+	//	Character sizes:
 	Character_Sizes.insert(std::pair<Qua::Quata_Char_Sizes, float>(Qua::ch_Small, 16 * scale_coef));
 	Character_Sizes.insert(std::pair<Qua::Quata_Char_Sizes, float>(Qua::ch_Medium, 32 * scale_coef));
 	Character_Sizes.insert(std::pair<Qua::Quata_Char_Sizes, float>(Qua::ch_Large, 48 * scale_coef));
-	//	Velicine Objekata:
+	//	Object sizes:
 	Object_Sizes.insert(std::pair<Qua::Quata_Obj_Sizes, sf::Vector2f>(Qua::size_Paddle, sf::Vector2f(15, 75) * scale_coef));
 	Object_Sizes.insert(std::pair<Qua::Quata_Obj_Sizes, sf::Vector2f>(Qua::size_Ball, sf::Vector2f(12, 0) * scale_coef));
 	Object_Sizes.insert(std::pair<Qua::Quata_Obj_Sizes, sf::Vector2f>(Qua::size_Playground, sf::Vector2f(1150, 700) * scale_coef));
@@ -73,28 +73,28 @@ QuataData::QuataData(Data& data)
 	Object_Sizes.insert(std::pair<Qua::Quata_Obj_Sizes, sf::Vector2f>(Qua::size_Pause_Area, sf::Vector2f(500, 300) * scale_coef));
 	Object_Sizes.insert(std::pair<Qua::Quata_Obj_Sizes, sf::Vector2f>(Qua::size_LineThickness, sf::Vector2f(5, 5) * scale_coef));
 	Object_Sizes.insert(std::pair<Qua::Quata_Obj_Sizes, sf::Vector2f>(Qua::size_Playground_texture, sf::Vector2f(100, 50) * scale_coef));
-	//	Udaljenosti:
+	//	Distances:
 	Distances.insert(std::pair<Qua::Quata_Distances, float>(Qua::dis_VeryNear, 10 * scale_coef));
 	Distances.insert(std::pair<Qua::Quata_Distances, float>(Qua::dis_Near, 30 * scale_coef));
 	Distances.insert(std::pair<Qua::Quata_Distances, float>(Qua::dis_Medium, 50 * scale_coef));
 	Distances.insert(std::pair<Qua::Quata_Distances, float>(Qua::dis_Far, 100 * scale_coef));
 	Distances.insert(std::pair<Qua::Quata_Distances, float>(Qua::dis_VeryFar, 200 * scale_coef));
-	//	privremeni vektori:
+	//	Temporary vectors:
 	sf::Vector2f centar = Key_Positions.at(Qua::kp_Center_Screen);
 	sf::Vector2f nivo = Object_Sizes.at(Qua::size_Playground);
 	sf::Vector2f polovina_nivoa = sf::Vector2f(Object_Sizes.at(Qua::size_Playground).x / 2, Object_Sizes.at(Qua::size_Playground).y / 2);
 	sf::Vector2f debljina_linije = Object_Sizes.at(Qua::size_LineThickness);
-	//	Zone	-	trebaju da budu u skladu sa 'Playground' objektom, ne sa celim ekranom!
+	//	Zones
 	Zones.insert(std::pair<Qua::Quata_Zones, sf::FloatRect>(Qua::z_UpperPlayField, sf::FloatRect(centar.x - polovina_nivoa.x, centar.y - polovina_nivoa.y, nivo.x, debljina_linije.y )));
 	Zones.insert(std::pair<Qua::Quata_Zones, sf::FloatRect>(Qua::z_BottomPlayField, sf::FloatRect(centar.x - polovina_nivoa.x, centar.y + polovina_nivoa.y, nivo.x, -debljina_linije.y)));
 	Zones.insert(std::pair<Qua::Quata_Zones, sf::FloatRect>(Qua::z_LeftPlayField, sf::FloatRect(centar.x - polovina_nivoa.x - debljina_linije.x, centar.y - polovina_nivoa.y, debljina_linije.x, nivo.y)));
 	Zones.insert(std::pair<Qua::Quata_Zones, sf::FloatRect>(Qua::z_RightPlayField, sf::FloatRect(centar.x + polovina_nivoa.x + debljina_linije.x, centar.y - polovina_nivoa.y, -debljina_linije.x, nivo.y)));
-	//	Brzine
+	//	Speeds
 	Speeds.insert(std::pair<Qua::Quata_Speeds, float>(Qua::speed_Ball_nominal, 350*scale_coef));
 	Speeds.insert(std::pair<Qua::Quata_Speeds, float>(Qua::speed_Ball_increase, 50 * scale_coef));
 	Speeds.insert(std::pair<Qua::Quata_Speeds, float>(Qua::speed_Ball_max, 1000 * scale_coef));
 	Speeds.insert(std::pair<Qua::Quata_Speeds, float>(Qua::speed_Paddle, 400 * scale_coef));
-	//	Tekstovi
+	//	Texts
 	Texts.insert(std::pair<Qua::Quata_Texts, std::string>(Qua::txt_Start, " Press 'Enter' \n\tto start!"));
 	Texts.insert(std::pair<Qua::Quata_Texts, std::string>(Qua::txt_Win, "\t\tYou Won!!! \n Congratulations! "));
 	Texts.insert(std::pair<Qua::Quata_Texts, std::string>(Qua::txt_Loose, "\t\t\tYou Lost... \n Better luck \n next time! "));
@@ -103,13 +103,12 @@ QuataData::QuataData(Data& data)
 	Texts.insert(std::pair<Qua::Quata_Texts, std::string>(Qua::txt_Continue_button, " Continue"));
 	Texts.insert(std::pair<Qua::Quata_Texts, std::string>(Qua::txt_Exit_button, " Exit"));
 	Texts.insert(std::pair<Qua::Quata_Texts, std::string>(Qua::txt_New_button, " New Game"));
-	//	Lokacije za teksture
+	//	Texture coordinates
 	Texture_rects.insert(std::pair<Qua::Quata_Texture_rects, sf::IntRect>(Qua::intrect_Player, sf::IntRect(0, 0, 15, 100)));
 	Texture_rects.insert(std::pair<Qua::Quata_Texture_rects, sf::IntRect>(Qua::intrect_AI, sf::IntRect(16, 0, 15, 100)));
 	Texture_rects.insert(std::pair<Qua::Quata_Texture_rects, sf::IntRect>(Qua::intrect_Ball, sf::IntRect(281, 0, 39, 35)));
 	Texture_rects.insert(std::pair<Qua::Quata_Texture_rects, sf::IntRect>(Qua::intrect_Background1, sf::IntRect(40, 0, 100, 50)));
-
-	//	Brojcani rezultat
+	//	Score
 	Scores.insert(std::pair<Qua::Quata_UI_Components, UINT>(Qua::cu_Score1, 0));
 	Scores.insert(std::pair<Qua::Quata_UI_Components, UINT>(Qua::cu_Score2, 0));
 	//
