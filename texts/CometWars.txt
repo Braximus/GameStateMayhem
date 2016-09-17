@@ -1,0 +1,17 @@
+ - An Asteroids clone.
+ - Destroy all asteroids to win.
+ - Avoid contact with asteroids.
+ - If you get struck by an asteroid, you loose
+  a life and shield goes online.
+ - When you loose all lives, the game ends.
+ - While shield is online, you can't shoot,
+  but you also you can't be hit.
+ - The shield will go down after 5 seconds.
+ Use that time to make a distance
+  between you and asteroids.
+ - Use W,S,A and D for movement in 
+ desired direction.
+ - Use Mouse to aim and left mouse button
+  to shoot.
+ - Escape button will bring the pause menu.
+ - Have fun! :)

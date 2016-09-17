@@ -1,0 +1,11 @@
+ - A Pong clone.
+ - Goal of the game is to send the ball
+ into the oponents side of the playfield.
+ - The first player to reach score of 5 wins.
+ - The ball goes faster each time it hits a paddle.
+ - When the ball hits a paddle, it bounces off
+  at an angle depending on the spot where it landed.
+ - Move your paddle W and D keys.
+ - Your paddle is always on the left side of the 
+ playfield.
+ - Escape brings pause menu.

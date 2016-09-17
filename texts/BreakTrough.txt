@@ -1,0 +1,18 @@
+ - Arkanoid clone
+ - Using the ball and the paddle, destroy
+  all blocks to pass a level.
+ - Move the paddle by using the mouse. To launch
+  a stationary ball, press left mouse button.
+ - The ball will have a different direction
+  regarding the place it hits on the paddle.
+ - Do not let the ball touch the bottom, 
+  otherwise you lose a life. Lose all lives
+  and you loose the game.
+ - There is a chance that a destroyed  block will drop
+  a power-up. Power-ups affect the behavior of ball 
+  and paddle.
+ - Some power-ups give negative stats, put
+  in turn give a much higher score points.
+ - At each 1000 score points, you receive an extra life.
+ - Press Escape to bring a Pause Menu.
+ - Finish the game by completing all 6 levels.
