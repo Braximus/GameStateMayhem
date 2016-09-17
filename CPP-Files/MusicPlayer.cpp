@@ -21,7 +21,7 @@ void MusicPlayer::Play_Music(ID param)
 	mMusic.setLoop(true);
 	mMusic.play();
 
-	if (param == ID::ID_BreakTrough/* || param == ID::ID_Quata*/)
+	if (param == ID::ID_BreakTrough)
 	{
 		mMusic.stop();
 	}
