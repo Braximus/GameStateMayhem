@@ -31,7 +31,6 @@ void Quata_Level::update(sf::Time& time)
 	{
 		ball_cooldown(time);
 	}
-	//	mPlayfield nema update metod
 	DebugClass::nums[2] = sf::Vector2i(mBall.getPosition());
 	DebugClass::nums[3] = sf::Vector2i(mBall.getVelocity());
 }
@@ -54,13 +53,10 @@ void Quata_Level::start_ball()
 		std::uniform_int_distribution<int>	distributor(135, 225);
 		angle = distributor(mData.get_Random_Engine());
 	}
-	//	ZNAČI:
-	//	Kada je angle veći od 270 i manji od 90 stepeni, loptica se krece nadesno;
-	//	Kada je angle manji od 270 i veći od 90 stepeni, loptica se krece nalevo;
-	//	Da bi bili oštri uglovi, vrednost mora da bude između 135 i 225 ili 315 i 405;
+
 	DebugClass::angle = angle;
 	DebugClass::speed = speed;
-	angle = angle*(3.14 / 180);	// Uglove moram da pretvorim iz stepene u radijane.
+	angle = angle*(3.14 / 180);
 
 	float x = cos(angle);
 	float y = sin(angle);
@@ -82,7 +78,7 @@ void Quata_Level::ball_Wall_bounce()
 
 void Quata_Level::ball_Paddle_bounce(bool is_left_paddle, sf::FloatRect paddle_bounds)
 {
-	//	Kada se odbija od leve ili desne pedale
+
 	float x, y, angle, speed;
 	float relative_intersect = (paddle_bounds.top + (paddle_bounds.height / 2)) - mBall.getPosition().y;
 	float normalised_relative_intersection = relative_intersect / (paddle_bounds.height / 2);
@@ -90,8 +86,8 @@ void Quata_Level::ball_Paddle_bounce(bool is_left_paddle, sf::FloatRect paddle_b
 	DebugClass::angle = angle;
 	
 	angle = angle*(3.14 / 180);
-	//	Sve je isto izuzev racunanja kosinusa, kod leve pedale je pozitivan, kod desne pedale je negativan.
-	//	To odredjuje smer u kojoj ce se lopta kretati.
+	//	Everything is the same exept the cosine. At the left paddle it ispositive, at the right paddle it is negative.
+	//	That determines the ball's direction.
 	if (is_left_paddle)
 	{
 		x = cos(angle);
@@ -113,7 +109,6 @@ void Quata_Level::ball_cooldown(sf::Time& time)
 	{
 		mBall_cooldown_time = sf::seconds(0);
 		is_ball_on_cooldown = false;
-		//	Podrazumeva se da je lopta na sredini!!!
 		start_ball();
 	}
 }
