@@ -2,8 +2,6 @@
 #include "Quata Pause.h"
 #include "Quata Data.h"
 
-//	U potpunosti isto kao i BreakTrough pauza.
-
 Quata_Pause::Quata_Pause(QuataData& data)
 {
 	sf::Vector2f center = data.get_Key_Position(Qua::kp_Center_Screen);
@@ -65,10 +63,8 @@ void Quata_Pause::interact(sf::Vector2f mouse_pos)
 	bool mouse_is_outside = true;
 	for (auto& it : mButtons)
 	{
-		//	Proveravam da li granica dugmeta sadrzi mis (tj. param):
 		if (it.second.check_Bounds(mouse_pos))
 		{
-			//	Ako sadrzi, onda neka trentuna selekcija bude selekcija kljuca doticnog dugmeta i da se promeni boja dugmeta
 			mouse_is_outside = false;
 			mCurrentSelection = it.first;
 			it.second.ToggleSelection_ByColor(true);
@@ -78,7 +74,7 @@ void Quata_Pause::interact(sf::Vector2f mouse_pos)
 			it.second.ToggleSelection_ByColor(false);
 		}
 	}
-	//	Dokle god je trenutna selekcija ista kao i prethodna selekcija, nema potrebe da se konstanto osvezava.
+
 	if (mCurrentSelection != mPreviousSelection)
 	{
 		if (mCurrentSelection != Qua::None)
@@ -92,7 +88,7 @@ void Quata_Pause::interact(sf::Vector2f mouse_pos)
 		mPreviousSelection = mCurrentSelection;
 	}
 
-	//	Ako je mis van svakog dugmeta, onda je nema selekcije.
+
 	if (mouse_is_outside)
 	{
 		mCurrentSelection = Qua::None;
