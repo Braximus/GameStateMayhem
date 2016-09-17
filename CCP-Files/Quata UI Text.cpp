@@ -11,7 +11,6 @@ Quata_UI_Text::Quata_UI_Text(QuataData& data, sf::Vector2f pos)
 	sf::FloatRect bound = mText.getLocalBounds();
 	mText.setOrigin(bound.width / 2, bound.height / 2);
 	mText.setPosition(pos);
-
 }
 
 void Quata_UI_Text::draw(sf::RenderTarget& target, sf::RenderStates state) const
