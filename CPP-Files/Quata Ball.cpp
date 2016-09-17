@@ -59,7 +59,7 @@ void Quata_Ball::setAngle(float param)
 
 float Quata_Ball::increaseSpeed()
 {
-	//	Povecavam brzinu za 50, ako je manja od 1000;
+	//	Here I am increasing the speed by 50, if it is less than 1000;
 	if (mSpeed <= mData.get_Speed(Qua::speed_Ball_max))
 	{
 		mSpeed += mData.get_Speed(Qua::speed_Ball_increase);
