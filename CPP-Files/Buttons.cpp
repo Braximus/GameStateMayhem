@@ -9,10 +9,10 @@ Button::Button(std::string button_name, const sf::Font& font, float Char_size)
 
 	mDefault_Selection_Color = sf::Color(32, 32, 32, 255);
 	mSelection.setFillColor(mDefault_Selection_Color);
-	mSelection.setSize(sf::Vector2f(10,10));		// Da zapamtim! Ako imam obojene ivice, moram da unutar velicine ubacim koeficijent razmere.
+	mSelection.setSize(sf::Vector2f(10,10));		
 	mSelection.setPosition(sf::Vector2f(0,0));
 
-	mDefault_Text_Color = sf::Color::White;	// Nema potrebe da posebno namestam boju za mText posto je vec bela.
+	mDefault_Text_Color = sf::Color::White;	
 	mText.setFont(font);
 	mText.setCharacterSize(Char_size);
 	mText.setString(button_name);
@@ -37,15 +37,9 @@ Button::Button(const sf::Texture& texture, sf::IntRect tex_rect)
 void Button::set_Size(sf::Vector2f param)
 {
 	mSelection.setSize(param);
-	//	Takodje moram da postavim poreklo na centar sada.
 	sf::FloatRect Bounds = mSelection.getLocalBounds();
-	//sf::FloatRect Bounds2 = mText.getLocalBounds();
 	mSelection.setOrigin(Bounds.width / 2, Bounds.height / 2);
-	//mText.setOrigin(0, Bounds2.top + Bounds2.height / 2);	// Kod teksta, samo je visina na centru.
 	set_Text_Position(mDefault_Text_position);
-
-	//Bounds = mSelection.getGlobalBounds();
-	//mText.setPosition(Bounds.left, Bounds.top + Bounds.height / 2);
 }
 
 void Button::set_Colors(sf::Color selection, sf::Color text, sf::Color dimmed)
@@ -73,7 +67,7 @@ void Button::set_Position(sf::Vector2f param)
 
 void Button::set_Text_Position(Text_pos param)
 {
-	// top i left nisu jednaki nuli kod tekstova sa lokalnim granicama. 
+	//	Top and left aren't equeal to zero when taking their local bounds. 
 
 	sf::FloatRect t_bounds = mText.getLocalBounds();
 	sf::FloatRect sel_bounds = mSelection.getGlobalBounds();
