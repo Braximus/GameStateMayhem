@@ -60,7 +60,6 @@ void Quata_UI_Manager::change_score(Qua::Quata_UI_Components type)
 {
 	if (type == Qua::cu_Score1 || type == Qua::cu_Score2)
 	{
-		//	Zapamti - UI treba samo uzima podatke i prikazuje ih na ekran!
 		std::string new_score = std::to_string(mData.get_Score(type));
 		mScores.at(type).refresh_Text(new_score);
 	}
