@@ -72,10 +72,8 @@ void CometWars_UI_Pause::interact(sf::Vector2f mouse_pos)
 	bool mouse_is_outside = true;
 	for (auto& it : mButtons)
 	{
-		//	Proveravam da li granica dugmeta sadrzi mis (tj. param):
 		if (it.second.check_Bounds(mouse_pos))
 		{
-			//	Ako sadrzi, onda neka trentuna selekcija bude selekcija kljuca doticnog dugmeta i da se promeni boja dugmeta
 			mouse_is_outside = false;
 			mCurrentSelection = it.first;
 			it.second.ToggleSelection_ByColor(true);
@@ -85,7 +83,6 @@ void CometWars_UI_Pause::interact(sf::Vector2f mouse_pos)
 			it.second.ToggleSelection_ByColor(false);
 		}
 	}
-	//	Dokle god je trenutna selekcija ista kao i prethodna selekcija, nema potrebe da se konstanto osvezava.
 	if (mCurrentSelection != mPreviousSelection)
 	{
 		if (mCurrentSelection != CW::bt_None)
@@ -99,7 +96,6 @@ void CometWars_UI_Pause::interact(sf::Vector2f mouse_pos)
 		mPreviousSelection = mCurrentSelection;
 	}
 
-	//	Ako je mis van svakog dugmeta, onda je nema selekcije.
 	if (mouse_is_outside)
 	{
 		mCurrentSelection = CW::bt_None;
