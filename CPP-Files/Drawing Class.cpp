@@ -11,7 +11,7 @@ Draw_Class::Draw_Class(Data& data)
 void Draw_Class::draw(sf::RenderTarget& target, sf::RenderStates state) const
 {
 	state.transform *= getTransform();
-	state.texture = NULL; // Za sada
+	state.texture = NULL;
 	for (const auto& it : Drawing_container)
 		target.draw(*it, state);
 }
