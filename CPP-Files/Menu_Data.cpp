@@ -7,7 +7,7 @@ MenuData::MenuData(Data& param)
 	, mRes(param.getResources())
 {
 	
-	//	Ucitaj Resorse:
+	//	Load resources:
 	mRes.LoadTexture("Teksture/Meni_Teksture.png", ID_Menu);
 	mRes.LoadSound("Sounds/Menu/Hover.wav");
 	mRes.LoadSound("Sounds/Menu/Select.wav");
@@ -46,24 +46,22 @@ void MenuData::refresh()
 	mKeyPositions.clear();
 	mVideo_mode_names.clear();
 
-	//	Namesti kopije razmera, radi lakse distribucije:
 	mScale_coef = mData.getScaleCoefficient();
-	//	Namesti velicine slova:
+	//	Character sizes:
 	mChar_Sizes.insert(std::pair<Menus::Char_sizes, float>(Menus::ch_Small, 16 * mScale_coef));
 	mChar_Sizes.insert(std::pair<Menus::Char_sizes, float>(Menus::ch_Medium, 32 * mScale_coef));
 	mChar_Sizes.insert(std::pair<Menus::Char_sizes, float>(Menus::ch_Large, 48 * mScale_coef));
-	//	Namesti velicine objekata:
+	//	Object sizes:
 	float line_spacing_sml = mData.getResources().getFont(ID_Global).getLineSpacing(mChar_Sizes.at(Menus::ch_Small));
 	float line_spacing_med = mData.getResources().getFont(ID_Global).getLineSpacing(mChar_Sizes.at(Menus::ch_Medium));
 	float line_spacing_lrg = mData.getResources().getFont(ID_Global).getLineSpacing(mChar_Sizes.at(Menus::ch_Large));
-
 	mObject_Sizes.insert(std::pair<Menus::Objects_sizes, sf::Vector2f>(Menus::size_Button, sf::Vector2f(315 * mScale_coef, line_spacing_med)));
 	mObject_Sizes.insert(std::pair<Menus::Objects_sizes, sf::Vector2f>(Menus::size_MiniButton, sf::Vector2f(35 * mScale_coef, line_spacing_med)));
 	mObject_Sizes.insert(std::pair<Menus::Objects_sizes, sf::Vector2f>(Menus::size_Label, sf::Vector2f(315 * mScale_coef, line_spacing_med)));
 	mObject_Sizes.insert(std::pair<Menus::Objects_sizes, sf::Vector2f>(Menus::size_HugeLabel, sf::Vector2f(400, 400)* mScale_coef));	//	Ovde ce eventualno trebati prepravke.
 	mObject_Sizes.insert(std::pair<Menus::Objects_sizes, sf::Vector2f>(Menus::size_Title, sf::Vector2f(500, 200)* mScale_coef));
 	mObject_Sizes.insert(std::pair<Menus::Objects_sizes, sf::Vector2f>(Menus::size_Drop_Down_Menu, sf::Vector2f(250 * mScale_coef, line_spacing_med)));
-	//	Namesti rastojanja:
+	//	Distantces:
 	mDistances.insert(std::pair<Menus::Distances, float>(Menus::dis_VeryNear, 5 * mScale_coef));
 	mDistances.insert(std::pair<Menus::Distances, float>(Menus::dis_Near, 15 * mScale_coef));
 	mDistances.insert(std::pair<Menus::Distances, float>(Menus::dis_Medium, 50 * mScale_coef));
@@ -71,10 +69,9 @@ void MenuData::refresh()
 	mDistances.insert(std::pair<Menus::Distances, float>(Menus::dis_Far, 100 * mScale_coef));
 	mDistances.insert(std::pair<Menus::Distances, float>(Menus::dis_VeryFar, 200 * mScale_coef));
 	mDistances.insert(std::pair<Menus::Distances, float>(Menus::dis_ExtremlyFar, 300 * mScale_coef));
-	//	Namesti kljucne pozicije:
+	//	Key Positions:
 	float	width = mData.getVideo_Mode().width;
 	float	height = mData.getVideo_Mode().height;
-
 	mKeyPositions.insert(std::pair<Menus::Key_positions, sf::Vector2f>(Menus::kp_TopLeft_Corner, sf::Vector2f(0, 0)));
 	mKeyPositions.insert(std::pair<Menus::Key_positions, sf::Vector2f>(Menus::kp_TopRight_Corner, sf::Vector2f(width, 0)));
 	mKeyPositions.insert(std::pair<Menus::Key_positions, sf::Vector2f>(Menus::kp_BottomLeft_Corner, sf::Vector2f(0, height)));
@@ -158,11 +155,6 @@ const float MenuData::getScale_coef() const
 {
 	return mScale_coef;
 }
-
-//const sf::Vector2f MenuData::getScaled_positions() const
-//{
-//	return mScaled_positions;
-//}
 
 const float MenuData::getMenu_Char_Sizes(Menus::Char_sizes param) const
 {
