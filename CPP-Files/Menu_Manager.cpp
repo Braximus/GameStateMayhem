@@ -6,9 +6,7 @@ Menu_Manager::Menu_Manager(Data& data)
 	:mData(data)
 	, mMenu_Data(data)
 {
-
-
-	//	Ovde pravim sva potstanja!
+	//	Here I build all of substates
 	pSubStates		pointer = std::unique_ptr<MainMenu>(new MainMenu(mMenu_Data));
 	cont_SubState_container.insert(std::pair<Menus::SubStates, pSubStates>(Menus::Main_Menu, std::move(pointer)));
 	pointer = std::unique_ptr<Options>(new Options(mMenu_Data));
