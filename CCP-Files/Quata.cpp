@@ -72,21 +72,6 @@ void Quata::Change_SubState(Qua::SubState param)
 	}
 
 	mSubStateCheck = param;
-
-
-	//std::unique_ptr<QuataSubState> PtrObj;
-	//// Start
-	//PtrObj = std::unique_ptr<QuataStartSubState>(new QuataStartSubState(mData, &mPlayer, &mAI, &mLevel, &mUI_Manager));
-	//subStates.insert(std::pair<Qua::SubState, std::unique_ptr<QuataSubState>>(Qua::Start, std::move(PtrObj)));
-	//// Win
-	//PtrObj = std::unique_ptr<QuataPlaySubState>(new QuataPlaySubState(mData, &mPlayer, &mAI, &mLevel, &mUI_Manager));
-	//subStates.insert(std::pair<Qua::SubState, std::unique_ptr<QuataSubState>>(Qua::Play, std::move(PtrObj)));
-	//// Loose
-	//PtrObj = std::unique_ptr<QuataEndSubState>(new QuataEndSubState(mData, &mUI_Manager));
-	//subStates.insert(std::pair<Qua::SubState, std::unique_ptr<QuataSubState>>(Qua::End, std::move(PtrObj)));
-	////	Pause
-	//PtrObj = std::unique_ptr<QuataPauseSubState>(new QuataPauseSubState(mData, &mUI_Manager));
-	//subStates.insert(std::pair<Qua::SubState, std::unique_ptr<QuataSubState>>(Qua::Pause, std::move(PtrObj)));
 }
 
 void Quata::sendDebugInfo()
@@ -130,7 +115,6 @@ void Quata::winCondition()
 {
 	if (mData.get_Score(Qua::cu_Score1) == 5)
 	{
-		//mData.Play_Sound(Qua::snd_Player_Win);	--	Dok ne nadjem odgovarajuci zvuk, ovo ce da bude iskomentarisano!!!!
 		mData.changeSubState(Qua::End);
 	}
 	else if (mData.get_Score(Qua::cu_Score2) == 5)
