@@ -1,7 +1,6 @@
 #ifndef STATE_H
 #define STATE_H
-
-
+#include "stdafx.h"
 #include "StateCategory.h"
 
 class StateManager;
