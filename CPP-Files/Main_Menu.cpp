@@ -155,22 +155,13 @@ void MainMenu::refresh()
 	}
 	sf::Color color = sf::Color(32, 128, 128, 128);
 
-//	float sc_coef = mMenu_Data.getScale_coef();
-
-	//	Dakle:
-	//	Trebam da namestim da dugmad budu direktno ispod naslova na odredjenoj udaljenosti. 
-	//	Naslov ima apsolutnu poziciju. Dugmad imaju relativnu poziciju.
-	//	Prvo dugme je relativno na naslov, drugo dugme je relativno na prvo dugme, a trece je relativno na drugo.
-	//	Rastojanje izmedju dugmadi je isto. Rastojanje izmedju naslova i prvog dugmeta mora da bude vece od rastojanja izmedju dugmadi!
-
 	mTitle = Title(mMenu_Data.getResources().getTexture(ID_Menu), sf::IntRect(100, 0, 800, 366), mMenu_Data.getMenu_Object_Sizes(Menus::size_Title), mMenu_Data.getMenu_Key_Positions(Menus::kp_Center_UpperHalf_Screen));
 	
 	sf::Vector2f	position;
 	Button			a_Button;
 	sf::FloatRect	temp_bounds;
-	//********************************//
-	//			Prvo Dugme			  //
-	//********************************//
+
+	//	First Button
 	a_Button = Button("Choose Game", mMenu_Data.getResources().getFont(ID_Global), mMenu_Data.getMenu_Char_Sizes(Menus::ch_Medium));
 	a_Button.set_Size(mMenu_Data.getMenu_Object_Sizes(Menus::size_Button));
 	position = sf::Vector2f(mTitle.get_Borders().left + mTitle.get_Borders().width / 2, mTitle.get_Borders().top + mTitle.get_Borders().height + mMenu_Data.getMenu_Distances(Menus::dis_VeryFar)/**sc_coef*/);
@@ -179,9 +170,7 @@ void MainMenu::refresh()
 	temp_bounds = a_Button.get_Bounds();
 	a_Button.set_Colors(color, sf::Color::Cyan);
 	mButtons.insert(std::pair<MenuSelection, Button>(Choose_Game, a_Button));
-	//********************************//
-	//			Drugo Dugme			  //
-	//********************************//
+	//	Second Button
 	a_Button = Button("Options", mMenu_Data.getResources().getFont(ID_Global), mMenu_Data.getMenu_Char_Sizes(Menus::ch_Medium));
 	a_Button.set_Size(mMenu_Data.getMenu_Object_Sizes(Menus::size_Button));
 	position = sf::Vector2f(temp_bounds.left + temp_bounds.width / 2, temp_bounds.top + 3 * temp_bounds.height / 2 + mMenu_Data.getMenu_Distances(Menus::dis_VeryNear)/**sc_coef*/);
@@ -190,9 +179,7 @@ void MainMenu::refresh()
 	a_Button.set_Colors(color, sf::Color::Cyan);
 	temp_bounds = a_Button.get_Bounds();
 	mButtons.insert(std::pair<MenuSelection, Button>(Options, a_Button));
-	//********************************//
-	//			Trece Dugme			  //
-	//********************************//
+	//	Third Button
 	a_Button = Button("Credits", mMenu_Data.getResources().getFont(ID_Global), mMenu_Data.getMenu_Char_Sizes(Menus::ch_Medium));
 	a_Button.set_Size(mMenu_Data.getMenu_Object_Sizes(Menus::size_Button));
 	position = sf::Vector2f(temp_bounds.left + temp_bounds.width / 2, temp_bounds.top + 3 * temp_bounds.height / 2 + mMenu_Data.getMenu_Distances(Menus::dis_VeryNear)/**sc_coef*/);
@@ -201,9 +188,7 @@ void MainMenu::refresh()
 	a_Button.set_Colors(color, sf::Color::Cyan);
 	temp_bounds = a_Button.get_Bounds();
 	mButtons.insert(std::pair<MenuSelection, Button>(Credits, a_Button));
-	//********************************//
-	//			Cetvrto Dugme		  //
-	//********************************//
+	//	Fourth Button
 	a_Button = Button("Exit", mMenu_Data.getResources().getFont(ID_Global), mMenu_Data.getMenu_Char_Sizes(Menus::ch_Medium));
 	a_Button.set_Size(mMenu_Data.getMenu_Object_Sizes(Menus::size_Button));
 	position = sf::Vector2f(temp_bounds.left + temp_bounds.width / 2, temp_bounds.top + 3 * temp_bounds.height / 2 + mMenu_Data.getMenu_Distances(Menus::dis_VeryNear)/**sc_coef*/);
