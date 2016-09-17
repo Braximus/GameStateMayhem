@@ -49,16 +49,13 @@ void BreakTrough_Pause::draw(sf::RenderTarget& target, sf::RenderStates state) c
 	}
 }
 
-//	Funkcija za interakciju sa pauzom.
 void BreakTrough_Pause::interact(sf::Vector2f param)
 {
 	bool mouse_is_outside = true;
 	for (auto& it : mButtons)
 	{
-		//	Proveravam da li granica dugmeta sadrzi mis (tj. param):
 		if (it.second.check_Bounds(param))
 		{
-			//	Ako sadrzi, onda neka trentuna selekcija bude selekcija kljuca doticnog dugmeta i da se promeni boja dugmeta
 			mouse_is_outside = false;
 			mCurrentSelection = it.first;
 			it.second.ToggleSelection_ByColor(true);
@@ -68,7 +65,7 @@ void BreakTrough_Pause::interact(sf::Vector2f param)
 			it.second.ToggleSelection_ByColor(false);
 		}
 	}
-	//	Dokle god je trenutna selekcija ista kao i prethodna selekcija, nema potrebe da se konstanto osvezava.
+	//	As long as the current selection is the same as the previous one, there is no need to refresh it.
 	if (mCurrentSelection != mPreviousSelection)
 	{
 		if (mCurrentSelection != Break::None)
@@ -82,13 +79,11 @@ void BreakTrough_Pause::interact(sf::Vector2f param)
 		mPreviousSelection = mCurrentSelection;
 	}
 
-	//	Ako je mis van svakog dugmeta, onda je nema selekcije.
+	//	If mouse is outside of the any button area, then there is no selection.
 	if (mouse_is_outside)
 	{
 		mCurrentSelection = Break::None;
 	}
-
-	//	Mozda previse komplikujem...
 }
 
 const Break::Button_Selection BreakTrough_Pause::response() const
