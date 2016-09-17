@@ -118,7 +118,7 @@ void ChooseMenu::MouseEvents(sf::Event& Event)
 			else if (mCurrentSelection == Quata)		
 			{
 				mMenu_Data.Play_Sound(Menus::snd_Select);
-				mMenu_Data.ChangeState(e_Quata);		//	I njih da promenim kada sve budem menjao.
+				mMenu_Data.ChangeState(e_Quata);
 			}
 			else if (mCurrentSelection == CometWars)
 			{
