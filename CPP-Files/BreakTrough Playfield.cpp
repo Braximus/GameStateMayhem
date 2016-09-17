@@ -3,9 +3,6 @@
 #include "BreakTrough Data.h"
 #include "math.h"
 
-//	Ova klasa za sada sluzi iskljucivo da oznaci mesto terena.
-
-
 BrkTr_Playfield::BrkTr_Playfield(BreakTrough_Data& data)
 	: m_Texture(data.get_Resources().getTexture(ID_BreakTrough))
 {	
@@ -15,7 +12,7 @@ BrkTr_Playfield::BrkTr_Playfield(BreakTrough_Data& data)
 	sf::Vector2f lvl_sizef = data.get_Key_Position(Break::kp_BottomRight);
 	sf::Vector2i lvl_size = static_cast<sf::Vector2i>(lvl_sizef);
 	sf::Vector2i size = static_cast<sf::Vector2i>(sizef);
-	//	Dolazi do problema prilikom skaliranja - pojavljuju se linije izmedju kvadrata kada je broj decimalan.
+	//	There is a problem when scaleing - a lines appear between the quads when the number is decimal.
 
 	mBackground_Vertices.setPrimitiveType(sf::Quads);
 
@@ -25,7 +22,7 @@ BrkTr_Playfield::BrkTr_Playfield(BreakTrough_Data& data)
 
 	mBackground_Vertices.resize(4* (tile_number.x * tile_number.y));
 	
-	//	Najlenjiji pristup - koristicu nasumicno generisane brojeve i onda na osnovu njih uzimati teksture
+	//	The laziest approach - I will use random numbers and use them as enum keys for textures.
 	std::uniform_int_distribution<int>	percent(0, 100);
 
 	UINT column = 0;
@@ -47,7 +44,7 @@ BrkTr_Playfield::BrkTr_Playfield(BreakTrough_Data& data)
 		++column;
 
 
-		// sad dodajem razlicite teksture;
+		//	Now adding different textures;
 		UINT per = percent(random);
 		if (per < 50)
 		{
@@ -94,15 +91,16 @@ BrkTr_Playfield::BrkTr_Playfield(BreakTrough_Data& data)
 	sf::Vector2f s = m_Playfield.getSize();
 	sf::Vector2f d = data.get_Component_Sizes(Break::size_Vertical_Outline);
 	tx = data.get_TextureRect(Break::t_Level_Vertical);
-
+	
+	//	Peremiter of playfield
 	for (UINT i = 0; i < mOutline_Vertices.getVertexCount(); i += 4)
 	{	
 		if (i < 24)
 		{		
-			//	Leva strana
+			//	Left side
 			if (i == 0)
 			{
-				//	Prvi deo
+				//	First part
 				mOutline_Vertices[i].position = sf::Vector2f((p.x - s.x / 2) - d.x, p.y - s.y / 2);
 				mOutline_Vertices[i + 1].position = sf::Vector2f(p.x - s.x / 2, p.y - s.y / 2);
 				mOutline_Vertices[i + 2].position = sf::Vector2f(p.x - s.x / 2, (p.y - s.y / 2) + d.y);
@@ -110,7 +108,7 @@ BrkTr_Playfield::BrkTr_Playfield(BreakTrough_Data& data)
 			}
 			else
 			{
-				//	Ostatak
+				//	Rest
 				p = mOutline_Vertices[i - 1].position;
 				mOutline_Vertices[i].position = sf::Vector2f(p.x, p.y);
 				mOutline_Vertices[i + 1].position = sf::Vector2f(p.x + d.x, p.y);
@@ -120,10 +118,10 @@ BrkTr_Playfield::BrkTr_Playfield(BreakTrough_Data& data)
 		}
 		else if (i >= 24 && i < 48)
 		{
-			//	Desna strana
+			//	Right side
 			if (i == 24)
 			{
-				//	Prvi deo
+				//	First part
 				p = m_Playfield.getPosition();
 				mOutline_Vertices[i].position = sf::Vector2f((p.x + s.x / 2), p.y - s.y / 2);
 				mOutline_Vertices[i + 1].position = sf::Vector2f(p.x + s.x / 2 + d.x, p.y - s.y / 2);
@@ -132,7 +130,7 @@ BrkTr_Playfield::BrkTr_Playfield(BreakTrough_Data& data)
 			}
 			else
 			{
-				// Ostatak
+				//	Rest
 				p = mOutline_Vertices[i - 1].position;
 				mOutline_Vertices[i].position = sf::Vector2f(p.x, p.y);
 				mOutline_Vertices[i + 1].position = sf::Vector2f(p.x + d.x, p.y);
@@ -142,10 +140,10 @@ BrkTr_Playfield::BrkTr_Playfield(BreakTrough_Data& data)
 		}
 		else if (i >= 48 && i < 68)
 		{
-			//	Gornja strana
+			//	Upper part
 			if (i == 48)
 			{
-				//	Prvi deo
+				//	First part
 				p = m_Playfield.getPosition();
 				d = data.get_Component_Sizes(Break::size_Horizontal_Outline);
 				tx = data.get_TextureRect(Break::t_Level_Horizontal);
@@ -157,7 +155,7 @@ BrkTr_Playfield::BrkTr_Playfield(BreakTrough_Data& data)
 			}
 			else
 			{
-				// Ostatak
+				//	Rest
 				p = mOutline_Vertices[i - 2].position;
 				mOutline_Vertices[i].position = sf::Vector2f(p.x, p.y - d.y);
 				mOutline_Vertices[i + 1].position = sf::Vector2f(p.x + d.x, p.y - d.y);
@@ -168,7 +166,7 @@ BrkTr_Playfield::BrkTr_Playfield(BreakTrough_Data& data)
 		}
 		else if (i == 68)
 		{
-			//	Levi gornji angle
+			//	Left upper angle
 			p = m_Playfield.getPosition();
 			d = data.get_Component_Sizes(Break::size_Corner_Outline);
 			tx = data.get_TextureRect(Break::t_Level_TopLeft);
@@ -180,7 +178,7 @@ BrkTr_Playfield::BrkTr_Playfield(BreakTrough_Data& data)
 		}
 		else if (i == 72)
 		{
-			//	Desni gornji angle
+			//	Right upper angle
 			p = m_Playfield.getPosition();
 			d = data.get_Component_Sizes(Break::size_Corner_Outline);
 			tx = data.get_TextureRect(Break::t_Level_TopRight);
@@ -190,7 +188,7 @@ BrkTr_Playfield::BrkTr_Playfield(BreakTrough_Data& data)
 			mOutline_Vertices[i + 3].position = sf::Vector2f((p.x + s.x / 2), (p.y - s.y / 2));
 		}
 
-		//	Teksture
+		//	Textures
 		mOutline_Vertices[i].texCoords = sf::Vector2f(tx.left, tx.top);
 		mOutline_Vertices[i + 1].texCoords = sf::Vector2f(tx.left + tx.width, tx.top);
 		mOutline_Vertices[i + 2].texCoords = sf::Vector2f(tx.left + tx.width, tx.top + tx.height);
