@@ -22,9 +22,8 @@ void CometWarsLogic::LogicFunction()
 	DebugClass::right = false;
 	DebugClass::bottom = false;
 
-	//	Sudari Objekata sa granice nivoa;
 	Collision_Object_Border_Check();
-	//	Sudari Igraca sa Kometama granicom nivoa;
+
 	Collision_Player_Check();
 }
 
@@ -54,7 +53,6 @@ void CometWarsLogic::Calculate_position(CW::Zones zone, sf::Vector2f& position)
 
 void CometWarsLogic::Asteroid_Ship_Response()
 {	
-	// Da ga ne aktivira kada je umro... kasnije cu da namestim da u potpunosti izbrise brod!
 	if (mData.getCurrentSubState() != CW::sub_End)
 	{
 		if (!pPlayer->getIs_shield_on())
@@ -100,7 +98,7 @@ void CometWarsLogic::Big_Comet_Destroyed_Response(UINT param)
 	mData.Play_Sound(CW::snd_CometBigDead);
 	mData.change_Score(5);
 	pUI_Manager->refresh_score();
-	//	Sada pravimo male asteroide ovde :)
+	//	Making small comets here.
 	std::uniform_int_distribution<int>		distributor(3, 7);
 	UINT random_number = distributor(mData.get_random_engine());
 
@@ -108,7 +106,7 @@ void CometWarsLogic::Big_Comet_Destroyed_Response(UINT param)
 	{
 		pComet_Manager->create_comet(true);
 		pComet_Manager->setComet_Position(pComet_Manager->getNumber_of_comets() - 1, big_comet_pos);
-		//	Trebalo bi da napravi 3 do 7 manjih kometa na mestu umrle velike komete.
+		//	It should make 3 to 7 small comets on the place where big comet died.
 	}
 }
 
