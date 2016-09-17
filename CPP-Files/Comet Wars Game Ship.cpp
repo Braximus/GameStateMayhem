@@ -69,7 +69,7 @@ void CometWars_Game_Ship::setVelocity(sf::Vector2f param)
 
 void CometWars_Game_Ship::rotate_ship(float param)
 {
-	mRotation = param;	//	Ovo je zapravo beskorisno...
+	mRotation = param;
 	mShip.setRotation(param);
 }
 
