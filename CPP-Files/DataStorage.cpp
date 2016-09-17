@@ -61,13 +61,6 @@ void Data::Close()
 //--------------------------//
 //--------------------------//
 //
-//const sf::Vector2f Data::getScaleFactor() const
-//{
-//	return mScaleFactor;
-//}
-//--------------------------//
-//--------------------------//
-//
 const float Data::getScaleCoefficient() const
 {
 	return mScaleCoefficient;
@@ -135,7 +128,6 @@ void Data::set_Vsync(bool param)
 {
 	mVsync = param;
 	mWindow.setVerticalSyncEnabled(mVsync);
-	//	Da izbrisem ovo dole kada budem hteo da merim koliko ukupno aplikacija moze da proizvede FPS-ova
 	if (!mVsync)
 	{
 		mWindow.setFramerateLimit(0);
@@ -161,35 +153,36 @@ Resources& Data::getResources()
 {
 	return mResources;
 }
-
+//--------------------------//
+//--------------------------//
+//
 MusicPlayer& Data::getMusic_Player()
 {
 	return mMusic_Player;
 }
-
 //--------------------------//
 //--------Video Mode--------//
 //--------------------------//
 //
 void Data::updateVideoModes()
 {
-	//	Preuzimam fullscreen rezolucije;
+	//	Taking fullscreen resolutons;
 	sf::VideoMode VM;
 	mVideo_Modes = VM.getFullscreenModes();
-	//	Brisem 8-bitne i 16-bitne rezolucije, kao i rezoluciju sa širinom 720, jer to niko ne koristi;
+	//	Deleting 8-bit and 16-bit resolutions, and modes with 720px width, because nobody uses that anymore;
 	for (UINT i = 0; i < mVideo_Modes.size();)
 	{
 		if (mVideo_Modes[i].bitsPerPixel != 32 || mVideo_Modes[i].width == 720)
 		{
-			std::vector<sf::VideoMode>::iterator it = mVideo_Modes.end() - 1;	//	Stavljam brojilac da bude na poslednjem elementu!
-			std::swap(*it, mVideo_Modes[i]);	//	Posto vector ima problema sa brisanjem elemenata u sredini, onda moram da postavim taj element na kraju.
+			std::vector<sf::VideoMode>::iterator it = mVideo_Modes.end() - 1;	//	Indice must be on the last element;
+			std::swap(*it, mVideo_Modes[i]);
 			mVideo_Modes.pop_back();
 		}
 		else
 			i++;	
 	}
 	mVideo_Modes.shrink_to_fit();
-	//	Obavezno sortirati!
+	//	Must sort!
 	std::sort(mVideo_Modes.begin(), mVideo_Modes.end(), std::greater<sf::VideoMode>());
 }
 //--------------------------//
@@ -227,13 +220,13 @@ void Data::Update_Window(UINT num)
 {
 	if (num > mVideo_Modes.size())
 	{
-		std::cerr << "Indeks je prekoracio velicinu kontejnera!\nPostavljam index na najmanju velicinu...";
-		mVideoModeIndex = mVideo_Modes.size() - 1;		// Pošto je veličina uvek za 1 viša.
+		std::cerr << "Indice is bigger than the container size!\nSetting indice on the last element...";
+		mVideoModeIndex = mVideo_Modes.size() - 1;		
 	}
 	else
 		mVideoModeIndex = num;
 	
-	// Osvezi AA;
+	//	Refresh AA;
 	mSettings.antialiasingLevel = mAntiAliasing[mAA_Index];
 
 
@@ -247,17 +240,12 @@ void Data::Update_Window(UINT num)
 	}
 	mWindow.setVerticalSyncEnabled(mVsync);
 	mWindow.setMouseCursorVisible(setHardwareCursorOnOff);
-	//	mScaleFactor.x = mVideo_Modes[mVideoModeIndex].width / static_cast<float>(1280);	//	Sirina
-	//	mScaleFactor.y = mVideo_Modes[mVideoModeIndex].height / static_cast<float>(1024);	//	Visina
-	//	mScaleCoefficient = mVideo_Modes[mVideoModeIndex].height / static_cast<float>(mVideo_Modes.front().height); 
 
 	mScaleCoefficient = mVideo_Modes[mVideoModeIndex].height / static_cast<float>(1024);
 
 	mMouse_Cursor.setTexture(mResources.getTexture(ID_Global));
 	mMouse_Cursor.setTextureRect(sf::IntRect(0, 0, 13, 20));
-	mMouse_Cursor.setScale(mScaleCoefficient, mScaleCoefficient);	//	Sada tek mogu da updatujem skaliranje kursora.
-
-	//mWindow.setFramerateLimit(30);
+	mMouse_Cursor.setScale(mScaleCoefficient, mScaleCoefficient);
 }
 
 void Data::update_cursor()
