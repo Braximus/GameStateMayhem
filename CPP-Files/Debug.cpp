@@ -3,7 +3,7 @@
 #include "DataStorage.h"
 
 std::vector<sf::Vector2i>	DebugClass::nums;
-std::vector<int>			DebugClass::numbers;
+std::vector<int>		DebugClass::numbers;
 sf::FloatRect DebugClass::coll1 = sf::FloatRect(0, 0, 0, 0);
 
 float DebugClass::angle = 0;
@@ -39,10 +39,10 @@ DebugClass::DebugClass(Data& data)
 	mFPS.setPosition(1, 0);
 	iFPS = 0;
 
-	mTekst.setFont(mFont);
-	mTekst.setCharacterSize(12);
-	mTekst.setColor(sf::Color::White);
-	mTekst.setPosition(1, 50);
+	mText.setFont(mFont);
+	mText.setCharacterSize(12);
+	mText.setColor(sf::Color::White);
+	mText.setPosition(1, 50);
 }
 
 void DebugClass::DebugText(sf::Time ElapsedTime)
@@ -59,12 +59,9 @@ void DebugClass::DebugText(sf::Time ElapsedTime)
 
 	}
 
-	/*mTekst.setString("Pozicija misa: \nX:  " + std::to_string(mData.mMouseCoordinates.x) + "\n" +
-		"Y:  " + std::to_string(mData.mMouseCoordinates.y));*/
-
-	if (mData.getStateID() == eState::e_Menu /*|| mData.getStateID() == eState::e_GameChoice || mData.getStateID() == eState::e_Options*/)
+	if (mData.getStateID() == eState::e_Menu)
 	{
-		mTekst.setString("Mouse Position: \nX:  " + std::to_string(mData.mMouseCoordinates.x) + "\n" +
+		mText.setString("Mouse Position: \nX:  " + std::to_string(mData.mMouseCoordinates.x) + "\n" +
 			"Y:  " + std::to_string(mData.mMouseCoordinates.y));
 	}
 	else if (mData.getStateID() == eState::e_Quata)
@@ -83,7 +80,7 @@ void DebugClass::DebugText(sf::Time ElapsedTime)
 		else
 			plpaddle = "false";
 
-		mTekst.setString("Mouse Position: \nX:  " + std::to_string(mData.mMouseCoordinates.x) + "\n" +
+		mText.setString("Mouse Position: \nX:  " + std::to_string(mData.mMouseCoordinates.x) + "\n" +
 			"Y:  " + std::to_string(mData.mMouseCoordinates.y) + "\n" + "\n" +
 			"Paddle 1\t " + "X: " + std::to_string(nums[0].x) + "\tY: " + std::to_string(nums[0].y) + "\n" +
 			"Paddle 2\t " + "X: " + std::to_string(nums[1].x) + "\tY: " + std::to_string(nums[1].y) + "\n" +
@@ -92,9 +89,7 @@ void DebugClass::DebugText(sf::Time ElapsedTime)
 			"Coll AIp:\t " + aipaddle + "\n" +
 			"Coll Plp:\t " + plpaddle + "\n" 
 			"Ball Speed:\t" + std::to_string(speed) + "\n" +
-			"Ball Angle:\t" + std::to_string(angle) + "\n"/*
-			"Collision Area: " + "\n" + "Top:" + std::to_string(coll1.top) + " " + "Left: " + std::to_string(coll1.left) +
-			" " + "Width: " + std::to_string(coll1.width) + " " + "Height: " + std::to_string(coll1.height)*/);
+			"Ball Angle:\t" + std::to_string(angle) + "\n");
 
 	}
 
@@ -118,7 +113,7 @@ void DebugClass::DebugText(sf::Time ElapsedTime)
 		else
 			b = "false";
 
-		mTekst.setString("Mouse Position: \nX:  " + std::to_string(mData.mMouseCoordinates.x) + "\n" +
+		mText.setString("Mouse Position: \nX:  " + std::to_string(mData.mMouseCoordinates.x) + "\n" +
 			"Y:  " + std::to_string(mData.mMouseCoordinates.y) + "\n" +
 			"Top_Border:\t\t" + t + "\n" +
 			"Left_Border:\t\t" + l + "\n" +
@@ -130,30 +125,14 @@ void DebugClass::DebugText(sf::Time ElapsedTime)
 			"Comet Number: \t\t\t\t" + std::to_string(numbers[0]) + "\n" +
 			"Mini Comet Number: \t\t" + std::to_string(numbers[1]) + "\n" +
 			"Projectile Number: \t\t" + std::to_string(numbers[2]) + "\n"
-			//	+	"\n\n"  +
-			//"Asteroid_1:\t\t " + std::to_string(nums[1].x) + ", " + std::to_string(nums[1].y) + "\n" +
-			//"Asteroid_2:\t\t " + std::to_string(nums[2].x) + ", " + std::to_string(nums[2].y) + "\n" +
-			//"Asteroid_3:\t\t " + std::to_string(nums[3].x) + ", " + std::to_string(nums[3].y) + "\n" +
-			//"Asteroid_4:\t\t " + std::to_string(nums[4].x) + ", " + std::to_string(nums[4].y) + "\n" +
-			//"Asteroid_5:\t\t " + std::to_string(nums[5].x) + ", " + std::to_string(nums[5].y) + "\n" +
-			//"Asteroid_6:\t\t " + std::to_string(nums[6].x) + ", " + std::to_string(nums[6].y) + "\n" +
-			//"Asteroid_7:\t\t " + std::to_string(nums[7].x) + ", " + std::to_string(nums[7].y) + "\n" +
-			//"Asteroid_8:\t\t " + std::to_string(nums[8].x) + ", " + std::to_string(nums[8].y) + "\n" +
-			//"Asteroid_9:\t\t " + std::to_string(nums[9].x) + ", " + std::to_string(nums[9].y)
 			);
-		/*+"\n" +*/
+	
 
 	}
 	else if (mData.getStateID() == eState::e_BreakTrough)
 	{
-		mTekst.setString("Mouse Position: \nX:  " + std::to_string(mData.mMouseCoordinates.x) + "\n" +
+		mText.setString("Mouse Position: \nX:  " + std::to_string(mData.mMouseCoordinates.x) + "\n" +
 			"Y:  " + std::to_string(mData.mMouseCoordinates.y)
-			//+ "\n" + "Paddle Position: " + std::to_string(nums[0].x) + ", " + std::to_string(nums[0].y)
-			//+ "\n" + "Ball 1 Position: " + std::to_string(nums[1].x) + ", " + std::to_string(nums[1].y) 
-			//+ "\n" + "Ball 2 Position: " + std::to_string(nums[2].x) + ", " + std::to_string(nums[2].y)
-			//+ "\n" + "Ball 3 Position: " + std::to_string(nums[3].x) + ", " + std::to_string(nums[3].y)
-			//
-			
 			);
 
 	}
@@ -167,6 +146,6 @@ sf::Text DebugClass::drawFPS()
 
 sf::Text DebugClass::drawTxt()
 {
-	return mTekst;
+	return mText;
 }
 
