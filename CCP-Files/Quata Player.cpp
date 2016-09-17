@@ -3,7 +3,7 @@
 
 Quata_Player::Quata_Player(QuataData& data)
 	: mData(data)
-	, mPaddle(data, data.get_Texture_rects(Qua::intrect_Player))	//	Ne bih smeo da stavim da bude ovako - treba u Quata Data napraim koordinate za teksture!
+	, mPaddle(data, data.get_Texture_rects(Qua::intrect_Player))
 {
 	
 }
