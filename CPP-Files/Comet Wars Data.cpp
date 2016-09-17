@@ -4,7 +4,6 @@
 CometWarsData::CometWarsData(Data& dat)
 	:mData(dat)
 {
-	// Odjednom je doslo do access violation-a kada se texture izbrisu. Bag nije lako reprodukovan, ali "komentarisanjem" ove linije izgleda da je problem resen...
 	mData.getResources().LoadTexture("Teksture/Comets.png", ID_CometWars);
 	
 	mData.getResources().LoadSound("Sounds/Menu/Hover.wav");
@@ -57,18 +56,18 @@ CometWarsData::CometWarsData(Data& dat)
 	
 	float Screen_width = mData.getVideo_Mode().width;		
 	float Screen_height = mData.getVideo_Mode().height;		
-	//		Postavljam kljucne pozicije:
+	//		Key positions:
 	mKey_Positions.insert(std::pair<CW::Key_Positions, sf::Vector2f>(CW::kp_TopLeft, sf::Vector2f(0, 0)));
 	mKey_Positions.insert(std::pair<CW::Key_Positions, sf::Vector2f>(CW::kp_TopRight, sf::Vector2f(Screen_width, 0)));
 	mKey_Positions.insert(std::pair<CW::Key_Positions, sf::Vector2f>(CW::kp_BottomLeft, sf::Vector2f(0, Screen_height)));
 	mKey_Positions.insert(std::pair<CW::Key_Positions, sf::Vector2f>(CW::kp_BottomRight, sf::Vector2f(Screen_width, Screen_height)));
 	mKey_Positions.insert(std::pair<CW::Key_Positions, sf::Vector2f>(CW::kp_Center, sf::Vector2f(Screen_width/2, Screen_height / 2)));
-	//		Postavljam udaljenosti:
+	//		Distances:
 	mDistances.insert(std::pair<CW::Distances, float>(CW::dis_Close, 3 * mScale_coefficient));
 	mDistances.insert(std::pair<CW::Distances, float>(CW::dis_Near, 10 * mScale_coefficient));
 	mDistances.insert(std::pair<CW::Distances, float>(CW::dis_Medium, 25 * mScale_coefficient));
 	mDistances.insert(std::pair<CW::Distances, float>(CW::dis_Far, 50 * mScale_coefficient));
-	//		Postavljam velicinu slova:
+	//		Character sizes:
 	mCharacter_sizes.insert(std::pair<CW::Character_size, float>(CW::ch_Small, 18 * mScale_coefficient));
 	mCharacter_sizes.insert(std::pair<CW::Character_size, float>(CW::ch_Medium, 30 * mScale_coefficient));
 	mCharacter_sizes.insert(std::pair<CW::Character_size, float>(CW::ch_Large, 72 * mScale_coefficient));
@@ -78,7 +77,7 @@ CometWarsData::CometWarsData(Data& dat)
 
 	float y_offset = 5 * mScale_coefficient;
 	float lives_offset = 2 * mScale_coefficient;
-	//	Velicine
+	//	Object sizes:
 	mSizes.insert(std::pair<CW::Components_size, sf::Vector2f>(CW::size_Ship, sf::Vector2f(24, 30) * mScale_coefficient));
 	mSizes.insert(std::pair<CW::Components_size, sf::Vector2f>(CW::size_Comet, sf::Vector2f(50, 50) * mScale_coefficient));
 	mSizes.insert(std::pair<CW::Components_size, sf::Vector2f>(CW::size_Mini_Comet, sf::Vector2f(25, 25) * mScale_coefficient));
@@ -95,27 +94,27 @@ CometWarsData::CometWarsData(Data& dat)
 	mSizes.insert(std::pair<CW::Components_size, sf::Vector2f>(CW::size_Pause_Button, sf::Vector2f(315, 50) * mScale_coefficient));
 	mSizes.insert(std::pair<CW::Components_size, sf::Vector2f>(CW::size_Battery, sf::Vector2f(20, 30) * mScale_coefficient));
 	
-	//	Pozicije interfejsa
+	//	Interface position:
 	mUI_Positions.insert(std::pair<CW::UI_Components, sf::Vector2f>(CW::UI_Area, sf::Vector2f(0, Screen_height - UI_Area_height)));
-	//	Ostali uzimaju poziciju u odnosu na oblast!
+	//	Rest of interface objects are taking the position in relation to the area!
 	mUI_Positions.insert(std::pair<CW::UI_Components, sf::Vector2f>(CW::UI_Score, sf::Vector2f(0 + y_offset, mUI_Positions.at(CW::UI_Area).y + y_offset)));
 	mUI_Positions.insert(std::pair<CW::UI_Components, sf::Vector2f>(CW::UI_Lives, sf::Vector2f(mSizes.at(CW::size_UI_Area).x - (mSizes.at(CW::size_Ship).x + lives_offset), mUI_Positions.at(CW::UI_Area).y + 2 * y_offset)));
 	mUI_Positions.insert(std::pair<CW::UI_Components, sf::Vector2f>(CW::UI_Text_Flash, sf::Vector2f(mSizes.at(CW::size_UI_Area).x / 2, mUI_Positions.at(CW::UI_Area).y + y_offset)));
 
-	// Dodati granice ovde		// A mogao sam i samo da stavim jedan sf::floatrect da bude preko celog ekrana, ali volim da komplikujem. :P
+	//	Borders (I could just put one sf::FloatRect over the window, but I like to complicate things :P 
 	mZones.insert(std::pair<CW::Zones, sf::FloatRect>(CW::z_Top, sf::FloatRect(-border_depth, 0, Screen_width + border_depth, -border_depth)));
 	mZones.insert(std::pair<CW::Zones, sf::FloatRect>(CW::z_Right, sf::FloatRect(Screen_width, -border_depth, border_depth, Screen_height - mSizes.at(CW::size_UI_Area).y + border_depth)));
 	mZones.insert(std::pair<CW::Zones, sf::FloatRect>(CW::z_Bottom, sf::FloatRect(Screen_width + border_depth, Screen_height -mSizes.at(CW::size_UI_Area).y, -1 * (Screen_width + border_depth), border_depth)));
 	mZones.insert(std::pair<CW::Zones, sf::FloatRect>(CW::z_Left, sf::FloatRect(0, Screen_height + border_depth -mSizes.at(CW::size_UI_Area).y, -border_depth, -1 * (Screen_height -mSizes.at(CW::size_UI_Area).y + border_depth))));
 	//-------------------------------------------------------------------------------------//
 
-	//		Brzine
+	//	Speeds:
 	mSpeed.insert(std::pair<CW::Object_Speed, float>(CW::speed_Ship, 300 * mScale_coefficient));
 	mSpeed.insert(std::pair<CW::Object_Speed, float>(CW::speed_Asteroid, 250 * mScale_coefficient));
 	mSpeed.insert(std::pair<CW::Object_Speed, float>(CW::speed_Mini_Asteroid, 400 * mScale_coefficient));
 	mSpeed.insert(std::pair<CW::Object_Speed, float>(CW::speed_Projectile, 1200 * mScale_coefficient));
 	mSpeed.insert(std::pair<CW::Object_Speed, float>(CW::speed_Rear_Comet, 50 * mScale_coefficient));
-	//		
+	//	Texts:
 	mTexts.insert(std::pair<CW::Texts, std::string>(CW::txt_Score, "Score: "));
 	mTexts.insert(std::pair<CW::Texts, std::string>(CW::txt_Win, " You Won!!!\n Press any key to\n exit "));
 	mTexts.insert(std::pair<CW::Texts, std::string>(CW::txt_Loose, "You Lost...\n Better luck\n next time "));
@@ -124,12 +123,12 @@ CometWarsData::CometWarsData(Data& dat)
 	mTexts.insert(std::pair<CW::Texts, std::string>(CW::txt_NewGame_Button, " New Game "));
 	mTexts.insert(std::pair<CW::Texts, std::string>(CW::txt_Exit_Button, " Exit "));
 	//--------------------------------------------------------------------------------//
-	//		Koordinate teksture za velike komete
+	//	Texture coordinates for big comets:
 	mComet_Texture_rects.insert(std::pair<CW::AsteroidType, sf::IntRect>(CW::com_Type1_Major, sf::IntRect(0, 0, 50, 50)));
 	mComet_Texture_rects.insert(std::pair<CW::AsteroidType, sf::IntRect>(CW::com_Type2_Major, sf::IntRect(0, 50, 50, 50)));
 	mComet_Texture_rects.insert(std::pair<CW::AsteroidType, sf::IntRect>(CW::com_Type3_Major, sf::IntRect(0, 100, 50, 50)));
 	mComet_Texture_rects.insert(std::pair<CW::AsteroidType, sf::IntRect>(CW::com_Type4_Major, sf::IntRect(0, 150, 50, 50)));
-	//		Koordinate teksture za male komete
+	//	Texture coordinates for small comets:
 	mComet_Texture_rects.insert(std::pair<CW::AsteroidType, sf::IntRect>(CW::com_Type1_Minor, sf::IntRect(200, 150, 25, 25)));
 	mComet_Texture_rects.insert(std::pair<CW::AsteroidType, sf::IntRect>(CW::com_Type2_Minor, sf::IntRect(225, 150, 25, 25)));
 	mComet_Texture_rects.insert(std::pair<CW::AsteroidType, sf::IntRect>(CW::com_Type3_Minor, sf::IntRect(250, 150, 25, 25)));
@@ -138,7 +137,7 @@ CometWarsData::CometWarsData(Data& dat)
 	mComet_Texture_rects.insert(std::pair<CW::AsteroidType, sf::IntRect>(CW::com_Type6_Minor, sf::IntRect(225, 175, 25, 25)));
 	mComet_Texture_rects.insert(std::pair<CW::AsteroidType, sf::IntRect>(CW::com_Type7_Minor, sf::IntRect(250, 175, 25, 25)));
 	mComet_Texture_rects.insert(std::pair<CW::AsteroidType, sf::IntRect>(CW::com_Type8_Minor, sf::IntRect(275, 175, 25, 25)));		// Poslednji u drugom redu teksture
-	//		Koordinate teksture za pozadinske komete
+	//	Texture coordinates for background comets:
 	mComet_Texture_rects.insert(std::pair<CW::AsteroidType, sf::IntRect>(CW::com_Rear_Type1_Major, sf::IntRect(0, 200, 100, 100)));		
 	mComet_Texture_rects.insert(std::pair<CW::AsteroidType, sf::IntRect>(CW::com_Rear_Type2_Major, sf::IntRect(0, 300, 100, 100)));		
 	mComet_Texture_rects.insert(std::pair<CW::AsteroidType, sf::IntRect>(CW::com_Rear_Type3_Major, sf::IntRect(0, 400, 100, 100)));		
@@ -157,13 +156,11 @@ CometWarsData::CometWarsData(Data& dat)
 	mComet_Texture_rects.insert(std::pair<CW::AsteroidType, sf::IntRect>(CW::com_Rear_Type10_Minor, sf::IntRect(250, 350, 50, 50)));
 	mComet_Texture_rects.insert(std::pair<CW::AsteroidType, sf::IntRect>(CW::com_Rear_Type11_Minor, sf::IntRect(250, 400, 50, 50)));
 	mComet_Texture_rects.insert(std::pair<CW::AsteroidType, sf::IntRect>(CW::com_Rear_Type12_Minor, sf::IntRect(250, 450, 50, 50)));
-
-
-	//	Koordinate teksture za brod
+	//	Texture coordinates for player ship:
 	mShip_Texture_rects.insert(std::pair<CW::ShipType, sf::IntRect>(CW::ship_Type1, sf::IntRect(210, 50, 24, 30)));
 	mShip_Texture_rects.insert(std::pair<CW::ShipType, sf::IntRect>(CW::ship_Type2, sf::IntRect(240, 50, 24, 30)));
 	mShip_Texture_rects.insert(std::pair<CW::ShipType, sf::IntRect>(CW::ship_Type3, sf::IntRect(270, 50, 24, 30)));
-	//	Koordinate teksture za ostale objekte
+	//	Texture coordinates for miscelaneous objects:
 	mMisc_Texture_rects.insert(std::pair<CW::Misc_Tex_rects, sf::IntRect>(CW::msc_Battery, sf::IntRect(210, 90, 20, 30)));
 
 	mCurrentSubState = CW::sub_Start;
