@@ -192,9 +192,9 @@ bool CometWars_Player::ship_fire_cooldown(sf::Time& time)
 		{
 			mProjectile_interval = sf::seconds(0);
 		}
-		return true;	//	Na Kuldaunu je!
+		return true;	//	On cooldown!
 	}
-	return false;	// Nije na kuldaunu - moze da puca
+	return false;	//	Not on cooldown - player can fire.
 
 }
 
