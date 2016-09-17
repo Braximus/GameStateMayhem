@@ -6,9 +6,9 @@ DropDownMenu::DropDownMenu(const sf::Font& font, const sf::Texture& texture, flo
 	
 	mNumber_Of_ShownChoices = 5;
 	mBegining_Number = 0;
-	//	Kontejner za imena:
+
 	mChoicesNames = container_of_names;
-	//	Oznaka
+
 	mCurrentSelection = Label(font, " ", char_size);
 	mCurrentSelection.set_Size(sf::Vector2f(5*size.x/6, size.y));
 	mCurrentSelection.set_Color(sf::Color::Cyan, sf::Color::Cyan);
@@ -17,13 +17,12 @@ DropDownMenu::DropDownMenu(const sf::Font& font, const sf::Texture& texture, flo
 	sf::FloatRect bounds = mCurrentSelection.get_Bounds();
 	sf::Vector2f size2 = sf::Vector2f(bounds.width / 6, bounds.height);
 	sf::Vector2f pos2 = sf::Vector2f(bounds.left + bounds.width + size2.x / 2, bounds.top + bounds.height - size2.y / 2);
-	//	Primarno dugme
+
 	mActivation_Button = Button(texture, tex_rect);
 	mActivation_Button.set_Size(size2);
 	mActivation_Button.set_Position(pos2);
 	mActivation_Button.set_Bounds();
 
-	//	Prikaz izbora:
 	sf::Vector2f new_pos = sf::Vector2f(bounds.left, bounds.top + bounds.height / 2);
 	mOutline_size = size.y * mNumber_Of_ShownChoices;
 	UINT Current_Choices_shown = mBegining_Number + mNumber_Of_ShownChoices;
@@ -37,12 +36,12 @@ DropDownMenu::DropDownMenu(const sf::Font& font, const sf::Texture& texture, flo
 	sf::Vector2f pos3  = sf::Vector2f(bounds.left + bounds.width / 2, bounds.top + bounds.height + mOutline_size / 4);
 	sf::Vector2f size3 = sf::Vector2f(bounds.width, mOutline_size / 2);
 	sf::IntRect tex_rect2 = sf::IntRect(tex_rect.left, tex_rect.top + 110, tex_rect.width, tex_rect.height);
-	//	Skrolujuce dugme gore
+
 	mScrollUp_Button = Button(texture, tex_rect2);
 	mScrollUp_Button.set_Size(size3);
 	mScrollUp_Button.set_Position(pos3);
 	mScrollUp_Button.set_Bounds();
-	//	Skrolujuce dugme dole
+
 	sf::Vector2f pos4 = sf::Vector2f(bounds.left + bounds.width / 2, bounds.top + bounds.height + mOutline_size / 2 + mOutline_size / 4);
 	mScrollDown_Button = Button(texture, tex_rect);
 	mScrollDown_Button.set_Size(size3);
@@ -94,7 +93,8 @@ void DropDownMenu::Activate()
 	}
 }
 
-void DropDownMenu::choose(sf::Vector2f param)		//	Ovaj se koristi tokom Event-a
+//	This function is used durring pollEvent();
+void DropDownMenu::choose(sf::Vector2f param)	
 {
 	if (mActivation_Button.check_Bounds(param))
 	{
@@ -150,7 +150,8 @@ void DropDownMenu::choose(sf::Vector2f param)		//	Ovaj se koristi tokom Event-a
 	}
 }
 
-bool DropDownMenu::hover(sf::Vector2f param)		// Ovaj se koristi tokom real-time update-a
+//	This function is used during real time update
+bool DropDownMenu::hover(sf::Vector2f param)	
 {
 	if (mBound_Of_DropDownMenu.contains(param))
 	{
