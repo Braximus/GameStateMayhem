@@ -11,7 +11,7 @@ CometWars_Rear_Comets::CometWars_Rear_Comets(CometWarsData& data)
 	mVertices.setPrimitiveType(sf::Quads);
 	mVertices.resize(4 * comet_number);
 
-	mRestartPosition = -2*data.getDistance(CW::dis_Far);	// Da, minus!
+	mRestartPosition = -2*data.getDistance(CW::dis_Far);	// Yes, minus!
 	mSpeed = data.getSpeed(CW::speed_Rear_Comet);
 
 	std::uniform_int_distribution<int> distributor_X(-data.getDistance(CW::dis_Far), data.getKey_Position(CW::kp_BottomRight).x + data.getDistance(CW::dis_Far));
@@ -20,7 +20,7 @@ CometWars_Rear_Comets::CometWars_Rear_Comets(CometWarsData& data)
 	mStored_size_big = data.getObj_Sizes(CW::size_Rear_Comet);
 	mStored_size_small = data.getObj_Sizes(CW::size_Rear_Mini_Comet);
 
-	sf::Vector2f size;	//	Treba da se pomnozi sa koefeicijentom skaliranja.
+	sf::Vector2f size;
 
 	UINT big_comets = 10;
 	sf::IntRect tr;
@@ -31,16 +31,15 @@ CometWars_Rear_Comets::CometWars_Rear_Comets(CometWarsData& data)
 		if ((i / 4) <= big_comets)
 		{
 			std::uniform_int_distribution<int>	distributor_number(12, 17);
-			UINT number = distributor_number(data.get_random_engine());		// Bira nasumicno od 12 do 17, tj. sve Rear Major tipa asteroida.
+			UINT number = distributor_number(data.get_random_engine());		//	Chooses randomly between 12 and 17, all Rear Major types of comets.
 			CW::AsteroidType type = static_cast<CW::AsteroidType>(number);
 			tr = data.getComet_Texture_rect(type);
 			size = mStored_size_big;
-			
 		}
 		else
 		{
 			std::uniform_int_distribution<int>	distributor_number(18, 29);
-			UINT number = distributor_number(data.get_random_engine());		// Bira nasumicno od 18 do 29, tj. sve Rear Minor tipa asteroida.
+			UINT number = distributor_number(data.get_random_engine());		// 	Chooses randomly between 18 and 29, all Rear Minor types of comets.
 			CW::AsteroidType type = static_cast<CW::AsteroidType>(number);
 			tr = data.getComet_Texture_rect(type);
 			size = mStored_size_small;
