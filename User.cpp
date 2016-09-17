@@ -9,7 +9,7 @@ User::User(sf::RenderWindow& win, Data& data)
 	: mWindow(win)
 	, mData(data)
 {
-	Malukah = true;
+	Screenshot = true;
 }
 
 void User::passPtr(State* ptr)
@@ -28,37 +28,35 @@ void User::handleRealTimeInputs()
 {
 	mData.mMouseCoordinates = sf::Mouse::getPosition(mWindow);
 
+//	Thanks to Hapax I managed learn how to use "PrintScreen" button to use it to make screenshot. :D
 #ifdef SFML_SYSTEM_WINDOWS
 	if (GetAsyncKeyState(VK_SNAPSHOT))
 	{
-		if (Malukah)
+		if (Screenshot)
 		{
 			sf::Image image = mWindow.capture();
-			image.saveToFile("slike/test.jpg");		//	Uvek da koristim "/" za pristup drugim folderima;
-			Malukah = false;
+			image.saveToFile("slike/test.jpg");
+			Screenshot = false;
 		}
 	}
 	else
-		Malukah = true;
+		Screenshot = true;
 #else
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::F12))
 	{
-		if (Malukah)
+		if (Screenshot)
 		{
 			sf::Image image = mWindow.capture();
-			image.saveToFile("slike/test.jpg");		//	Uvek da koristim "/" za pristup drugim folderima;
-			Malukah = false;
+			image.saveToFile("slike/test.jpg");
+			Screenshot = false;
 		}
 	}
 	else
-		Malukah = true;
+		Screenshot = true;
 	}
 #endif // !SFML_SYSTEM_WINDOWS
 	assert(ptrStateUser != NULL);
 	ptrStateUser->handleRealTimeInput();
-
-	
-
 }
 
 void User::GlobalActions(sf::Event& Event)
