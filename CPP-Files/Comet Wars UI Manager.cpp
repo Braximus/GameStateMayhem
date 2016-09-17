@@ -77,7 +77,7 @@ void CometWars_UI_Manager::delete_life()
 
 void CometWars_UI_Manager::refresh_lives()
 {
-	//	Za sada samo brise zivot.
+	//	For now it only deletes a life;
 	mLives.reset(mData.getNumber_of_Lives());
 }
 
