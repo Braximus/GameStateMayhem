@@ -17,15 +17,12 @@ CometWarsGame::CometWarsGame(Data& data)
 
 void CometWarsGame::get_pointers()
 {
-	//std::deque<CometWars_Deco_Base_Class*>	background_cont;
 	std::deque<CometWars_Game_Objects*> temp_cont;
 	std::deque<CometWars_UI_Objects*>	second_temc_cont;
 
 	mDecoration_object_pointers_for_draw.clear();
 	mGame_object_pointers_for_draw.clear();
 	mUI_object_pointers_for_draw.clear();
-//	background_cont.clear();
-
 	mDecoration_object_pointers_for_draw = mDecorationManager.pass_pointers();
 
 	temp_cont = mCometManager.pass_pointers();
@@ -72,7 +69,7 @@ void CometWarsGame::update(sf::Time& time)
 
 	EndGame(mData.setEnd());
 
-	mDecorationManager.update(time);	//	Prebaciti ga u 1. Play 2. Start i 3. End SubState
+	mDecorationManager.update(time);
 
 	pSubState->update_Substate(time);
 }
@@ -98,7 +95,7 @@ void CometWarsGame::LoadGame()
 	UINT asteroid_Numbers = distributor1(mData.get_random_engine());
 	
 	sf::Vector2i begin_pos = sf::Vector2i((kp_center.x / 2) - 3 * mData.getDistance(CW::dis_Far), (kp_center.y / 2) -3 * mData.getDistance(CW::dis_Far));
-	sf::Vector2i end_pos = static_cast<sf::Vector2i>(kp_center)+sf::Vector2i((kp_center.x / 2) + 3 * mData.getDistance(CW::dis_Far), (kp_center.y / 2) - 3 * mData.getDistance(CW::dis_Far));	// da, minus
+	sf::Vector2i end_pos = static_cast<sf::Vector2i>(kp_center)+sf::Vector2i((kp_center.x / 2) + 3 * mData.getDistance(CW::dis_Far), (kp_center.y / 2) - 3 * mData.getDistance(CW::dis_Far));	// yes, minus
 
 	std::uniform_int_distribution<int>	distributor2(begin_pos.x, end_pos.x);
 	std::uniform_int_distribution<int>	distributor3(begin_pos.y, end_pos.y);
@@ -129,7 +126,7 @@ void CometWarsGame::LoadSubStates(CW::SubStates param)
 	}
 	else if (param == CW::sub_Pause)
 	{
-		pSubState.reset(new CometWars_SubState_Pause(mData, ui_man, this)); // Ono kada konacno pronadjes stvarnu upotrebu za "this" kljucnu rec...
+		pSubState.reset(new CometWars_SubState_Pause(mData, ui_man, this));
 	}
 	else if (param == CW::sub_Start)
 	{
