@@ -3,7 +3,7 @@
 
 Resources::Resources()
 {
-	//	Globalni resorsi se ubacuju u konstruktoru i traju dokle god traje aplikacija.
+	//	Global resoures are loaded in constructor and last as long as the program works.
 	LoadFont("Font/OpenSans-Regular.ttf", ID_Global);
 	LoadTexture("Teksture/Cursors.png", ID_Global);
 	setMusicVolume(50);
@@ -12,7 +12,7 @@ Resources::Resources()
 	is_sound_on = true;
 }
 
-//------Teksture------//
+//------Texture------//
 
 void Resources::LoadTexture(const std::string& name, ID id)
 {
@@ -63,11 +63,11 @@ const sf::Font& Resources::getFont(ID id) const
 	return mFont.find(id)->second;
 }
 
-//-------Muzika-------//
+//-------Music-------//
 
 void Resources::LoadMusicTitles()
 {
-	//	Sve muzicke trake ce biti ubacene u set na pocetku aplikacije!
+	//	All music tracks will be loaded on start of the program.
 	mMusic_Title.insert(std::pair<ID, std::string>(ID_Menu, "Sounds/Trevor Lentz - Lines of code.flac"));
 	mMusic_Title.insert(std::pair<ID, std::string>(ID_Global, "Sounds/Trevor Lentz - Lines of code.flac"));
 	mMusic_Title.insert(std::pair<ID, std::string>(ID_CometWars, "Sounds/Kim Lightyear - Starlight.flac"));
@@ -111,7 +111,6 @@ void Resources::LoadSound(const std::string& name)
 
 void Resources::UnloadSounds()
 {
-	//	Uvek ce da izbrise sve zvukove unutar ublazivaca (buffer)
 	mSoundBuffers.clear();
 }
 
