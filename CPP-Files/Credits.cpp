@@ -8,9 +8,7 @@ Credits::Credits(MenuData& data)
 	mCurrentSelection = None;
 	mPreviousSelection = None;
 	refresh();
-
 }
-
 
 void Credits::draw(sf::RenderTarget& target, sf::RenderStates state)  const
 {
@@ -57,9 +55,6 @@ void Credits::handleEvents(sf::Event& event)
 			}
 		}
 	}
-	
-
-
 }
 
 void Credits::handleRealTimeInput()
@@ -75,8 +70,6 @@ void Credits::handleRealTimeInput()
 	{
 		mBack.ToggleSelection_ByColor(false);
 	}
-
-
 	if (is_it_outside)
 	{
 		mCurrentSelection = None;
