@@ -6,13 +6,13 @@ CometWars_UI_Lives::CometWars_UI_Lives(CometWarsData& data)
 {
 	mStored_rect.setTexture(&data.getResources().getTexture(ID_CometWars));
 	mStored_rect.setSize(data.getObj_Sizes(CW::size_Ship));
-	mStored_rect.setTextureRect(data.getMisc_Texture_rect(CW::msc_Battery)); // Default
+	mStored_rect.setTextureRect(data.getMisc_Texture_rect(CW::msc_Battery)); 
 
 	is_life_removed = false;
 	mPosition = data.getUI_Position(CW::UI_Lives);
 	lives_offset = 2 * data.getScale_Coefficient();
 
-	UINT mLifeCheck = data.getNumber_of_Lives();	//	Da napravim funkciju u data da preuzme zivote!
+	UINT mLifeCheck = data.getNumber_of_Lives();	
 	for (int i = 0; i < mLifeCheck; ++i)
 	{
 		mStored_rect.setPosition(mPosition.x - i * (data.getObj_Sizes(CW::size_Ship).x + lives_offset), mPosition.y + lives_offset);
