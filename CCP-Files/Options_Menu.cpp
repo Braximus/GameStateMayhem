@@ -98,14 +98,14 @@ void Options::handleRealTimeInput()
 		}
 	}
 
-	if (da_li_je_van)	//	Ako nije van, onda NEMOJ da radis sledece
+	if (da_li_je_van)
 	{
 		for (auto& it : mButtons)
 		{
 			if (it.second.check_Bounds(mouse))
 			{
 				da_li_je_van = false;
-				mCurrentSelection = it.first;	// Postavljamo selekciju na odgovarajuce dugme!
+				mCurrentSelection = it.first;
 				it.second.ToggleSelection_ByColor(true);
 			}
 			else
@@ -263,8 +263,6 @@ void Options::MouseEvents(sf::Event& Event)
 	
 }
 
-// Podesavanja koja zahtevajuu novi prozor:
-
 void Options::SetResolutionChanges()
 {
 	mVM_Index = mDropDownMenus.at(s_Resolution).return_value();
@@ -346,7 +344,6 @@ void Options::SetMusicVolumeChanges(bool increase)
 		}
 	}
 	mTexts.at(l_Music_volume).setString(std::to_string(static_cast<UINT>(tempVolume)));
-	//	Zelim da tekst bude na sredini.
 	sf::FloatRect Bounds = mTexts.at(l_Music_volume).getLocalBounds();
 	mTexts.at(l_Music_volume).setOrigin(Bounds.width / 2.0f, Bounds.top + Bounds.height / 2.0f);
 	mMenu_Data.getMusicPlayer().Refresh_volume();
@@ -400,7 +397,7 @@ void Options::CancelChanges()
 	mDropDownMenus.at(s_AntiAliasing).change_Label(mOld_AA_Index);
 	if (mFullScreen != mOldFullScreen)
 	{
-		mChecks.at(s_FullScreen).onClick();	//	Vracam na staru vrednost.
+		mChecks.at(s_FullScreen).onClick();
 	}
 	mFullScreen = mOldFullScreen;
 
@@ -433,18 +430,18 @@ void Options::refresh()
 	bool			music_play = mMenu_Data.getMusicPlayer().is_Music_Playing();
 	bool			sound_play = mMenu_Data.getResources().IsSoundOn();
 	const sf::Texture&	texture = mMenu_Data.getResources().getTexture(ID_Menu);
-	float			ch_size		 = mMenu_Data.getMenu_Char_Sizes(Menus::ch_Medium);
-	const sf::Font&	font		 = mMenu_Data.getResources().getFont(ID_Global);
-	float			dis_xfar	 = mMenu_Data.getMenu_Distances(Menus::dis_ExtremlyFar);
-	float			dis_vfar	 = mMenu_Data.getMenu_Distances(Menus::dis_VeryFar);
-	float			dis_far		 = mMenu_Data.getMenu_Distances(Menus::dis_Far);
-	float			dis_long     = mMenu_Data.getMenu_Distances(Menus::dis_Long);
-	float			dis_med		 = mMenu_Data.getMenu_Distances(Menus::dis_Medium);
-	float			dis_near	 = mMenu_Data.getMenu_Distances(Menus::dis_Near);
-	sf::Vector2f	size_label	 = mMenu_Data.getMenu_Object_Sizes(Menus::size_Label);
-	sf::Vector2f	size_button	 = mMenu_Data.getMenu_Object_Sizes(Menus::size_Button);
-	sf::Vector2f	size_mini_button = mMenu_Data.getMenu_Object_Sizes(Menus::size_MiniButton);
-	sf::Vector2f	size_dropdown = mMenu_Data.getMenu_Object_Sizes(Menus::size_Drop_Down_Menu);
+	float			ch_size	= mMenu_Data.getMenu_Char_Sizes(Menus::ch_Medium);
+	const sf::Font&		font = mMenu_Data.getResources().getFont(ID_Global);
+	float			dis_xfar = mMenu_Data.getMenu_Distances(Menus::dis_ExtremlyFar);
+	float			dis_vfar = mMenu_Data.getMenu_Distances(Menus::dis_VeryFar);
+	float			dis_far	 = mMenu_Data.getMenu_Distances(Menus::dis_Far);
+	float			dis_long = mMenu_Data.getMenu_Distances(Menus::dis_Long);
+	float			dis_med	= mMenu_Data.getMenu_Distances(Menus::dis_Medium);
+	float			dis_near = mMenu_Data.getMenu_Distances(Menus::dis_Near);
+	sf::Vector2f		size_label = mMenu_Data.getMenu_Object_Sizes(Menus::size_Label);
+	sf::Vector2f		size_button = mMenu_Data.getMenu_Object_Sizes(Menus::size_Button);
+	sf::Vector2f		size_mini_button = mMenu_Data.getMenu_Object_Sizes(Menus::size_MiniButton);
+	sf::Vector2f		size_dropdown = mMenu_Data.getMenu_Object_Sizes(Menus::size_Drop_Down_Menu);
 
 	sf::Vector2f	kp_tr = mMenu_Data.getMenu_Key_Positions(Menus::kp_TopRight_Corner);
 	sf::Vector2f	kp_br = mMenu_Data.getMenu_Key_Positions(Menus::kp_BottomRight_Corner);
@@ -458,11 +455,9 @@ void Options::refresh()
 	tekst.setFont(font);
 	sf::Color color = sf::Color(32, 128, 128, 128);
 
-	//	Oznake
+	//	Labels
 
-	//********************************//
-	//			Prva Oznaka			  //
-	//********************************//
+	//	First Label
 	mLabel = Label(font, " Resolution", ch_size);
 	mLabel.set_Size(size_label);
 	position = sf::Vector2f(dis_far + (size_label.x / 2), dis_vfar + (size_button.y / 2));
@@ -470,9 +465,7 @@ void Options::refresh()
 	mLabel.get_Bounds();
 	mLabel.set_Color(sf::Color::Cyan, sf::Color::Cyan, color);
 	mLabels.insert(std::pair<OptionsLabels, Label>(l_Resolution, mLabel));
-	//********************************//
-	//			Druga Oznaka		  //
-	//********************************//
+	//	Second Label
 	mLabel = Label(font, " Music On", ch_size);
 	mLabel.set_Size(size_label);
 	Bounds = mLabels.at(l_Resolution).get_Bounds();
@@ -481,9 +474,7 @@ void Options::refresh()
 	mLabel.get_Bounds();
 	mLabel.set_Color(sf::Color::Cyan, sf::Color::Cyan, color);
 	mLabels.insert(std::pair<OptionsLabels, Label>(l_Music_switch, mLabel));
-	//********************************//
-	//			Treca Oznaka		  //
-	//********************************//
+	//	Third Label
 	mLabel = Label(font, " Music Volume", ch_size);
 	mLabel.set_Size(size_label);
 	Bounds = mLabels.at(l_Music_switch).get_Bounds();
@@ -493,9 +484,7 @@ void Options::refresh()
 	mLabel.set_Color(sf::Color::Cyan, sf::Color::Cyan, color);
 	mLabel.set_Availability(music_play);
 	mLabels.insert(std::pair<OptionsLabels, Label>(l_Music_volume, mLabel));
-	//********************************//
-	//	       Cetvrta Oznaka		  //
-	//********************************//
+	//	Fourth Label
 	mLabel = Label(font, " Sound On", ch_size);
 	mLabel.set_Size(size_label);
 	Bounds = mLabels.at(l_Music_volume).get_Bounds();
@@ -504,10 +493,7 @@ void Options::refresh()
 	mLabel.get_Bounds();
 	mLabel.set_Color(sf::Color::Cyan, sf::Color::Cyan, color);
 	mLabels.insert(std::pair<OptionsLabels, Label>(l_Sound_switch, mLabel));
-
-	//********************************//
-	//	       Peta Oznaka			  //
-	//********************************//
+	//	Fifth Label
 	mLabel = Label(font, " Sound volume", ch_size);
 	mLabel.set_Size(size_label);
 	Bounds = mLabels.at(l_Sound_switch).get_Bounds();
@@ -517,9 +503,7 @@ void Options::refresh()
 	mLabel.set_Color(sf::Color::Cyan, sf::Color::Cyan, color);
 	mLabel.set_Availability(sound_play);
 	mLabels.insert(std::pair<OptionsLabels, Label>(l_Sound_volume, mLabel));
-	//********************************//
-	//	       Sesta Oznaka			  //
-	//********************************//
+	//	Sixth Label
 	mLabel = Label(font, " AntiAliasing", ch_size);
 	mLabel.set_Size(size_label);
 	Bounds = mLabels.at(l_Sound_volume).get_Bounds();
@@ -528,9 +512,7 @@ void Options::refresh()
 	mLabel.get_Bounds();
 	mLabel.set_Color(sf::Color::Cyan, sf::Color::Cyan, color);
 	mLabels.insert(std::pair<OptionsLabels, Label>(l_AntiAliasing, mLabel));
-	//********************************//
-	//	       Sedma Oznaka			  //
-	//********************************//
+	//	Seveth Label
 	mLabel = Label(font, " Fullscreen", ch_size);
 	mLabel.set_Size(size_label);
 	Bounds = mLabels.at(l_AntiAliasing).get_Bounds();
@@ -539,10 +521,7 @@ void Options::refresh()
 	mLabel.get_Bounds();
 	mLabel.set_Color(sf::Color::Cyan, sf::Color::Cyan, color);
 	mLabels.insert(std::pair<OptionsLabels, Label>(l_Fullscreen, mLabel));
-
-	//********************************//
-	//	       Osma Oznaka			  //
-	//********************************//
+	//	Ninth Label
 	mLabel = Label(font, " Vsync", ch_size);
 	mLabel.set_Size(size_label);
 	Bounds = mLabels.at(l_Fullscreen).get_Bounds();
@@ -552,7 +531,7 @@ void Options::refresh()
 	mLabel.set_Color(sf::Color::Cyan, sf::Color::Cyan, color);
 	mLabels.insert(std::pair<OptionsLabels, Label>(l_Vsync, mLabel));
 
-	//	Padajuci meni
+	//	Dropdown menus
 	DropDownMenu	a_DropDownMenu;
 
 	position = sf::Vector2f(kp_tr.x - (dis_xfar + (5 * (size_dropdown.x / 6) / 2)), mLabels.at(l_Resolution).get_Bounds().top + mLabels.at(l_Resolution).get_Bounds().height / 2);
@@ -560,11 +539,9 @@ void Options::refresh()
 	a_DropDownMenu.change_Label(mVM_Index);
 	mDropDownMenus.insert(std::pair<OptionsSelections, DropDownMenu>(s_Resolution, a_DropDownMenu));
 
-	// Dok ne napravim slajdere, ovako cu ih koristiti! :)
+	//	Buttons
 
-	//	Dugmad
-
-	// Muzika
+	// 	Music
 	a_Button = Button(" >", font, ch_size);
 	a_Button.set_Size(size_mini_button);
 	position = sf::Vector2f(kp_tr.x - (dis_xfar - (size_mini_button.x / 2)), mLabels.at(l_Music_volume).get_Bounds().top + mLabels.at(l_Music_volume).get_Bounds().height / 2);
@@ -574,7 +551,7 @@ void Options::refresh()
 	a_Button.set_Bounds();
 	mButtons.insert(std::pair<OptionsSelections, Button>(s_Music_right, a_Button));
 	
-	//	Ovde treba da ide tekst za jacinu muzike
+	//	Text representing music volume
 	UINT music_volume = static_cast<UINT>(mMenu_Data.getResources().getMusicVolume());
 	tekst.setString(std::to_string(music_volume));
 	tekst.setCharacterSize(ch_size);
@@ -602,7 +579,7 @@ void Options::refresh()
 	a_Button.toggle_DimText(!music_play);
 	mButtons.insert(std::pair<OptionsSelections, Button>(s_Music_left, a_Button));
 
-	// Zvukovi
+	//	Sound
 	a_Button = Button(" >", font, ch_size);
 	a_Button.set_Size(size_mini_button);
 	position = sf::Vector2f(kp_tr.x - (dis_xfar - (size_mini_button.x / 2)), mLabels.at(l_Sound_volume).get_Bounds().top + mLabels.at(l_Sound_volume).get_Bounds().height / 2);
@@ -612,8 +589,8 @@ void Options::refresh()
 	a_Button.toggle_DimText(!sound_play);
 	mButtons.insert(std::pair<OptionsSelections, Button>(s_Sound_right, a_Button));
 
-	//	Ovde treba da ide tekst za jacinu zvuka
-	UINT sound_volume = static_cast<UINT>(mSoundVolume); // Za sada ;)
+	//	Text representing sound volume
+	UINT sound_volume = static_cast<UINT>(mSoundVolume); 
 	tekst.setString(std::to_string(sound_volume));
 	tekst.setCharacterSize(ch_size);
 	Bounds = tekst.getLocalBounds();
@@ -640,14 +617,16 @@ void Options::refresh()
 	a_Button.toggle_DimText(!sound_play);
 	mButtons.insert(std::pair<OptionsSelections, Button>(s_Sound_left, a_Button));
 
-	//	Drugi padajuci meni
+	//	Second dropdown menu
 
 	position = sf::Vector2f(kp_tr.x - (dis_xfar + (5 * (size_dropdown.x / 6) / 2)), mLabels.at(l_AntiAliasing).get_Bounds().top + mLabels.at(l_AntiAliasing).get_Bounds().height / 2);
 	a_DropDownMenu = DropDownMenu(font, texture, ch_size, sf::IntRect(0, 400, 107, 107), size_dropdown, position, mMenu_Data.get_AA_levels_cont());
 	a_DropDownMenu.change_Label(mAA_Index);
 	mDropDownMenus.insert(std::pair<OptionsSelections, DropDownMenu>(s_AntiAliasing, a_DropDownMenu));
-	//	Stikliranje! :)
-	//	Rezolucija
+	
+	//	Checkboxes
+	
+	//	Fullscreen
 	a_Check = Check(texture, mMenu_Data.get_Check_tex_rects());
 	a_Check.set_Size(size_mini_button);
 	Bounds = mLabels.at(l_Fullscreen).get_Bounds();
@@ -656,7 +635,7 @@ void Options::refresh()
 	a_Check.get_Bounds();
 	a_Check.initValue(mMenu_Data.mData.IsFullScreen());
 	mChecks.insert(std::pair<OptionsSelections, Check>(s_FullScreen, a_Check));
-	//	Muzika NIJE GOTOVO
+	//	Music
 	a_Check = Check(texture, mMenu_Data.get_Check_tex_rects());
 	a_Check.set_Size(size_mini_button);
 	Bounds = mLabels.at(l_Music_switch).get_Bounds();
@@ -665,7 +644,7 @@ void Options::refresh()
 	a_Check.get_Bounds();
 	a_Check.initValue(mMenu_Data.getMusicPlayer().is_Music_Playing());
 	mChecks.insert(std::pair<OptionsSelections, Check>(s_Music_switch, a_Check));
-	//	Zvukovi NIJE GOTOVO
+	//	Sound
 	a_Check = Check(texture, mMenu_Data.get_Check_tex_rects());
 	a_Check.set_Size(size_mini_button);
 	Bounds = mLabels.at(l_Sound_switch).get_Bounds();
@@ -684,7 +663,7 @@ void Options::refresh()
 	a_Check.initValue(mMenu_Data.mData.get_Vsync());
 	mChecks.insert(std::pair<OptionsSelections, Check>(s_Vsync, a_Check));
 
-	// Donja dugmad
+	//	Bottom buttons
 
 	a_Button = Button(" Apply", font, ch_size);
 	a_Button.set_Colors(color, sf::Color::Cyan, color);
@@ -707,5 +686,5 @@ void Options::refresh()
 
 	//------------------------------------------------------------------------//
 
-	mMenu_Data.mRefreshed = true;	//	Zapravo, svako ce da ima sopstveni...
+	mMenu_Data.mRefreshed = true;
 }
