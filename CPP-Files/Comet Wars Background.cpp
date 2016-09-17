@@ -4,7 +4,6 @@
 
 CometWars_Background::CometWars_Background(CometWarsData& data)
 {	
-	//	Pozicija je vec na 0,0;
 	float x = data.getKey_Position(CW::kp_BottomRight).x;
 	float y = data.getKey_Position(CW::kp_BottomRight).y;
 	mBackground.setSize(sf::Vector2f(x,y));
