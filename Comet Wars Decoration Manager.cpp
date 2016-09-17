@@ -14,11 +14,8 @@ std::deque<CometWars_Deco_Base_Class*>	CometWars_Deco_Manager::pass_pointers()
 {
 	std::deque<CometWars_Deco_Base_Class*>	temp_ptr;
 	temp_ptr.push_back(&mBackground);
-
 	temp_ptr.push_back(&mRearComets);
-
 	return temp_ptr;
-	//	Mozda kasnije bude vise;
 }
 
 void CometWars_Deco_Manager::update(sf::Time& time)
