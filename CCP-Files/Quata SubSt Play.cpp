@@ -41,8 +41,6 @@ void QuataPlaySubState::handle_Events(sf::Event& param)
 
 void QuataPlaySubState::handle_Realtime_Input()
 {
-	//	Bilo bi pametno da napravim Player Klasu. U njoj moram da napravim booleane koji ce da se bave smerom i da klasa preuzima vreme u update metodi 
-
 	sf::FloatRect border_paddle = pPlayer->get_Paddle_Bounds();
 	sf::FloatRect border_upper_pf = mData.get_Zone(Qua::z_UpperPlayField);
 	sf::FloatRect border_bottom_pf = mData.get_Zone(Qua::z_BottomPlayField);
@@ -72,7 +70,7 @@ void QuataPlaySubState::AI_turn(sf::Time& time)
 	sf::FloatRect border_upper_pf = mData.get_Zone(Qua::z_UpperPlayField);
 	sf::FloatRect border_bottom_pf = mData.get_Zone(Qua::z_BottomPlayField);
 
-	if (border_upper_pf.intersects(border_paddle)) // Nije najbolje resenje, ali je korisno trenutno! :)
+	if (border_upper_pf.intersects(border_paddle))
 	{
 		upper_border_collision = true;
 	}
@@ -81,6 +79,4 @@ void QuataPlaySubState::AI_turn(sf::Time& time)
 		bottom_border_collision = true;
 	}
 	pAI->move_Paddle(pLevel->get_Ball_Position(), upper_border_collision, bottom_border_collision);
-
-
 }
