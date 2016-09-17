@@ -10,7 +10,6 @@ Label::Label(const sf::Font& font, std::string text, float char_size)
 	mLabel.setString(text);
 	mLabel.setCharacterSize(char_size);
 
-
 	mOffset = sf::Vector2f(1, 1);
 
 	mOutline.setFillColor(sf::Color::Transparent);
